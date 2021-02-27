@@ -5,19 +5,25 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
 	public Transform player;
-	Vector3 target, mousePos, refVel, shakeOffset;
-	float cameraDist = 3.5f;
-	float smoothTime = 0.2f, zStart;
-	//shake
-	float shakeMag, shakeTimeEnd;
-	Vector3 shakeVector;
-	bool shaking;
+
+    private	Vector3 target;
+	private Vector3 mousePos;
+	private Vector3 refVel;
+	private Vector3 shakeOffset;
+	private Vector3 shakeVector;
+
+	public float cameraDist = 3.5f;
+	public float smoothTime = 0.2f;
+	private float zStart;
+
+	private float shakeMag;
+	private float shakeTimeEnd;
+	private bool shaking;
 
 	public static CameraController cameraController;
 
 
 	void Start () {
-
 
 		Application.targetFrameRate = 60;
 		cameraController = this;
@@ -27,15 +33,12 @@ public class CameraController : MonoBehaviour {
 	}
 
 	void Update () {
+
 		mousePos = CaptureMousePos();
 		shakeOffset = UpdateShake(); 
-		target = UpdateTargetPos(); 
-		
-	}
-
-    private void FixedUpdate()
-    {
+		target = UpdateTargetPos();
 		UpdateCameraPosition();
+
 	}
 
     Vector3 CaptureMousePos(){
