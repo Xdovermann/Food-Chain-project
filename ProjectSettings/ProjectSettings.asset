@@ -660,7 +660,7 @@ PlayerSettings:
   cloudServicesEnabled:
     Analytics: 1
     Build: 0
-    Collab: 1
+    Collab: 0
     Game Performance: 0
     Purchasing: 0
     UDP: 0
@@ -682,7 +682,7 @@ PlayerSettings:
   cloudProjectId: 932a06bf-e058-46e9-8b84-2d703d2337bc
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Gobbo's-Throne
+  projectName: Food-Chain
   organizationId: unity_fcjcbp3lnbihrq
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
