@@ -22,8 +22,9 @@ public class CameraController : MonoBehaviour {
 
 	public static CameraController cameraController;
 
+	public Transform pointToLook;
 
-	void Start () {
+	void Awake () {
 
 		Application.targetFrameRate = 60;
 		cameraController = this;
@@ -34,10 +35,10 @@ public class CameraController : MonoBehaviour {
 
 	void Update () {
 
-		mousePos = CaptureMousePos();
-		shakeOffset = UpdateShake(); 
-		target = UpdateTargetPos();
-		UpdateCameraPosition();
+		//mousePos = CaptureMousePos();
+		//shakeOffset = UpdateShake(); 
+		//target = UpdateTargetPos();
+		//UpdateCameraPosition();
 
 	}
 

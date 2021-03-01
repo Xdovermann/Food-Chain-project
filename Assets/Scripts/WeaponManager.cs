@@ -17,6 +17,9 @@ public class WeaponManager : MonoBehaviour
     public Transform Weapon;
     public SpriteRenderer weaponRenderer;
 
+    private float angle;
+    Vector3 positionOnScreen;
+    Vector3 mouseOnScreen;
     private void Start()
     {
         player = PlayerController.player;
@@ -34,9 +37,15 @@ public class WeaponManager : MonoBehaviour
 
     private void GetMouseInput()
     {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = transform.position.z;
-        mouseVector = (mousePos - transform.position).normalized;
+        //mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //mousePos.z = transform.position.z;
+        //mouseVector = (mousePos - transform.position).normalized;
+
+         positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
+         mouseOnScreen = (Vector3)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
+      
+  
 
     }
 
@@ -44,14 +53,18 @@ public class WeaponManager : MonoBehaviour
 
     private void Animation()
     {
-      
-        float gunAngle = -1 * Mathf.Atan2(mouseVector.y, mouseVector.x) * Mathf.Rad2Deg;
-        Quaternion holder = Quaternion.AngleAxis(gunAngle, Vector3.back);
 
-        Weapon.rotation = Quaternion.Slerp(Weapon.rotation, holder,rotationSpeed *Time.deltaTime);
+        // 2d wapens
+        angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+        angle += 180;
+        Weapon.localEulerAngles = new Vector3(Weapon.localEulerAngles.x, Weapon.localEulerAngles.y, angle);
+
+        // 3d wapens methode als ik voor de 3d models zou gaan
+       // angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+      //  Weapon.localEulerAngles = new Vector3(Weapon.localEulerAngles.x, angle, Weapon.localEulerAngles.z);
 
         weaponRenderer.sortingOrder = playerSortingOrder - 1;
-        if (gunAngle > 0)
+        if (angle > 0)
         {
             weaponRenderer.sortingOrder = playerSortingOrder + 1;
         }
@@ -79,5 +92,10 @@ public class WeaponManager : MonoBehaviour
             weaponRenderer.flipY = true;
         }
        
+    }
+
+    public static float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+    {
+        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 }

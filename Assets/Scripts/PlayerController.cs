@@ -61,8 +61,10 @@ public class PlayerController : MonoBehaviour {
 	private void Movement(){
 
 		Vector3 tempPos = transform.position;
-		tempPos += new Vector3(xInput,yInput,0) * speed * Time.deltaTime; 
+		tempPos += new Vector3(xInput,0, yInput) * speed * Time.deltaTime; 
 		transform.position = tempPos;
+
+		
 	}
 
 	public void FlipCharacter(int side)
