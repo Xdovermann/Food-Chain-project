@@ -9,15 +9,13 @@ public class WeaponManager : MonoBehaviour
 
     public float moveSpeed = 10;
     public float rotationSpeed = 10;
-    private Vector3 mousePos;
-    private Vector3 mouseVector;
 
     public int playerSortingOrder = 20;
 
     public Transform Weapon;
     public SpriteRenderer weaponRenderer;
 
-    private float angle;
+    public float angle;
     Vector3 positionOnScreen;
     Vector3 mouseOnScreen;
     private void Start()
@@ -32,7 +30,12 @@ public class WeaponManager : MonoBehaviour
         GetMouseInput();
         Animation();
 
-        transform.position = Vector3.Lerp(transform.position, player.transform.position, moveSpeed * Time.deltaTime);
+       
+    }
+
+    private void FixedUpdate()
+    {
+        transform.position = Vector3.Lerp(transform.position, player.transform.position, moveSpeed * Time.fixedDeltaTime);
     }
 
     private void GetMouseInput()
@@ -43,9 +46,10 @@ public class WeaponManager : MonoBehaviour
 
          positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
          mouseOnScreen = (Vector3)Camera.main.ScreenToViewportPoint(Input.mousePosition);
-
       
-  
+
+
+
 
     }
 
@@ -63,21 +67,28 @@ public class WeaponManager : MonoBehaviour
        // angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
       //  Weapon.localEulerAngles = new Vector3(Weapon.localEulerAngles.x, angle, Weapon.localEulerAngles.z);
 
-        weaponRenderer.sortingOrder = playerSortingOrder - 1;
-        if (angle > 0)
+
+
+        if (angle >= 180 && angle <= 360)
         {
-            weaponRenderer.sortingOrder = playerSortingOrder + 1;
+            weaponRenderer.sortingOrder = 1;
+        }
+        else
+        {
+            weaponRenderer.sortingOrder = -1;
         }
 
-        if (mouseVector.x >= 0 )
+        if (angle >= 90 && angle<=270)
         {
-            player.FlipCharacter(0);
-            FlipWeapon(0);
-        }
-        else if (mouseVector.x <= 0 )
-        {
+          
             player.FlipCharacter(1);
             FlipWeapon(1);
+        }
+        else 
+        {
+    
+            player.FlipCharacter(0);
+            FlipWeapon(0);
         }
     }
 

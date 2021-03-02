@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour {
 
 	public float cameraDist = 3.5f;
 	public float smoothTime = 0.2f;
-	private float zStart;
+	public float Zoffset;
 
 	private float shakeMag;
 	private float shakeTimeEnd;
@@ -30,36 +30,50 @@ public class CameraController : MonoBehaviour {
 		cameraController = this;
 
 		target = player.position;
-		zStart = transform.position.z; 
+	
 	}
 
 	void Update () {
 
-		//mousePos = CaptureMousePos();
-		//shakeOffset = UpdateShake(); 
-		//target = UpdateTargetPos();
-		//UpdateCameraPosition();
+        mousePos = CaptureMousePos();
+	
+        shakeOffset = UpdateShake();
+        target = UpdateTargetPos();
+       
 
+    }
+
+    private void FixedUpdate()
+    {
+		UpdateCameraPosition();
 	}
 
     Vector3 CaptureMousePos(){
-		Vector2 ret = Camera.main.ScreenToViewportPoint(Input.mousePosition); 
 
-		ret *= 2; 
-		ret -= Vector2.one; //set (0,0) of mouse to middle of screen
+		Vector3 ret = Camera.main.ScreenToViewportPoint(Input.mousePosition); //raw mouse pos
+		ret *= 2;
+		ret -= Vector3.one; //set (0,0) of mouse to middle of screen
+
+		ret.z = ret.y;
+		ret.y = 0;
+
 
 		float max = 0.9f;
-		if (Mathf.Abs(ret.x) > max || Mathf.Abs(ret.y) > max){
+		if (Mathf.Abs(ret.x) > max || Mathf.Abs(ret.z) > max)
+		{
 			ret = ret.normalized; //helps smooth near edges of screen
 		}
+
+
 		return ret;
 	}
 
 	Vector3 UpdateTargetPos(){
+
 		Vector3 mouseOffset = mousePos * cameraDist; 
 		Vector3 ret = player.position + mouseOffset; 
 		ret += shakeOffset; 
-		ret.z = zStart; 
+		ret.z += -Zoffset; 
 		return ret;
 	}
 

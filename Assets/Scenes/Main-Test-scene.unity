@@ -222,9 +222,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 20
+  m_SortingLayerID: -1577477043
+  m_SortingLayer: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 3072582247258336674, guid: 3206245044f0a464b97793e6cb1eaa54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -258,6 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 220635568}
   - component: {fileID: 220635567}
+  - component: {fileID: 220635569}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -277,11 +278,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39aedf3d831939e4e91a451af0310d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 25
+  moveSpeed: 15
   rotationSpeed: 50
   playerSortingOrder: 20
   Weapon: {fileID: 220635568}
   weaponRenderer: {fileID: 1875021845}
+  angle: 0
 --- !u!4 &220635568
 Transform:
   m_ObjectHideFlags: 0
@@ -297,6 +299,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &220635569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220635566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6ca2026b26e204cb8d9042fc709d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &343483041
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,6 +653,7 @@ GameObject:
   - component: {fileID: 706277014}
   - component: {fileID: 706277015}
   - component: {fileID: 706277016}
+  - component: {fileID: 706277012}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -646,6 +661,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!54 &706277012
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706277011}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &706277013
 Transform:
   m_ObjectHideFlags: 0
@@ -659,6 +690,7 @@ Transform:
   m_Children:
   - {fileID: 618280543}
   - {fileID: 122650867}
+  - {fileID: 1163692647}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -674,7 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cda238f0d055749a36b7338cd659a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 300
   tiltAmount: 5
   anim: {fileID: 0}
   playerRenderer: {fileID: 122650867}
@@ -1195,6 +1227,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1163692646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1163692647}
+  m_Layer: 0
+  m_Name: Player-cam-point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1163692647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163692646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 706277013}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1168590298
 GameObject:
   m_ObjectHideFlags: 0
@@ -3337,9 +3399,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de72210fe559d94fbec392fc4311412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 706277013}
-  cameraDist: 3.5
+  player: {fileID: 1163692647}
+  cameraDist: 2.5
   smoothTime: 0.2
+  Zoffset: 9
   pointToLook: {fileID: 46345071}
 --- !u!20 &1687258584
 Camera:
@@ -3582,8 +3645,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1577477043
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 5601323976189978565, guid: 7788cfbd752138143b741746c9df3e7a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3604,7 +3667,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875021844}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.625, y: 0.065, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2105673545}

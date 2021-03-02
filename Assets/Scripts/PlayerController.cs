@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
     public float speed = 5;
 	public float tiltAmount;
 
+	private Rigidbody rb;
+
 	public Animator anim;
 	public static PlayerController player;
 
@@ -24,7 +26,8 @@ public class PlayerController : MonoBehaviour {
    private void Start () 
 	{
 
-		anim = GetComponent<Animator>();		
+		anim = GetComponent<Animator>();
+		rb = GetComponent<Rigidbody>();
 
 	}
 
@@ -32,12 +35,17 @@ public class PlayerController : MonoBehaviour {
 	{
 
 		GetInput(); 
-		Movement(); 
+		
 	
 		
 	}
 
-	private void GetInput(){
+    private void FixedUpdate()
+    {
+		Movement();
+	}
+
+    private void GetInput(){
 
 		xInput = Input.GetAxisRaw("Horizontal"); 
 		yInput = Input.GetAxisRaw("Vertical"); 
@@ -60,9 +68,9 @@ public class PlayerController : MonoBehaviour {
 
 	private void Movement(){
 
-		Vector3 tempPos = transform.position;
-		tempPos += new Vector3(xInput,0, yInput) * speed * Time.deltaTime; 
-		transform.position = tempPos;
+	
+		Vector3 tempPos = new Vector3(xInput,0, yInput) * speed * Time.fixedDeltaTime;
+		rb.velocity = tempPos;
 
 		
 	}
