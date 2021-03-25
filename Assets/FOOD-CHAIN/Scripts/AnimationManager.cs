@@ -87,7 +87,7 @@ public class AnimationManager : MonoBehaviour
           
         }
 
-        holder.SetEase(Ease.Linear);
+     //   holder.SetEase(Ease.Linear);
     }
 
     public void WallGrabRotation()

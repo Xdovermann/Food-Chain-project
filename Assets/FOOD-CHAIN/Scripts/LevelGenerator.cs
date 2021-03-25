@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelGenerator : MonoBehaviour {
 
@@ -9,7 +10,8 @@ public class LevelGenerator : MonoBehaviour {
 		Background, 
 		Wall, // plekken waar je op kan klimmen 
 		Floor,// blocks waar je op loopt
-		Spawn
+		Spawn,
+		Exit
 	
 	};
 	gridSpace[,] grid;
@@ -40,12 +42,15 @@ public class LevelGenerator : MonoBehaviour {
 	public GameObject BackgroundObj;
 	public GameObject FloorObj;
 	public GameObject SpawnObj;
+	public GameObject ExitObj;
+
 
 	[Space]
 	[Header("ObjectParents")]
 	public Transform WallParent;
 	public Transform BackgroundParent;
 
+	public GameObject TestEnemie;
 	void Start () {
 
 		Setup();
@@ -53,8 +58,11 @@ public class LevelGenerator : MonoBehaviour {
 		CreateWalls(); // legt alle blocks 
 		RemoveSingleWalls();
 		CreateFloors(); // maakt top facing empty blocks een floor ziet er mooier uit
+		SetExit();
 		SetSpawn();
-	
+
+		SpawnProps();
+
 		SpawnLevel();
 	}
 	void Setup(){
@@ -82,7 +90,16 @@ public class LevelGenerator : MonoBehaviour {
 
 		walkers.Add(newWalker);
 	}
-	void CreateBackgroundAndLayout(){
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		}
+    }
+
+    void CreateBackgroundAndLayout(){
 		int iterations = 0;
 		do{
 			
@@ -229,6 +246,53 @@ public class LevelGenerator : MonoBehaviour {
 		}
 	}
 
+	private void SpawnProps()
+    {
+		for (int x = 0; x < roomWidth - 1; x++)
+		{
+			for (int y = 0; y < roomHeight - 1; y++)
+			{
+				int rand = Random.Range(0, 10);
+				if(rand == 1)
+                {
+					if (grid[x, y] == gridSpace.Background)
+					{
+						if (grid[x, y - 1] == gridSpace.Floor)
+						{
+							Spawn(x, y, TestEnemie, transform);
+
+						}
+					}
+				}
+                else
+                {
+					continue;
+                }
+				
+			}
+		}
+	}
+
+	private void SetExit()
+    {
+		for (int x = roomWidth; x-- > 0; )
+		{
+			for (int y = roomHeight; y-- > 0;)
+			{
+
+				if (grid[x, y] == gridSpace.Background)
+				{
+					if (grid[x, y - 1] == gridSpace.Floor)
+					{
+						grid[x, y] = gridSpace.Exit;
+						return;
+
+					}
+				}
+			}
+		}
+	}
+
 	void SpawnLevel(){
 		for (int x = 0; x < roomWidth; x++){
 			for (int y = 0; y < roomHeight; y++){
@@ -246,6 +310,9 @@ public class LevelGenerator : MonoBehaviour {
 						break;
 					case gridSpace.Spawn:
 						Spawn(x, y, SpawnObj, BackgroundParent);
+						break;
+					case gridSpace.Exit:
+						Spawn(x, y, ExitObj, BackgroundParent);
 						break;
 				}
 			}

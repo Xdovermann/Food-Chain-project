@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     private CollisionManager coll;
     [HideInInspector]
     public Rigidbody2D rb;
-    private AnimationManager animationManager;
+    public AnimationManager animationManager;
 
     [Space]
     [Header("Stats")]
@@ -146,19 +146,19 @@ public class Movement : MonoBehaviour
 
         WallParticle();
 
-        if (wallGrab || !canMove)
-            return;
+        //if (wallGrab || !canMove)
+        //    return;
 
-        if(x > 0)
-        {
-            side = 1;
-            animationManager.Flip(side);
-        }
-        if (x < 0)
-        {
-            side = -1;
-            animationManager.Flip(side);
-        }
+        //if(x > 0)
+        //{
+        //    side = 1;
+        //    animationManager.Flip(side);
+        //}
+        //if (x < 0)
+        //{
+        //    side = -1;
+        //    animationManager.Flip(side);
+        //}
 
 
     }

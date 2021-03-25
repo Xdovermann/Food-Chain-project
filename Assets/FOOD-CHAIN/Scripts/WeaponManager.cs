@@ -22,12 +22,15 @@ public class WeaponManager : MonoBehaviour
 
     public float Offset = 0;
     public int WeaponSide = 1;
-    private void Start()
+
+
+    private Movement playerMovement;
+
+    private void Awake()
     {
-        
+        playerMovement = Movement.PlayerMovement;
     }
 
-    
     private void Update()
     {
         GetMouseInput();
@@ -36,46 +39,17 @@ public class WeaponManager : MonoBehaviour
        
     }
 
-    private void FixedUpdate()
-    {
-       // transform.position = Vector3.Lerp(transform.position, player.transform.position, moveSpeed * Time.fixedDeltaTime);
-    }
-
+ 
     private void GetMouseInput()
     {
-        //mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //mousePos.z = transform.position.z;
-        //mouseVector = (mousePos - transform.position).normalized;
-
          positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
          mouseOnScreen = (Vector3)Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
         if (Input.GetMouseButtonDown(0))
         {
 
-            //  weaponRenderer.transform.DOShakeScale(0.1f);
-           // Offset += 75;
-            if (WeaponSide == 1)
-            {
-                float pos = transform.position.x;
-                pos =-0.5f;
-
-                //  transform.DOLocalMoveX(pos, 0.1f);
-          
-                WeaponSide = 0;
-            }
-            else
-            {
-                float pos = transform.position.x;
-                pos = 0.5f;
-
-           //   transform.DOLocalMoveX(pos, 0.1f);
-             
-                WeaponSide = 1;
-            }
-    
-     
-            //CameraController.cameraController.Shake()
+                
+         
         }
 
 
@@ -88,16 +62,9 @@ public class WeaponManager : MonoBehaviour
     private void Animation()
     {
 
-        // 2d wapens
         angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
-        //angle *= -1;
-        angle += 180;
-       // angle += Offset;
-      //  Weapon.localEulerAngles = new Vector3(Weapon.localEulerAngles.x, angle, Weapon.localEulerAngles.z );
-          // Weapon.DOLocalRotate(new Vector3(Weapon.localEulerAngles.y,  Weapon.localEulerAngles.z, ), 0.25f);
-        // 3d wapens methode als ik voor de 3d models zou gaan
-        // angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
-          Weapon.localEulerAngles = new Vector3(Weapon.localEulerAngles.x, Weapon.localEulerAngles.y, angle);
+        angle += 180;  
+        Weapon.localEulerAngles = new Vector3(Weapon.localEulerAngles.x, Weapon.localEulerAngles.y, angle);
 
 
 
@@ -110,46 +77,37 @@ public class WeaponManager : MonoBehaviour
             weaponRenderer.sortingOrder = 0;
         }
 
-        if (angle >= 90 && angle<=270)
-        {
-          
-           // player.FlipCharacter(1);
-        
-            FlipWeapon(1);
-        }
-        else 
-        {
-    
-        //    player.FlipCharacter(0);
-            FlipWeapon(0);
-        }
+        PlayerDirection();
+
+
     }
 
-    private void FlipWeapon(int side)
-    {
-        if(side == 0)
-        {
-           // weaponRenderer.flipY = false;
-            float pos = weaponRenderer.transform.position.x;
-            pos = -0.65f;
-
-        //  weaponRenderer.transform.DOLocalMoveX(pos, 0.1f);
-           
-        }
-        else if(side == 1)
-        {
-            float pos = weaponRenderer.transform.position.x;
-            pos = 0.65f;
-
-     //   weaponRenderer.transform.DOLocalMoveX(pos, 0.1f);
-  //
-           // weaponRenderer.flipY = true;
-        }
-       
-    }
+  
 
     public static float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
+    }
+
+    private void PlayerDirection()
+    {
+        if (playerMovement.wallGrab || !playerMovement.canMove)
+            return;
+
+        Vector3 Pos = mouseOnScreen;
+        Pos -= positionOnScreen;
+
+        if (Pos.x > 0)
+        {
+            playerMovement.side = 1;
+            playerMovement.animationManager.Flip(playerMovement.side);
+            weaponRenderer.flipY = false;
+        }
+        else if (Pos.x < 0)
+        {
+            playerMovement.side = -1;
+            playerMovement.animationManager.Flip(playerMovement.side);
+            weaponRenderer.flipY = true;
+        }
     }
 }
