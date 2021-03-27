@@ -45,10 +45,7 @@ public class CameraController : MonoBehaviour {
 
 	}
 
-    private void FixedUpdate()
-    {
-	
-	}
+   
 
     Vector3 CaptureMousePos(){
 
@@ -57,7 +54,7 @@ public class CameraController : MonoBehaviour {
 		ret -= Vector3.one; //set (0,0) of mouse to middle of screen
 
 		
-		//ret.z = -10;
+		ret.z = -10;
 
 
 		float max = 0.9f;

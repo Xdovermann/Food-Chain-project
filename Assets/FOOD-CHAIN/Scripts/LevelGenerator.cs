@@ -35,22 +35,29 @@ public class LevelGenerator : MonoBehaviour {
 	public float chanceWalkerDestoy = 0.05f;
 	public int maxWalkers = 10;
 	public float percentToFill = 0.1f;
-
+	public int ChanceForOnBlockDecor = 3;
+	public int ChanceForFoliage = 3;
 	[Space]
 	[Header("RoomBlocks")]
-	public GameObject WallObj;
-	public GameObject BackgroundObj;
-	public GameObject FloorObj;
+
+
 	public GameObject SpawnObj;
 	public GameObject ExitObj;
 
+	public GameObject[] FloorBlocks;
+	public GameObject[] WallBlocks;
+	public GameObject[] BackgroundBlocks;
+	public GameObject[] Foliage;
+	public GameObject[] OnBlockDecor;
 
 	[Space]
 	[Header("ObjectParents")]
 	public Transform WallParent;
 	public Transform BackgroundParent;
-
+	public Transform OnBlockDecorParent;
 	public GameObject TestEnemie;
+
+	public List<MapBlock> SpawnedBlocks = new List<MapBlock>();
 	void Start () {
 
 		Setup();
@@ -61,9 +68,9 @@ public class LevelGenerator : MonoBehaviour {
 		SetExit();
 		SetSpawn();
 
-		SpawnProps();
-
 		SpawnLevel();
+
+		SpawnProps();
 	}
 	void Setup(){
 
@@ -246,29 +253,66 @@ public class LevelGenerator : MonoBehaviour {
 		}
 	}
 
+	// spawn dit nadat de map is gespawnd
 	private void SpawnProps()
     {
+        for (int i = 0; i < SpawnedBlocks.Count; i++)
+        {
+			int BlockDecorChance = Random.Range(0, ChanceForOnBlockDecor);
+			if (BlockDecorChance == 1) // on block decor 
+			{
+
+				MapBlock Block = SpawnedBlocks[i]; // kijk op welke block je de decor spawnt
+				SpawnRandomObject(Block.MapPosition.x, Block.MapPosition.y, OnBlockDecor, Block.transform, false); // spawn de decor en parent hem onder de block
+
+			}
+
+
+			int FoliageChance = Random.Range(0, ChanceForFoliage);
+			if (FoliageChance == 1) // foliage 
+			{
+			
+				MapBlock Block = SpawnedBlocks[i]; // kijk op welke block je de decor spawnt+
+
+				int X =(int)Block.MapPosition.x;
+				int Y = (int)Block.MapPosition.y;
+
+				
+
+				if (grid[X, Y] == gridSpace.Floor)
+                {
+					Y += 1; // we willen op de top van de floor de foliage plaatsten dus offset het met 1
+					SpawnRandomObject(X, Y, Foliage, Block.transform, false); // spawn de decor en parent hem onder de block
+				}
+				
+
+			}
+		}
+
 		for (int x = 0; x < roomWidth - 1; x++)
 		{
 			for (int y = 0; y < roomHeight - 1; y++)
 			{
-				int rand = Random.Range(0, 10);
-				if(rand == 1)
-                {
-					if (grid[x, y] == gridSpace.Background)
+
+				if (grid[x, y] == gridSpace.Background)
+				{
+					if (grid[x, y - 1] == gridSpace.Floor)
 					{
-						if (grid[x, y - 1] == gridSpace.Floor)
+						int rand = Random.Range(0, 10);
+						if (rand == 1)
 						{
 							Spawn(x, y, TestEnemie, transform);
+						}		
+						
 
-						}
+					
 					}
+
+
+					
+
 				}
-                else
-                {
-					continue;
-                }
-				
+          				
 			}
 		}
 	}
@@ -293,6 +337,8 @@ public class LevelGenerator : MonoBehaviour {
 		}
 	}
 
+	
+
 	void SpawnLevel(){
 		for (int x = 0; x < roomWidth; x++){
 			for (int y = 0; y < roomHeight; y++){
@@ -300,13 +346,17 @@ public class LevelGenerator : MonoBehaviour {
 					case gridSpace.empty:
 						break;
 					case gridSpace.Background:
-						Spawn(x,y,BackgroundObj, BackgroundParent);
+						SpawnRandomObject(x, y, BackgroundBlocks, BackgroundParent,false);
 						break;
 					case gridSpace.Wall:
-						Spawn(x,y,WallObj, WallParent);
+
+						SpawnRandomObject(x, y, WallBlocks, WallParent,true);
+
 						break;
 					case gridSpace.Floor:
-						Spawn(x, y, FloorObj, WallParent);
+
+						SpawnRandomObject(x, y, FloorBlocks, WallParent,true);	
+						
 						break;
 					case gridSpace.Spawn:
 						Spawn(x, y, SpawnObj, BackgroundParent);
@@ -343,15 +393,36 @@ public class LevelGenerator : MonoBehaviour {
 		}
 		return count;
 	}
-	void Spawn(float x, float y, GameObject toSpawn,Transform parent){
+
+	private void SpawnRandomObject(float x,float y,GameObject[] Objects,Transform Parent,bool isBlock)
+    {
+		int index =Random.Range(0, Objects.Length);
+		GameObject go = Objects[index];
+	   
+		GameObject Block = Spawn(x, y, go, Parent);
+
+        if (isBlock)
+        {
+		
+			MapBlock blockHolder = Block.GetComponent<MapBlock>();
+			blockHolder.SetPosition(new Vector2(x, y));
+			SpawnedBlocks.Add(blockHolder);
+
+		}
+        
+
+    }
+
+	GameObject Spawn(float x, float y, GameObject toSpawn,Transform parent){
 
 		Vector2 offset = MapSize / 2.0f;
 		Vector2 spawnPos = new Vector2(x, y) * worldUnitsInOneGridCell- offset;
 
-		Instantiate(toSpawn, spawnPos, Quaternion.identity, parent);
+	  return	Instantiate(toSpawn, spawnPos, Quaternion.identity, parent);
 		
   
 	
 		
 	}
+
 }

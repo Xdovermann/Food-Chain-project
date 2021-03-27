@@ -1,25 +1,31 @@
 fileFormatVersion: 2
-guid: c9b57caf8b85ac3489e0133615657330
+guid: 54aa452320e413f479204190fbfa6270
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5661455843058019031
-    second: Test-ENVIROMENT_0
+      213: 2778980813522352177
+    second: Test-ENVIROMENT_SaltLakes_0
   - first:
-      213: -3783171869168791744
-    second: Test-ENVIROMENT_1
+      213: 9153242026683679
+    second: Test-ENVIROMENT_SaltLakes_1
   - first:
-      213: 3796363272862341377
-    second: Test-ENVIROMENT_2
+      213: -8164456128937005457
+    second: Test-ENVIROMENT_SaltLakes_2
   - first:
-      213: 7572325260294826858
-    second: Test-ENVIROMENT_3
+      213: 436143107433024696
+    second: Test-ENVIROMENT_SaltLakes_3
   - first:
-      213: 5650254681053443377
-    second: Test-ENVIROMENT_4
+      213: -6386760681371295111
+    second: Test-ENVIROMENT_SaltLakes_4
   - first:
-      213: -2727834742150458939
-    second: Test-ENVIROMENT_5
+      213: -3232548707441281015
+    second: Test-ENVIROMENT_SaltLakes_5
+  - first:
+      213: -1641072139841763075
+    second: Test-ENVIROMENT_SaltLakes_6
+  - first:
+      213: 8101471854160490510
+    second: Test-ENVIROMENT_SaltLakes_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -109,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Test-ENVIROMENT_0
+      name: Test-ENVIROMENT_SaltLakes_0
       rect:
         serializedVersion: 2
         x: 0
@@ -123,14 +129,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92597fa08e77e61b0800000000000000
-      internalID: -5661455843058019031
+      spriteID: 13830a3835ce09620800000000000000
+      internalID: 2778980813522352177
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test-ENVIROMENT_1
+      name: Test-ENVIROMENT_SaltLakes_1
       rect:
         serializedVersion: 2
         x: 16
@@ -144,14 +150,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04f81f5aa397f7bc0800000000000000
-      internalID: -3783171869168791744
+      spriteID: f1d2b8b33d4802000800000000000000
+      internalID: 9153242026683679
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test-ENVIROMENT_2
+      name: Test-ENVIROMENT_SaltLakes_2
       rect:
         serializedVersion: 2
         x: 32
@@ -165,14 +171,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1099c4d58446fa430800000000000000
-      internalID: 3796363272862341377
+      spriteID: f6ee27a686602be80800000000000000
+      internalID: -8164456128937005457
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test-ENVIROMENT_3
+      name: Test-ENVIROMENT_SaltLakes_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 54
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bcc7cd68dd7d0600800000000000000
+      internalID: 436143107433024696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Test-ENVIROMENT_SaltLakes_4
       rect:
         serializedVersion: 2
         x: 0
@@ -186,14 +213,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6b279f44bd461960800000000000000
-      internalID: 7572325260294826858
+      spriteID: 972ae61bffaad57a0800000000000000
+      internalID: -6386760681371295111
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test-ENVIROMENT_4
+      name: Test-ENVIROMENT_SaltLakes_5
       rect:
         serializedVersion: 2
         x: 16
@@ -207,14 +234,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 135bda232bcb96e40800000000000000
-      internalID: 5650254681053443377
+      spriteID: 90870ddc31ea323d0800000000000000
+      internalID: -3232548707441281015
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test-ENVIROMENT_5
+      name: Test-ENVIROMENT_SaltLakes_6
       rect:
         serializedVersion: 2
         x: 32
@@ -228,8 +255,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c1172431c8c42ad0800000000000000
-      internalID: -2727834742150458939
+      spriteID: df801f5659db939e0800000000000000
+      internalID: -1641072139841763075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Test-ENVIROMENT_SaltLakes_7
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 38
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e00bf095ab53e6070800000000000000
+      internalID: 8101471854160490510
       vertices: []
       indices: 
       edges: []
@@ -237,7 +285,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ea2be0da990df8d4da696f7bf567577a
+    spriteID: 5738d36e3716ba5449a140f005a9edbd
     internalID: 0
     vertices: []
     indices: 
