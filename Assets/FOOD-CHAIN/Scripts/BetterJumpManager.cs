@@ -8,6 +8,7 @@ public class BetterJumpManager : MonoBehaviour
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
     public float StartMultiplier;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

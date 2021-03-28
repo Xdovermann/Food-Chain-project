@@ -45,7 +45,7 @@ public class Movement : MonoBehaviour
     public ParticleSystem wallJumpParticle;
     public ParticleSystem slideParticle;
 
-
+    public WeaponManager weaponManager;
 
     private void Awake()
     {

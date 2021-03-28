@@ -8,6 +8,7 @@ public class WeaponManager : MonoBehaviour
     public static WeaponManager weaponManager;
    
 
+
     public float moveSpeed = 10;
     public float rotationSpeed = 10;
 
@@ -18,7 +19,7 @@ public class WeaponManager : MonoBehaviour
 
     public float angle;
     Vector3 mousePos;
-    Vector3 mouseVector;
+  public  Vector3 mouseVector;
 
     public float Offset = 0;
     public int WeaponSide = 1;

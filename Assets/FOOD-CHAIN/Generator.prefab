@@ -75,17 +75,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3309d4d5277732049a7a2665785f6ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapSize: {x: 50, y: 50}
+  MapSize: {x: 75, y: 75}
   chanceWalkerChangeDir: 0.5
   chanceWalkerSpawn: 0.05
   chanceWalkerDestoy: 0.05
   maxWalkers: 10
-  percentToFill: 0.1
-  WallObj: {fileID: 5834238751314131452, guid: 1e460539e7081e74193ce6977779d48c, type: 3}
-  BackgroundObj: {fileID: 7657727419070461017, guid: 18c4cc0312b11944095d95862e8e80f8, type: 3}
-  FloorObj: {fileID: 6839544864779479419, guid: b6817ec32c889d4478f54b0039c9bd5f, type: 3}
+  percentToFill: 0.09
+  ChanceForOnBlockDecor: 3
+  ChanceForFoliage: 3
+  SpawnObj: {fileID: 6595212313507480900, guid: 352acef3d87d0574caad7fc80d1c0048, type: 3}
+  ExitObj: {fileID: 6257861431941637090, guid: a9fc3a98d7b8e97488ff8ca8edfcfd59, type: 3}
+  FloorBlocks:
+  - {fileID: 7657727419070461017, guid: 4dd2d96cd406235459b5afca1794a87d, type: 3}
+  - {fileID: 7657727419070461017, guid: d5628ca90b286f743a20f896779804a6, type: 3}
+  - {fileID: 7657727419070461017, guid: 1a1dcb7af24a72645bc80ff5ee102a77, type: 3}
+  WallBlocks:
+  - {fileID: 7657727419070461017, guid: 3710fda046503bd43b39523523ffac68, type: 3}
+  - {fileID: 7657727419070461017, guid: 996fc8f1890c8e44692360a94b9997a9, type: 3}
+  - {fileID: 7657727419070461017, guid: 4d997978f95ba1e4d8d3dd7b7f302d44, type: 3}
+  BackgroundBlocks:
+  - {fileID: 7657727419070461017, guid: 18c4cc0312b11944095d95862e8e80f8, type: 3}
+  - {fileID: 7657727419070461017, guid: b901be80a8a3cf64aa17994e24fd6de9, type: 3}
+  Foliage:
+  - {fileID: 3452043924931275677, guid: 1bcd80f930a1688459881833aff8c9dc, type: 3}
+  - {fileID: 3452043924931275677, guid: 875a7095947d35b45aa8edad91f33ca5, type: 3}
+  - {fileID: 3452043924931275677, guid: de09087c823236043a546229a27eb002, type: 3}
+  - {fileID: 3452043924931275677, guid: 6edbe1f841afe5442b591f6e06ded3a3, type: 3}
+  - {fileID: 3452043924931275677, guid: 49a2db56119eca243986684907a5ec3b, type: 3}
+  - {fileID: 3452043924931275677, guid: 256760113d13c014a8a4d88b959cd448, type: 3}
+  - {fileID: 3452043924931275677, guid: 29124bfb2b1a9d74d8af8a4c88c9e216, type: 3}
+  - {fileID: 3452043924931275677, guid: d1dfe6551faefda4d8bc2b53f9e44aae, type: 3}
+  - {fileID: 3452043924931275677, guid: 681e2a2533ca33048a4fdcd1b21a36d4, type: 3}
+  - {fileID: 3452043924931275677, guid: 33e782992a4162f419657d5b7a9631be, type: 3}
+  OnBlockDecor:
+  - {fileID: 7910107140577852344, guid: c7bd2499830f94f4f9d6f59af8b6264c, type: 3}
+  - {fileID: 7910107140577852344, guid: 2daf6b0cea4acc1468e978fbc5e39534, type: 3}
+  - {fileID: 7910107140577852344, guid: 884e136296df4e2408ff0314d4dd43e7, type: 3}
+  - {fileID: 7910107140577852344, guid: 349a11d006bc4b24e8312e8966059189, type: 3}
   WallParent: {fileID: 8381120860911328815}
   BackgroundParent: {fileID: 8381120862338676202}
+  OnBlockDecorParent: {fileID: 0}
+  TestEnemie: {fileID: 8012986440504595682, guid: d7158f373577cc548ad0f79d4707393f, type: 3}
+  SpawnedBlocks: []
 --- !u!1 &8381120862338676203
 GameObject:
   m_ObjectHideFlags: 0
