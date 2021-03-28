@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5121448730796992736}
   - component: {fileID: 8126900198739913954}
-  m_Layer: 0
+  - component: {fileID: 5891014983310796859}
+  - component: {fileID: 4866735859501321286}
+  m_Layer: 7
   m_Name: TestEnemie
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1577477043
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -4528274201371424182, guid: a878dc294198f3c4089f858df324cc33, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -82,3 +84,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5891014983310796859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8012986440504595682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a98c4d7f1cb0b4396078de1c162c22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 3
+--- !u!70 &4866735859501321286
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8012986440504595682}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.010933399, y: 0.018446088}
+  m_Size: {x: 0.6108465, y: 0.9722941}
+  m_Direction: 0

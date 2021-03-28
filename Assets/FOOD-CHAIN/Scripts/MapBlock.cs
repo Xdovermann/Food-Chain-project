@@ -10,4 +10,6 @@ public class MapBlock : MonoBehaviour
     {
         MapPosition = pos;
     }
+
+
 }

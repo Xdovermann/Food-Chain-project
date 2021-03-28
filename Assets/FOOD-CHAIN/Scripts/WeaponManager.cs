@@ -17,18 +17,24 @@ public class WeaponManager : MonoBehaviour
     public SpriteRenderer weaponRenderer;
 
     public float angle;
-    Vector3 positionOnScreen;
-    Vector3 mouseOnScreen;
+    Vector3 mousePos;
+    Vector3 mouseVector;
 
     public float Offset = 0;
     public int WeaponSide = 1;
 
 
-    private Movement playerMovement;
+    public Movement playerMovement;
+    public float WeaponHandling = 0.1f;
+
+    public Transform Shotpoint;
+    public GameObject Bullet;
+
+    public float OriginalWeaponPos;
 
     private void Awake()
     {
-        playerMovement = Movement.PlayerMovement;
+        OriginalWeaponPos = weaponRenderer.transform.localPosition.x;
     }
 
     private void Update()
@@ -42,14 +48,15 @@ public class WeaponManager : MonoBehaviour
  
     private void GetMouseInput()
     {
-         positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
-         mouseOnScreen = (Vector3)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+     
 
         if (Input.GetMouseButtonDown(0))
         {
+           GameObject go=  Instantiate(Bullet, Shotpoint.position, Shotpoint.rotation);
+            go.GetComponent<Bullet>().Setup(mouseVector);
+            WeaponJuice();
 
-                
-         
+
         }
 
 
@@ -61,11 +68,12 @@ public class WeaponManager : MonoBehaviour
 
     private void Animation()
     {
-
-        angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
-        angle += 180;  
-        Weapon.localEulerAngles = new Vector3(Weapon.localEulerAngles.x, Weapon.localEulerAngles.y, angle);
-
+        transform.DOMove(playerMovement.transform.position, WeaponHandling);
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //position of cursor in world
+        mousePos.z = transform.position.z; //keep the z position consistant, since we're in 2d
+        mouseVector = (mousePos - transform.position).normalized; //normalized vector from player pointing to cursor
+        float gunAngle = -1 * Mathf.Atan2(mouseVector.y, mouseVector.x) * Mathf.Rad2Deg; //find angle in degrees from player to cursor
+        Weapon.rotation = Quaternion.AngleAxis(gunAngle, Vector3.back); //rotate gun sprite around that angle
 
 
         if (angle >= 180 && angle <= 360)
@@ -94,20 +102,40 @@ public class WeaponManager : MonoBehaviour
         if (playerMovement.wallGrab || !playerMovement.canMove)
             return;
 
-        Vector3 Pos = mouseOnScreen;
-        Pos -= positionOnScreen;
 
-        if (Pos.x > 0)
+
+        if (mouseVector.x > 0)
         {
             playerMovement.side = 1;
             playerMovement.animationManager.Flip(playerMovement.side);
             weaponRenderer.flipY = false;
         }
-        else if (Pos.x < 0)
+        else if (mouseVector.x < 0)
         {
             playerMovement.side = -1;
             playerMovement.animationManager.Flip(playerMovement.side);
             weaponRenderer.flipY = true;
         }
+    }
+
+    private void WeaponJuice()
+    {
+        // camerashake
+        float power = Random.Range(1.5f, 2.5f);
+        float randTime = Random.Range(0.05f, 0.1f);
+        CameraController.cameraController.Shake(-mouseVector,power, randTime);
+
+        //weaponscale
+        weaponRenderer.transform.localScale = new Vector3(1, 1, 1);
+        weaponRenderer.transform.DOShakeScale(0.1f);
+
+        // weaponknockback
+        Sequence mySequence = DOTween.Sequence();
+        float MovePoint = OriginalWeaponPos;
+        MovePoint -= Random.Range(0.25f, 0.5f);
+        mySequence.Append(weaponRenderer.transform.DOLocalMoveX(MovePoint, 0.1f));
+        mySequence.Append(weaponRenderer.transform.DOLocalMoveX(OriginalWeaponPos, 0.1f));
+
+
     }
 }

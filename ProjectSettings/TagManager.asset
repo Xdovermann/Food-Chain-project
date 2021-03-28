@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -12,7 +14,7 @@ TagManager:
   - Water
   - UI
   - CollidbleWall
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -52,4 +54,10 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2717490253
+    locked: 0
+  - name: Projectile
+    uniqueID: 620650357
+    locked: 0
+  - name: Effects
+    uniqueID: 806031339
     locked: 0
