@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068b761cade712d4087906e4926208f2, type: 3}
+  m_Name: Rusty_Revolver
+  m_EditorClassIdentifier: 
+  WeaponName: Rusty Revolver
+  useScope: 1
+  useBarrel: 1
+  useStock: 0
+  useMagazine: 0
+  ScopeParts:
+  - {fileID: 5314877585303409345, guid: 43b302893ec9ea64187e9160eb526fc9, type: 3}
+  - {fileID: 5314877585303409345, guid: 4a5ee3d8984d158459f2f2a0e068ee78, type: 3}
+  BodyParts:
+  - {fileID: 4011900129562480947, guid: e6d11ec87ff987249b0d428eaed0fe9f, type: 3}
+  - {fileID: 4011900129562480947, guid: 008ba5b0054b363498b405b063a2b966, type: 3}
+  - {fileID: 4011900129562480947, guid: 8fe6545391a77d5498ed8dd29a340bbc, type: 3}
+  - {fileID: 4011900129562480947, guid: 5ff12120271e2ae45aee22a7bd063247, type: 3}
+  BarrelParts:
+  - {fileID: 8971334955854056622, guid: 7f361fdb64103e940b40a200df135369, type: 3}
+  - {fileID: 8971334955854056622, guid: d77753628a6d8044db7bb115752cc5ff, type: 3}
+  - {fileID: 8971334955854056622, guid: 9fbc26ad84dbfab46b4e0a88ae5573e4, type: 3}
+  - {fileID: 8971334955854056622, guid: 5f349a4f1ebf001448f6727fbf38a3d9, type: 3}
+  StockParts: []
+  MagazineParts: []

@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour
     public ParticleSystem slideParticle;
 
     public WeaponManager weaponManager;
-
+    private bool GroundSmash = false;
     private void Awake()
     {
         PlayerMovement = this;
@@ -170,8 +170,17 @@ public class Movement : MonoBehaviour
 
         side = animationManager.sr.flipX ? -1 : 1;
 
-     
-    //    ShakePlayer();
+
+        //    ShakePlayer();
+        if (GroundSmash)
+        {
+            GameObject go = ObjectPooler.FlashEffect.GetObject();
+            Vector2 SpawnPos = transform.position;
+            SpawnPos.y -= 0.25f;
+            go.transform.position = SpawnPos;
+            go.SetActive(true);
+
+        }
 
         jumpParticle.Play();
     }
@@ -180,11 +189,13 @@ public class Movement : MonoBehaviour
     {
         betterJumpingController.enabled = true;
         betterJumpingController.fallMultiplier = 10;
+        GroundSmash = true;
         DownParticle.Play();
     }
     private void StopPushDown()
     {
         DownParticle.Stop();
+        GroundSmash = false;
         betterJumpingController.fallMultiplier = betterJumpingController.StartMultiplier;
     }
    

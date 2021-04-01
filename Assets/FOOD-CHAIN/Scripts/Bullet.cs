@@ -39,6 +39,7 @@ public class Bullet : MonoBehaviour {
 	    GameObject go=	ObjectPooler.FlashEffect.GetObject();
 		go.transform.position = transform.position;
 		go.SetActive(true);
+	
 
 		Destroy(gameObject);
     }

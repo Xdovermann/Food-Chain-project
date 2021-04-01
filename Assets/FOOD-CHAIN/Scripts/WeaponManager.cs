@@ -33,9 +33,13 @@ public class WeaponManager : MonoBehaviour
 
     public float OriginalWeaponPos;
 
+    public float TimeBtwnShots = 0.1f;
+    private float TimeBtwnShotsHolder;
+
     private void Awake()
     {
         OriginalWeaponPos = weaponRenderer.transform.localPosition.x;
+        TimeBtwnShotsHolder = TimeBtwnShots;
     }
 
     private void Update()
@@ -50,15 +54,30 @@ public class WeaponManager : MonoBehaviour
     private void GetMouseInput()
     {
      
-
-        if (Input.GetMouseButtonDown(0))
+        if(TimeBtwnShots <= 0)
         {
-           GameObject go=  Instantiate(Bullet, Shotpoint.position, Shotpoint.rotation);
-            go.GetComponent<Bullet>().Setup(mouseVector);
-            WeaponJuice();
+            if (Input.GetMouseButton(0))
+            {
+                GameObject go = Instantiate(Bullet, Shotpoint.position, Shotpoint.rotation);
+                go.GetComponent<Bullet>().Setup(mouseVector);
+
+                GameObject Effect = ObjectPooler.GunShotEffect.GetObject();
+                Effect.transform.position = Shotpoint.position;
+                Effect.SetActive(true);
+                Effect.transform.DOShakeScale(0.1f,0.5f);
+
+                TimeBtwnShots = TimeBtwnShotsHolder;
+                WeaponJuice();
 
 
+            }
         }
+        else
+        {
+            TimeBtwnShots -= Time.deltaTime;
+        }
+
+       
 
 
 
