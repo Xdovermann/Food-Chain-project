@@ -35,6 +35,7 @@ public class WeaponGenerator : MonoBehaviour
             GameObject WeaponScopePart = GetWeaponPart(WeaponToSpawn.ScopeParts);
           GameObject scope=  Instantiate(WeaponScopePart, WeaponScript.ScopeSlot);
             scope.transform.localPosition = new Vector3(0, 0, 0);
+            WeaponScript.AddWeaponPart(scope.GetComponent<WeaponPart>());
         }
 
         // check voor barrel
@@ -43,6 +44,7 @@ public class WeaponGenerator : MonoBehaviour
             GameObject WeaponBarrelPart = GetWeaponPart(WeaponToSpawn.BarrelParts);
             GameObject barrel =   Instantiate(WeaponBarrelPart, WeaponScript.BarrelSlot);
             barrel.transform.localPosition = new Vector3(0, 0, 0);
+            WeaponScript.AddWeaponPart(barrel.GetComponent<WeaponPart>());
         }
 
         // check voor stock
@@ -51,6 +53,7 @@ public class WeaponGenerator : MonoBehaviour
             GameObject WeaponStockPart = GetWeaponPart(WeaponToSpawn.StockParts);
            GameObject stock= Instantiate(WeaponStockPart, WeaponScript.StockSlot);
             stock.transform.localPosition = new Vector3(0, 0, 0);
+            WeaponScript.AddWeaponPart(stock.GetComponent<WeaponPart>());
         }
 
         // check voor magazine
@@ -59,12 +62,16 @@ public class WeaponGenerator : MonoBehaviour
             GameObject WeaponMagazinePart = GetWeaponPart(WeaponToSpawn.MagazineParts);
           GameObject magazine = Instantiate(WeaponMagazinePart, WeaponScript.MagazinSlot);
             magazine.transform.localPosition = new Vector3(0, 0, 0);
+
+            WeaponScript.AddWeaponPart(magazine.GetComponent<WeaponPart>());
         }
+
+        WeaponScript.CalculateStats();
 
         WeaponScript.ThrowWeapon();
     }
 
-
+    
     private WeaponData GetWeaponToSpawn()
     {
         int WeaponIndex = Random.Range(0, WeaponDatabase.Length);

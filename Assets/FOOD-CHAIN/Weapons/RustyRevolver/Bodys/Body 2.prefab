@@ -85,7 +85,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 026afbeb4d17ceb4c810b21806a5d071, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -129,10 +129,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d84aa15a58209e4eaca4da2f0ac4dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RawStats:
+  - StatType: 0
+    minValue: 1
+    maxValue: 10
+  rarity: 2
   ScopeSlot: {fileID: 2890377720381539615}
   BarrelSlot: {fileID: 4428493147282544729}
   StockSlot: {fileID: 0}
   MagazinSlot: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!50 &-585333152518116341
 Rigidbody2D:
   serializedVersion: 4
