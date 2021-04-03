@@ -23,11 +23,7 @@ public class ThrowableObject : MonoBehaviour
     public void GrabObject(Transform parent)
     {
         transform.SetParent(parent);
-        objectCollider.enabled = false;
-        rb.isKinematic = true;
-        rb.velocity = new Vector2(0, 0);
-        rb.angularVelocity = 0;
-        transform.localPosition = new Vector3(0, 0, 0);
+        DisablePhysics();
     }
 
     public void ThrowObject(Vector2 pos,Vector2 ThrowDirection)
@@ -38,5 +34,14 @@ public class ThrowableObject : MonoBehaviour
         rb.isKinematic = false;
 
         rb.AddForce(ThrowDirection * 25, ForceMode2D.Impulse);
+    }
+
+    public void DisablePhysics()
+    {
+        objectCollider.enabled = false;
+        rb.isKinematic = true;
+        rb.velocity = new Vector2(0, 0);
+        rb.angularVelocity = 0;
+        transform.localPosition = new Vector3(0, 0, 0);
     }
 }

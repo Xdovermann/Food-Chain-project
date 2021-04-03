@@ -30,8 +30,8 @@ public class GrappleManager : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,10, CollidbleLayer);
                 if (hit.collider != null)
                 {
-                    if (hit.collider.gameObject.CompareTag("Enemy"))
-                    {
+                  //  if (hit.collider.gameObject.CompareTag("Enemy"))
+                  //  {
                         float Distance = Vector2.Distance(transform.position, hit.transform.position);
 
                         if (Distance <= GrappleRange)
@@ -41,7 +41,7 @@ public class GrappleManager : MonoBehaviour
 
                         }
 
-                    }
+                   // }
 
                 }
             }
@@ -52,13 +52,31 @@ public class GrappleManager : MonoBehaviour
             }
 
             
-            // schiet een ray omlaag van de muis positie 
-            // als het een object is wat je kan vastpakken check of die in je range is 
-            // pak hem dan op
+           
 
 
+        }else if (Input.GetKeyDown(KeyCode.E))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 10, CollidbleLayer);
+            if (hit.collider != null && hit.transform.gameObject.layer == LayerMask.NameToLayer("Weapon"))
+            {
+                //  if (hit.collider.gameObject.CompareTag("Enemy"))
+                //  {
+                float Distance = Vector2.Distance(transform.position, hit.transform.position);
+
+                if (Distance <= GrappleRange)
+                {
+
+                    Debug.Log("equip weapon");
+                    WeaponManager.weaponManager.EquipWeapon(hit.transform);
+                }
+
+                // }
+
+            }
         }
-       
+
+
     }
 
     private void ThrowEnemy()

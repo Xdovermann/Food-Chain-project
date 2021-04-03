@@ -10,6 +10,7 @@ public class WeaponPart : MonoBehaviour
     public Dictionary<WeaponStatType, float> WeaponPartStats = new Dictionary<WeaponStatType, float>();
     public Rarity rarity;
 
+
     public enum WeaponStatType
     {
         Damage,
@@ -29,6 +30,7 @@ public class WeaponPart : MonoBehaviour
    
     private void Awake()
     {
+      
         foreach (WeaponStatPair statPair in RawStats)
         {
             float Value = Random.Range(statPair.minValue, statPair.maxValue);

@@ -17,6 +17,7 @@ MonoBehaviour:
   useBarrel: 1
   useStock: 0
   useMagazine: 0
+  WeaponMaterial: {fileID: 2100000, guid: 3f280e44846e5444388570c121f5f4d0, type: 2}
   ScopeParts:
   - {fileID: 5314877585303409345, guid: 43b302893ec9ea64187e9160eb526fc9, type: 3}
   - {fileID: 5314877585303409345, guid: 4a5ee3d8984d158459f2f2a0e068ee78, type: 3}

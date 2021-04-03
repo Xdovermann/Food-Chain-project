@@ -15,7 +15,7 @@ public class WeaponManager : MonoBehaviour
     public int playerSortingOrder = 20;
 
     public Transform Weapon;
-    public SpriteRenderer weaponRenderer;
+    public Transform weaponRendererParent;
 
     public float angle;
     Vector3 mousePos;
@@ -36,10 +36,13 @@ public class WeaponManager : MonoBehaviour
     public float TimeBtwnShots = 0.1f;
     private float TimeBtwnShotsHolder;
 
+    public Gun EquipedWeapon;
+
     private void Awake()
     {
-        OriginalWeaponPos = weaponRenderer.transform.localPosition.x;
+        OriginalWeaponPos = weaponRendererParent.transform.localPosition.x;
         TimeBtwnShotsHolder = TimeBtwnShots;
+        weaponManager = this;
     }
 
     private void Update()
@@ -98,11 +101,11 @@ public class WeaponManager : MonoBehaviour
 
         if (angle >= 180 && angle <= 360)
         {
-            weaponRenderer.sortingOrder = -1;
+           // weaponRendererParent.sortingOrder = -1;
         }
         else
         {
-            weaponRenderer.sortingOrder = 0;
+          //  weaponRendererParent.sortingOrder = 0;
         }
 
         PlayerDirection();
@@ -128,13 +131,13 @@ public class WeaponManager : MonoBehaviour
         {
             playerMovement.side = 1;
             playerMovement.animationManager.Flip(playerMovement.side);
-            weaponRenderer.flipY = false;
+            weaponRendererParent.localScale = new Vector3(weaponRendererParent.localScale.x, 1, weaponRendererParent.localScale.z);
         }
         else if (mouseVector.x < 0)
         {
             playerMovement.side = -1;
             playerMovement.animationManager.Flip(playerMovement.side);
-            weaponRenderer.flipY = true;
+            weaponRendererParent.localScale = new Vector3(weaponRendererParent.localScale.x, -1, weaponRendererParent.localScale.z);
         }
     }
 
@@ -146,16 +149,34 @@ public class WeaponManager : MonoBehaviour
         CameraController.cameraController.Shake(-mouseVector,power, randTime);
 
         //weaponscale
-        weaponRenderer.transform.localScale = new Vector3(1, 1, 1);
-        weaponRenderer.transform.DOShakeScale(0.1f);
+        weaponRendererParent.transform.localScale = new Vector3(1, 1, 1);
+        weaponRendererParent.transform.DOShakeScale(0.1f);
 
         // weaponknockback
         Sequence mySequence = DOTween.Sequence();
         float MovePoint = OriginalWeaponPos;
         MovePoint -= Random.Range(0.25f, 0.5f);
-        mySequence.Append(weaponRenderer.transform.DOLocalMoveX(MovePoint, 0.1f));
-        mySequence.Append(weaponRenderer.transform.DOLocalMoveX(OriginalWeaponPos, 0.1f));
+        mySequence.Append(weaponRendererParent.transform.DOLocalMoveX(MovePoint, 0.1f));
+        mySequence.Append(weaponRendererParent.transform.DOLocalMoveX(OriginalWeaponPos, 0.1f));
 
 
+    }
+
+    public void EquipWeapon(Transform weaponToEquip)
+    {
+        if(EquipedWeapon != null)
+        {
+            EquipedWeapon.GetComponent<ThrowableObject>().ThrowObject(transform.position, Random.onUnitSphere * 1f);
+            EquipedWeapon = null;
+        }
+
+   
+        weaponToEquip.transform.SetParent(weaponRendererParent);
+        weaponToEquip.transform.localRotation = new Quaternion(0, 0, 0, 0);
+        weaponToEquip.GetComponent<ThrowableObject>().DisablePhysics();
+        weaponToEquip.transform.localPosition = new Vector3(0, 0, 0);
+        weaponToEquip.transform.localScale = new Vector3(1, 1, 1);
+
+        EquipedWeapon = weaponToEquip.GetComponent<Gun>();
     }
 }

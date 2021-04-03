@@ -21,7 +21,8 @@ public class WeaponData : ScriptableObject
     [Tooltip("The weapon can roll with a magazine")]
     public bool useMagazine = false;
 
- 
+    public Material WeaponMaterial;
+
     // weapon parts
     [Header("WEAPON PARTS")]
     public GameObject[] ScopeParts;

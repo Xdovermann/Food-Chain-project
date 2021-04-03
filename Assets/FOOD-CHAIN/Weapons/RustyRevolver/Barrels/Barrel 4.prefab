@@ -100,3 +100,4 @@ MonoBehaviour:
     minValue: 1
     maxValue: 5
   rarity: 2
+  Partrenderer: {fileID: 949684032750271420}
