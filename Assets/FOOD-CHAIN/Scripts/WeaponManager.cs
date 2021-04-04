@@ -28,7 +28,7 @@ public class WeaponManager : MonoBehaviour
 
     public float OriginalWeaponPos;
 
-
+    public GameObject ShotEffect;
 
     public Gun EquipedWeapon;
 
@@ -162,6 +162,21 @@ public class WeaponManager : MonoBehaviour
         ShootMovementSequence.Append(weaponRendererParent.transform.DOLocalMoveX(MovePoint, 0.1f));
         ShootMovementSequence.Append(weaponRendererParent.transform.DOLocalMoveX(OriginalWeaponPos, 0.1f));
 
+        if(ShotEffect != null)
+        {
+            GameObject Effect = Instantiate(ShotEffect);
+            Effect.transform.position = EquipedWeapon.weaponEmitter.transform.position;
+            Effect.SetActive(true);
+            Effect.transform.DOShakeScale(0.1f, 0.5f);
+      
+        }
+        else
+        {
+            Debug.LogWarning("het wapen heeft geen shoteffect");
+        }
+     
+        
+
 
     }
 
@@ -182,7 +197,9 @@ public class WeaponManager : MonoBehaviour
         weaponToEquip.transform.localScale = new Vector3(1, 1, 1);
 
         EquipedWeapon = weaponToEquip.GetComponent<Gun>();
- 
+
+        ShotEffect = EquipedWeapon.weaponData.ShotEffect;
+
         EquipedWeapon.EquipWeapon();
     }
 }

@@ -6,6 +6,7 @@ public class ThrowableObject : MonoBehaviour
 {
     private Collider2D objectCollider;
     private Rigidbody2D rb;
+    private float StartingMass;
     public enum GrabState
     {
         Throwable,
@@ -18,6 +19,7 @@ public class ThrowableObject : MonoBehaviour
     {
         objectCollider = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
+        StartingMass = rb.mass;
     }
 
     public void GrabObject(Transform parent)
@@ -32,7 +34,7 @@ public class ThrowableObject : MonoBehaviour
         transform.position = pos;
         objectCollider.enabled = true;
         rb.isKinematic = false;
-
+        rb.mass = StartingMass;
         rb.AddForce(ThrowDirection * 25, ForceMode2D.Impulse);
     }
 
@@ -42,6 +44,7 @@ public class ThrowableObject : MonoBehaviour
         rb.isKinematic = true;
         rb.velocity = new Vector2(0, 0);
         rb.angularVelocity = 0;
+        rb.mass = 0;
         transform.localPosition = new Vector3(0, 0, 0);
     }
 }

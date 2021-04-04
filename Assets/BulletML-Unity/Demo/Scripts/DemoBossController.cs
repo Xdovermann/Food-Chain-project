@@ -59,7 +59,7 @@ namespace FoodChain.BulletML.Demo
       {
         hp--;
 
-        DestroyObject(playerShot.gameObject);
+     
 
         // Flash red
         StartCoroutine(FlashRed());

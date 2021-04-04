@@ -25,11 +25,11 @@ namespace FoodChain.BulletML
     private TopBullet rootBullet;
     private BulletMLLib.BulletPattern pattern;
     private BulletMLLib.IBulletManager bulletManager;
-        public bool isDone = false;
+     
     public Transform ShootDirection;
         public bool PlayerWeapon = false;
         private Gun Weapon;
-        private bool checkOnPatternStatus = true;
+
 
         private void Start()
         {
@@ -41,7 +41,7 @@ namespace FoodChain.BulletML
 
           
 
-            isDone = true;
+        
         }
 
         public void SetUpEmitterOnStart()
@@ -114,20 +114,20 @@ namespace FoodChain.BulletML
       rootBullet.Y = transform.position.y;
       rootBullet.Update();
 
-            if (checkOnPatternStatus)
-            {
-                if (isDone)
-                {
-                    checkOnPatternStatus = false;
-                    Weapon.PatternDone();
-                }
-                else
-                {
-                    IsEnded();
-                }
+            //if (checkOnPatternStatus)
+            //{
+            //    if (isDone)
+            //    {
+            //        checkOnPatternStatus = false;
+            //        Weapon.PatternDone();
+            //    }
+            //    else
+            //    {
+            //        IsEnded();
+            //    }
 
               
-            }
+            //}
          
     }
 
@@ -136,7 +136,7 @@ namespace FoodChain.BulletML
     /// </summary>
     public void Reset()
     {
-            checkOnPatternStatus = true;
+          
       if (rootBullet != null)
       {
         foreach (var task in rootBullet.Tasks)
@@ -146,33 +146,38 @@ namespace FoodChain.BulletML
       }
     }
 
-    /// <summary>
-    /// The pattern is ended
-    /// </summary>
-    public void IsEnded()
-    {
-      
-        if (rootBullet == null)
+        /// <summary>
+        /// The pattern is ended
+        /// </summary>
+        public bool IsEnded
         {
-          isDone = false;
+            get
+            {
+                if (rootBullet == null)
+                {
+                    return false;
+                }
+
+                bool ended = true;
+                foreach (var t in rootBullet.Tasks)
+                {
+                    ended &= t.TaskFinished;
+                }
+
+                return ended;
+            }
         }
 
-        bool ended = true;
-        foreach (var t in rootBullet.Tasks)
+        private void OnDisable()
         {
-          ended &= t.TaskFinished;
+            Weapon.PatternDone();
         }
 
-        isDone = ended;
-          
-    }
 
-     
-
-    /// <summary>
-    /// Load the pattern and store it in cache
-    /// </summary>
-    public static BulletPattern LoadPattern(TextAsset xmlFile)
+        /// <summary>
+        /// Load the pattern and store it in cache
+        /// </summary>
+        public static BulletPattern LoadPattern(TextAsset xmlFile)
     {
       return LoadPattern(xmlFile, false);
     }

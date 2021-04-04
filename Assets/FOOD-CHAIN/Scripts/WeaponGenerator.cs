@@ -8,11 +8,6 @@ public class WeaponGenerator : MonoBehaviour
 
     private WeaponData WeaponToSpawn;
 
-    public Texture2D WeaponTexture;
-    int textureWidthCounter = 0;
-    int width, height;
-
-
     // Update is called once per frame
     void Update()
     {
@@ -34,6 +29,8 @@ public class WeaponGenerator : MonoBehaviour
         GameObject Weapon = Instantiate(WeaponBody,Movement.PlayerMovement.transform.position,transform.rotation);
 
         Gun WeaponScript = Weapon.GetComponent<Gun>();
+        WeaponScript.weaponData = WeaponToSpawn;
+
         // check voor scope
         if (WeaponToSpawn.useScope)
         {

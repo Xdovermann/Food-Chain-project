@@ -18,7 +18,8 @@ public class Gun : WeaponPart
     private List<WeaponPart> weaponParts = new List<WeaponPart>();
     Dictionary<WeaponStatType, float> weaponStats = new Dictionary<WeaponStatType, float>();
 
-    private BulletSourceScript weaponEmitter;
+    [HideInInspector]
+    public BulletSourceScript weaponEmitter;
 
     int RarityCounter = 0;
     public bool isEquiped = false;
@@ -28,6 +29,8 @@ public class Gun : WeaponPart
 
     [HideInInspector]
     public List<SpriteRenderer> WeaponPartSprites = new List<SpriteRenderer>();
+
+    public WeaponData weaponData;
 
     public void AddWeaponPart(WeaponPart part,bool SetShotPoint)
     {
@@ -79,23 +82,33 @@ public class Gun : WeaponPart
         if (!isEquiped)
             return;
 
+        if (weaponEmitter.IsEnded && weaponEmitter.gameObject.activeInHierarchy)
+        {
+            weaponEmitter.gameObject.SetActive(false);
+        }
+            // maak dit opnieuw fire een callback wanneer de pattern emitter klaar is 
+            // als die callback af is gegaan zetten we de timebtwnshots terug 
+            // en als timebtwnshots laag genoge is mmogen we firen
 
-       
+       if(weaponEmitter.gameObject.activeInHierarchy == false)
+        {
             if (TimeBtwnShots <= 0)
             {
                 if (Input.GetMouseButton(0))
                 {
-                    
+
                     ShootPattern();
 
 
 
                 }
             }
-            else if(weaponEmitter.gameObject.activeInHierarchy == false && TimeBtwnShots >= 0)
+            else 
             {
                 TimeBtwnShots -= Time.deltaTime;
             }
+        }
+          
         
        
 

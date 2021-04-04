@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisableTimer: 0.1
+  DestroyTheObject: 1
 --- !u!95 &8091108964593141057
 Animator:
   serializedVersion: 3
