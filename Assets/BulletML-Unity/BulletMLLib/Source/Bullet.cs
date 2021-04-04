@@ -290,7 +290,12 @@ namespace BulletMLLib
       System.Diagnostics.Debug.Assert(null != MyBulletManager);
 
             GameObject sourceObject = BulletManagerScript.bulletManager.GetGameObjectFromBullet(this);
-            BulletSourceScript bulletScript = sourceObject.GetComponent<BulletSourceScript>();
+            BulletSourceScript bulletScript = null;
+            if (sourceObject != null)
+            {
+               bulletScript = sourceObject.GetComponent<BulletSourceScript>();
+            }
+        
 
         
             Vector2 shipPos;
@@ -300,8 +305,11 @@ namespace BulletMLLib
             }
             else
             {
-               // UnityEngine.Debug.LogError("BULLETSCRIPT IS LEEGF");
-               // dit is failsafe
+
+               // dit is failsafe en gebruiken we om op te vangen 
+               // als een bullet geen top node is vraagt die dit nog steeds op
+               // terwijl ze toch de postitie pakken vna de topnode
+
                 shipPos = new Vector2(0, 0);
             }
           

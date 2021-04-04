@@ -92,7 +92,7 @@ public class AnimationManager : MonoBehaviour
         go.transform.localScale = new Vector2(1f, 1f);
         go.SetActive(true);
 
-         holder.SetEase(Ease.Linear);
+         holder.SetEase(Ease.Unset);
     }
 
     public void WallGrabRotation()
