@@ -101,7 +101,11 @@ namespace FoodChain.BulletML
             {
                 // Default
                 pool = defaultPool;
-                       Debug.LogError("zoek naar pool");
+
+            }
+            else
+            {
+                Debug.LogError("test");
             }
 
             // Get a ready-to-use bullet

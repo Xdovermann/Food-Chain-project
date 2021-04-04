@@ -23,6 +23,8 @@ public class WeaponData : ScriptableObject
 
     public Material WeaponMaterial;
 
+    public GameObject WeaponEffect;
+
     // weapon parts
     [Header("WEAPON PARTS")]
     public GameObject[] ScopeParts;

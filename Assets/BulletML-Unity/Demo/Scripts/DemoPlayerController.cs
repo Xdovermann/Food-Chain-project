@@ -70,8 +70,9 @@ namespace FoodChain.BulletML.Demo
         // Flash red
         StartCoroutine(FlashRed());
 
-        Destroy(bullet.gameObject);
-      }
+        bullet.gameObject.SetActive(false);
+ 
+            }
     }
 
 

@@ -1,7 +1,4 @@
-﻿
-// This file is subject to the terms and conditions defined in
-// file 'LICENSE.md', which is part of this source code package.
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using BulletMLLib;
@@ -28,30 +25,52 @@ namespace FoodChain.BulletML
     private TopBullet rootBullet;
     private BulletMLLib.BulletPattern pattern;
     private BulletMLLib.IBulletManager bulletManager;
-
+        public bool isDone = false;
     public Transform ShootDirection;
+        public bool PlayerWeapon = false;
+        private Gun Weapon;
+        private bool checkOnPatternStatus = true;
 
-    void Start()
-    {
-      // Note: we use start and not Awake so the BulletManager has some time to initialiez BulletML properly.
+        private void Start()
+        {
+            if (!PlayerWeapon) // dit is voor enemy weapon en patterns
+            {
+                SetUpEmitterOnStart();
+                enabled = false;
+            }
 
-      // Find the manager
-      bulletManager = FindObjectOfType<BulletManagerScript>();
-      if (bulletManager == null)
-      {
-        throw new System.Exception("Cannot find a BulletManagerScript in the scene!");
-      }
+          
 
-      // Parse pattern
-      if (xmlFile == null)
-      {
-        throw new System.Exception("No pattern (Xml File) assigned to the emitter.");
-      }
+            isDone = true;
+        }
 
-      ParsePattern(false);
+        public void SetUpEmitterOnStart()
+        {
+            // Note: we use start and not Awake so the BulletManager has some time to initialiez BulletML properly.
 
-      Initialize();
-    }
+            // Find the manager
+            bulletManager = FindObjectOfType<BulletManagerScript>();
+
+            if (PlayerWeapon)
+            {
+                Weapon = GetComponentInParent<Gun>();
+            }
+
+            if (bulletManager == null)
+            {
+                throw new System.Exception("Cannot find a BulletManagerScript in the scene!");
+            }
+
+            // Parse pattern
+            if (xmlFile == null)
+            {
+                throw new System.Exception("No pattern (Xml File) assigned to the emitter.");
+            }
+
+            ParsePattern(false);
+
+            Initialize();
+        }
 
     /// <summary>
     /// Force the XML file to be reloaded
@@ -90,10 +109,26 @@ namespace FoodChain.BulletML
 
         Initialize();
       }
-
+      
       rootBullet.X = transform.position.x;
       rootBullet.Y = transform.position.y;
       rootBullet.Update();
+
+            if (checkOnPatternStatus)
+            {
+                if (isDone)
+                {
+                    checkOnPatternStatus = false;
+                    Weapon.PatternDone();
+                }
+                else
+                {
+                    IsEnded();
+                }
+
+              
+            }
+         
     }
 
     /// <summary>
@@ -101,6 +136,7 @@ namespace FoodChain.BulletML
     /// </summary>
     public void Reset()
     {
+            checkOnPatternStatus = true;
       if (rootBullet != null)
       {
         foreach (var task in rootBullet.Tasks)
@@ -113,13 +149,12 @@ namespace FoodChain.BulletML
     /// <summary>
     /// The pattern is ended
     /// </summary>
-    public bool IsEnded
+    public void IsEnded()
     {
-      get
-      {
+      
         if (rootBullet == null)
         {
-          return false;
+          isDone = false;
         }
 
         bool ended = true;
@@ -127,14 +162,12 @@ namespace FoodChain.BulletML
         {
           ended &= t.TaskFinished;
         }
-        return ended;
-      }
+
+        isDone = ended;
+          
     }
 
-        public void Shoot()
-        {
-
-        }
+     
 
     /// <summary>
     /// Load the pattern and store it in cache

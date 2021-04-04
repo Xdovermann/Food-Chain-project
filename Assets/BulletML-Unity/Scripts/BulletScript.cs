@@ -26,7 +26,7 @@ namespace FoodChain.BulletML
 
         public BulletPool pool;
 
-        void Update()
+    void Update()
     {
       // Do we have a valid bullet?
       if (bullet != null)

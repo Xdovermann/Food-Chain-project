@@ -40,7 +40,7 @@ public class WeaponGenerator : MonoBehaviour
             GameObject WeaponScopePart = GetWeaponPart(WeaponToSpawn.ScopeParts);
           GameObject scope=  Instantiate(WeaponScopePart, WeaponScript.ScopeSlot);
             scope.transform.localPosition = new Vector3(0, 0, 0);
-            WeaponScript.AddWeaponPart(scope.GetComponent<WeaponPart>());
+            WeaponScript.AddWeaponPart(scope.GetComponent<WeaponPart>(),false);
 
          
      
@@ -52,7 +52,7 @@ public class WeaponGenerator : MonoBehaviour
             GameObject WeaponBarrelPart = GetWeaponPart(WeaponToSpawn.BarrelParts);
             GameObject barrel =   Instantiate(WeaponBarrelPart, WeaponScript.BarrelSlot);
             barrel.transform.localPosition = new Vector3(0, 0, 0);
-            WeaponScript.AddWeaponPart(barrel.GetComponent<WeaponPart>());
+            WeaponScript.AddWeaponPart(barrel.GetComponent<WeaponPart>(),true);
 
       
         }
@@ -63,7 +63,7 @@ public class WeaponGenerator : MonoBehaviour
             GameObject WeaponStockPart = GetWeaponPart(WeaponToSpawn.StockParts);
            GameObject stock= Instantiate(WeaponStockPart, WeaponScript.StockSlot);
             stock.transform.localPosition = new Vector3(0, 0, 0);
-            WeaponScript.AddWeaponPart(stock.GetComponent<WeaponPart>());
+            WeaponScript.AddWeaponPart(stock.GetComponent<WeaponPart>(),false);
 
         
         }
@@ -75,7 +75,7 @@ public class WeaponGenerator : MonoBehaviour
           GameObject magazine = Instantiate(WeaponMagazinePart, WeaponScript.MagazinSlot);
             magazine.transform.localPosition = new Vector3(0, 0, 0);
 
-            WeaponScript.AddWeaponPart(magazine.GetComponent<WeaponPart>());
+            WeaponScript.AddWeaponPart(magazine.GetComponent<WeaponPart>(),false);
 
      
 

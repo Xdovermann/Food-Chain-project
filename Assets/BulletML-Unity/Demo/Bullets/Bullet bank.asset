@@ -16,7 +16,7 @@ MonoBehaviour:
   - name: default
     prefab: {fileID: 100000, guid: 124ea66ee811a054a92f0fe802cd5371, type: 3}
     sprite: {fileID: 21300000, guid: 7112bfddc39b2ab459b606aef2ecd522, type: 3}
-    TimeToLiveInSeconds: 1
+    TimeToLiveInSeconds: 5
     DestroyWhenOutOfScreen: 1
     poolCapacity: 10
   - name: boss3_shot

@@ -22,18 +22,18 @@ namespace BulletMLLib
     {
       get
       {
-        if (QualitySettings.vSyncCount == 0)
-        {
-          return Application.targetFrameRate;
-        }
-        else
-        {
-          if (Screen.currentResolution.refreshRate > 0)
-          {
-            return Screen.currentResolution.refreshRate;
-          }
+        //if (QualitySettings.vSyncCount == 0)
+        //{
+        //  return Application.targetFrameRate;
+        //}
+        //else
+        //{
+        //  if (Screen.currentResolution.refreshRate > 0)
+        //  {
+        //    return Screen.currentResolution.refreshRate;
+        //  }
           return 60f;
-        }
+      //  }
       }
     }
   }

@@ -294,7 +294,17 @@ namespace BulletMLLib
 
         
             Vector2 shipPos;
-            shipPos = bulletScript.ShootDirection.position;
+            if(bulletScript != null)
+            {
+                shipPos = bulletScript.ShootDirection.position;
+            }
+            else
+            {
+               // UnityEngine.Debug.LogError("BULLETSCRIPT IS LEEGF");
+               // dit is failsafe
+                shipPos = new Vector2(0, 0);
+            }
+          
            
       float val = Mathf.Atan2((shipPos.x - X), -(shipPos.y - Y));
       return val;
