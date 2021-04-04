@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using UnityEngine;
+using FoodChain.BulletML;
 
 namespace BulletMLLib
 {
@@ -152,6 +153,8 @@ namespace BulletMLLib
       }
     }
 
+        public BulletSourceScript emmitter;
+
     #endregion //Properties
 
     #region Methods
@@ -285,11 +288,14 @@ namespace BulletMLLib
     {
       //get the player position so we can aim at that little fucker
       System.Diagnostics.Debug.Assert(null != MyBulletManager);
-      Vector2 shipPos = MyBulletManager.PlayerPosition(this);
 
-      //TODO: this function doesn't seem to work... bullets sometimes just spin around in circles?
+            GameObject sourceObject = BulletManagerScript.bulletManager.GetGameObjectFromBullet(this);
+            BulletSourceScript bulletScript = sourceObject.GetComponent<BulletSourceScript>();
 
-      //get the angle at that dude
+        
+            Vector2 shipPos;
+            shipPos = bulletScript.ShootDirection.position;
+           
       float val = Mathf.Atan2((shipPos.x - X), -(shipPos.y - Y));
       return val;
     }

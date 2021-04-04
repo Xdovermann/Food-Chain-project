@@ -23,7 +23,7 @@ namespace FoodChain.BulletML
 
     private Renderer[] renderers;
 
-       public BulletSourceScript Emitter;
+
         public BulletPool pool;
 
         void Update()

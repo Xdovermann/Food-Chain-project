@@ -204,13 +204,8 @@ namespace FoodChain.BulletML
                 bulletScript.Bullet.TimeSpeed = timeSpeed;
                 //  if (Emitter != null)
                 // {
-                bulletScript.Emitter = Emitter;
-                if (Emitter == null)
-                {
-                    Debug.LogError("we krijgen legen emitter dus pak laatste top bullet als failsafe");
-                    // test dit nog met meerdere patterns die tegelijkertijd afgevuurd worden
-                    bulletScript.Emitter = TopBulletParent.GetComponent<BulletSourceScript>();
-                }
+
+
                   
              //   }
              //   else
@@ -397,10 +392,11 @@ namespace FoodChain.BulletML
     public void SetBulletProperties(float timeSpeed, float scale)
     {
       BulletScript[] bullets = FindObjectsOfType<BulletScript>();
-      foreach (BulletScript b in bullets)
-      {
-        b.Bullet.Scale = scale;
-        b.Bullet.TimeSpeed = timeSpeed;
+            foreach (BulletScript b in bullets)
+            {
+                b.Bullet.Scale = scale;
+                b.Bullet.TimeSpeed = timeSpeed;
+           
       }
     }
 

@@ -19,13 +19,13 @@ namespace FoodChain.BulletML
     /// Position, updated by BulletML
     /// </summary>
     public Vector2 position;
-  
-    /// <summary>
-    /// New bullet creation
-    /// </summary>
-    /// <param name="bulletManager"></param>
-    public BulletObject(BulletMLLib.IBulletManager bulletManager, GameObject parent)
-      : base(bulletManager)
+
+        /// <summary>
+        /// New bullet creation
+        /// </summary>
+        /// <param name="bulletManager"></param>
+        public BulletObject(BulletMLLib.IBulletManager bulletManager, GameObject parent)
+          : base(bulletManager)
     {
       this.Parent = parent;
  
@@ -38,6 +38,7 @@ namespace FoodChain.BulletML
     {
       // Raise event
       if (OnBulletSpawned != null) OnBulletSpawned(this, this.Label, Parent.GetComponent<BulletSourceScript>());
+           
     }
 
     /// <summary>

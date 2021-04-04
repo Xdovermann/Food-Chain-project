@@ -29,7 +29,7 @@ namespace FoodChain.BulletML
     private BulletMLLib.BulletPattern pattern;
     private BulletMLLib.IBulletManager bulletManager;
 
-        public Transform ShootDirection;
+    public Transform ShootDirection;
 
     void Start()
     {
@@ -130,6 +130,11 @@ namespace FoodChain.BulletML
         return ended;
       }
     }
+
+        public void Shoot()
+        {
+
+        }
 
     /// <summary>
     /// Load the pattern and store it in cache
