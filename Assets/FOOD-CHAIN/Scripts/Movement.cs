@@ -213,13 +213,15 @@ public class Movement : MonoBehaviour
         if(x == 0)
         {
             Jump((Vector2.up + wallDir / 5), true);
+
+           
         }
         else
         {
             Jump((Vector2.up + wallDir / 10), true);
         }
-       
 
+        AmountOfJumps = startAmountOfJumps;
         wallJumped = true;
     }
 

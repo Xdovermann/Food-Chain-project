@@ -87,7 +87,12 @@ public class AnimationManager : MonoBehaviour
           
         }
 
-     //   holder.SetEase(Ease.Linear);
+        GameObject go = ObjectPooler.FlashEffect.GetObject();
+        go.transform.position = transform.position;
+        go.transform.localScale = new Vector2(1f, 1f);
+        go.SetActive(true);
+
+         holder.SetEase(Ease.Linear);
     }
 
     public void WallGrabRotation()

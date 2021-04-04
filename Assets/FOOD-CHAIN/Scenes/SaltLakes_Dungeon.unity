@@ -5373,7 +5373,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponDatabase:
   - {fileID: 11400000, guid: 6469b06e5ff37664fb25a9fb5dae1ff3, type: 2}
-  WeaponTexture: {fileID: 0}
 --- !u!4 &646642537
 Transform:
   m_ObjectHideFlags: 0
@@ -5821,6 +5820,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 530493792571885964, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 530493793948837694, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
       propertyPath: m_RootOrder
       value: 7

@@ -72,7 +72,7 @@ public class Gun : WeaponPart
     
         weaponEmitter = GetComponentInChildren<BulletSourceScript>();
         weaponEmitter.SetUpEmitterOnStart();
-      
+
         DisablePatternEmitter();
        
     }
