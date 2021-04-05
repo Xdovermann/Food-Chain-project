@@ -13,10 +13,10 @@ public class WeaponPart : MonoBehaviour
 
     public enum WeaponStatType
     {
-        Damage,
-        Accuracy, // dit is weapon handling
-        AmmoPerShot,
-        FireRate
+        Damage,// damage
+        Accuracy, // dit is weapon handling hoe snel die rond beweegt
+        AmmoPerShot,// ammo consumptiie
+        FireRate // hoe snel die schiet
     }
 
     public enum Rarity

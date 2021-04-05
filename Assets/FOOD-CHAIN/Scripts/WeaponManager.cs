@@ -180,12 +180,12 @@ public class WeaponManager : MonoBehaviour
 
     }
 
-    public void EquipWeapon(Transform weaponToEquip)
+    public void EquipNewWeapon(Transform weaponToEquip)
     {
         if(EquipedWeapon != null)
         {
-            EquipedWeapon.GetComponent<ThrowableObject>().ThrowObject(transform.position, Random.onUnitSphere * 1f);
-            EquipedWeapon.GetComponent<Gun>().isEquiped = false;
+  //          EquipedWeapon.GetComponent<ThrowableObject>().ThrowObject(transform.position, Random.onUnitSphere * 1f);    
+            EquipedWeapon.GetComponent<Gun>().DequipWeapon();
             EquipedWeapon = null;
         }
 

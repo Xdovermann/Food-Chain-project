@@ -18,4 +18,4 @@ MonoBehaviour:
     sprite: {fileID: 4385501425044414559, guid: 13aba4a0357ba6142b4025a6f2e5e91a, type: 3}
     TimeToLiveInSeconds: 5
     DestroyWhenOutOfScreen: 1
-    poolCapacity: 50
+    poolCapacity: 150

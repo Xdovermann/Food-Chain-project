@@ -68,7 +68,7 @@ public class GrappleManager : MonoBehaviour
                 {
 
                     Debug.Log("equip weapon");
-                    WeaponManager.weaponManager.EquipWeapon(hit.transform);
+                    WeaponManager.weaponManager.EquipNewWeapon(hit.transform);
                 }
 
                 // }

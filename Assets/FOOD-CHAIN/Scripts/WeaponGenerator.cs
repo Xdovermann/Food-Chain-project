@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class WeaponGenerator : MonoBehaviour
 {
+    public PerksDataBase perkDataBase;
     public WeaponData[] WeaponDatabase;
 
     private WeaponData WeaponToSpawn;
+    public static WeaponGenerator weaponGenerator;
+
+    private void Awake()
+    {
+        weaponGenerator = this;
+    }
 
     // Update is called once per frame
     void Update()
@@ -106,34 +113,14 @@ public class WeaponGenerator : MonoBehaviour
 
 
     }
-//    private readonly List<Vector3> _vertices = new List<Vector3>();
-  //  private readonly List<Vector2> _UV = new List<Vector2>();
-    //private Mesh CreateTexture(Sprite sprite,Sprite sprite2)
-    //{
-
-    //    var vertices = sprite.vertices; // first copy of vertex buffer occurs here, when it is marshalled from unmanaged to managed memory
-    //    var vertices2 = sprite2.vertices;
-
-    //    _vertices.Clear();  // this temporary buffer allows me to avoid one of those allocation, but i still do copy of data because Mesh.SetVertices can't accept Vector2[]
-
-    //    for (var i = 0; i < vertices.Length; i++)
-    //    {
-    //        _vertices.Add(vertices[i]);
-    //        _vertices.Add(vertices2[i]);
-    //    }
-
-    //    mesh.SetVertices(_vertices);  // here's the third copy of vertex buffer is created and marshalled back to unmanaged memory
-    //    mesh.SetTriangles(sprite.triangles, 0);
-    //    mesh.SetTriangles(sprite2.triangles, 0);
-
     
+    public GameObject RollRandomPerk()
+    {
+        int randIndex = Random.Range(0, perkDataBase.Perks.Length);
 
-    //    mesh.SetUVs(0, sprite.uv);
-    //    mesh.SetUVs(0, sprite2.uv);
-    //    mesh.RecalculateBounds();
+        GameObject perkToUse = perkDataBase.Perks[randIndex];
 
-    //    return mesh;
-
-    //}
+        return perkToUse;
+    }
 
 }

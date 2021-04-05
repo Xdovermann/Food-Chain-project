@@ -221,7 +221,7 @@ public class Movement : MonoBehaviour
             Jump((Vector2.up + wallDir / 10), true);
         }
 
-        AmountOfJumps = startAmountOfJumps;
+        
         wallJumped = true;
     }
 
@@ -230,7 +230,8 @@ public class Movement : MonoBehaviour
         if(coll.wallSide != side)
          animationManager.Flip(side * -1);
         animationManager.WallGrabRotation();
-      
+        AmountOfJumps = startAmountOfJumps;
+
     }
 
     private void Walk(Vector2 dir)

@@ -32,6 +32,8 @@ public class Gun : WeaponPart
 
     public WeaponData weaponData;
 
+    public List<PerkBehaviour> PerkRoles = new List<PerkBehaviour>();
+
     public void AddWeaponPart(WeaponPart part,bool SetShotPoint)
     {
         weaponParts.Add(part);
@@ -131,6 +133,8 @@ public class Gun : WeaponPart
         }
 
         SetRarity();
+
+        RollPerks();
     }
 
     private void SetRarity()
@@ -145,8 +149,8 @@ public class Gun : WeaponPart
 
     public void ThrowWeapon()
     {
-     
-        rb.AddForce(Random.onUnitSphere * 10, ForceMode2D.Impulse);
+        GetComponent<ThrowableObject>().ThrowObject(transform.position, Random.onUnitSphere * 1f);
+      //  rb.AddForce(Random.onUnitSphere * 10, ForceMode2D.Impulse);
     }
 
     private void ShootPattern()
@@ -173,6 +177,14 @@ public class Gun : WeaponPart
     {
         TimeBtwnShots = 0.1f;
         isEquiped = true;
+        ActivatePerks();
+    }
+
+    public void DequipWeapon()
+    {
+        isEquiped = false;
+        ThrowWeapon();
+        DisablePerks();
     }
 
     public void LowerSprites()
@@ -199,6 +211,50 @@ public class Gun : WeaponPart
         {
             renderer.sortingLayerName = "Weapon";
             renderer.sortingOrder = 0;
+        }
+    }
+
+    public void RollPerks()
+    {
+        // kijk naar rarity 
+        // en gebaseerd op rarity rol je een aantal perks
+
+        //uncommon : 0
+        //common : 1
+        // rare : 2
+        // epic : 3
+        // legendary : 4 
+
+        for (int i = 0; i < (int)rarity; i++)
+        {
+            GameObject perkToUse = WeaponGenerator.weaponGenerator.RollRandomPerk();
+            GameObject go = Instantiate(perkToUse, transform);
+            PerkRoles.Add(go.GetComponent<PerkBehaviour>());
+        }
+   
+
+
+    }
+
+    public void ActivatePerks()
+    {
+        // scroll door perks heen
+        // activate de perks
+        foreach (PerkBehaviour perk in PerkRoles)
+        {
+            perk.AddAbility();
+        }
+        
+    }
+
+
+    public void DisablePerks()
+    {
+        // scroll door perks
+        // disable ze allemaal
+        foreach (PerkBehaviour perk in PerkRoles)
+        {
+            perk.RemoveAbility();
         }
     }
 }
