@@ -6,10 +6,12 @@ public class DisableAfterTime : MonoBehaviour
 {
     public float DisableTimer=0.1f;
     public bool DestroyTheObject = false;
+    private Vector2 scale;
     // Start is called before the first frame update
     private void Awake()
     {
         StartCoroutine(DisableObject());
+        scale = transform.localScale;
     }
 
     private IEnumerator DisableObject()
@@ -21,6 +23,7 @@ public class DisableAfterTime : MonoBehaviour
         }
         else
         {
+            transform.localScale = scale;
             gameObject.SetActive(false);
         }
        

@@ -8,16 +8,20 @@ public class GrappleManager : MonoBehaviour
 
     public Transform GrabParent;
 
+    [HideInInspector]
     public GameObject GrappledObject;
-    private ThrowableObject throwableObject;
+    [HideInInspector]
+    public ThrowableObject throwableObject;
+
 
     [Header("Layers")]
     public LayerMask CollidbleLayer;
     private Movement MovementManager;
-
+    public static GrappleManager grappleManager;
     private void Awake()
     {
         MovementManager = GetComponent<Movement>();
+        grappleManager = this;
     }
 
     // Update is called once per frame

@@ -7,14 +7,14 @@ public class AmmoBox : ThrowableObject
 {
     // als player in grabrange is move dan naar de player toe
     // als zijn ammo vol is van zijn current weapon blijf still liggen
-
+    public int AmmoAmount =25;
     private Movement Player;
     private WeaponManager weaponManager;
     public float moveRange = 2f;
 
     private void OnEnable()
     {
-        grabState = GrabState.Throwable;
+     
         Player = Movement.PlayerMovement;
         weaponManager = WeaponManager.weaponManager;
     }
@@ -29,8 +29,8 @@ public class AmmoBox : ThrowableObject
         float distance = Vector2.Distance(transform.position, Player.transform.position);
         if(distance <= moveRange)
         {
-            
-      
+
+           
             transform.position = Vector2.Lerp(transform.position, Player.transform.position, 10 * Time.deltaTime);
         
 
@@ -47,15 +47,33 @@ public class AmmoBox : ThrowableObject
 
         if (collision.transform.CompareTag("Player"))
         {
+            CheckIfGrabbed();
             AddAmmo();
+
         }
     }
 
     private void AddAmmo()
     {
-        weaponManager.AmmoHandling(weaponManager.EquipedWeapon.AmmoUsage, 100, false);
+        weaponManager.AmmoHandling(weaponManager.EquipedWeapon.AmmoUsage, AmmoAmount, false);
+
+        GameObject effect = ObjectPooler.FlashEffect.GetObject();
+        effect.transform.position = transform.position;
+        effect.SetActive(true);
+        effect.transform.DOShakeScale(0.1f);
+
         gameObject.SetActive(false);
     }
 
+    // checken we of we de ammobox vasthaden en dan toch opraapte
+    private void CheckIfGrabbed()
+    {
+        if (GrappleManager.grappleManager.throwableObject == this)
+        {
+            ThrowObject(new Vector2(0, 0), new Vector2(0, 0));
+            GrappleManager.grappleManager.throwableObject = null;
+            GrappleManager.grappleManager.GrappledObject = null;
+        }
+    }
 
 }
