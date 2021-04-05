@@ -8,7 +8,7 @@ using UnityEngine;
     public enum ObjectPoolerType
     {
         FlashEffect,
-        GunShotEffect,
+        AmmoBox,
 
     }
 
@@ -16,7 +16,7 @@ using UnityEngine;
     {
 
         public static ObjectPooler FlashEffect;
-    public static ObjectPooler GunShotEffect;
+        public static ObjectPooler AmmoBox;
 
     [SerializeField]
         private int amountToSpawnOnStart = 30;
@@ -42,8 +42,8 @@ using UnityEngine;
                     FlashEffect = this;
                     break;
 
-            case ObjectPoolerType.GunShotEffect:
-                GunShotEffect = this;
+            case ObjectPoolerType.AmmoBox:
+                AmmoBox = this;
                 break;
 
 

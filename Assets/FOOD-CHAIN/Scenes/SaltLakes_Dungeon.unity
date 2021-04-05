@@ -5462,7 +5462,7 @@ GameObject:
   - component: {fileID: 712463930}
   - component: {fileID: 712463929}
   m_Layer: 0
-  m_Name: EffectPoolerGunShot
+  m_Name: AmmoBoxPooler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5481,7 +5481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amountToSpawnOnStart: 30
-  PooledObject: {fileID: 7773498871708132411, guid: 9b1daf5bd66b01e4e942fa327d4bae4d, type: 3}
+  PooledObject: {fileID: 8664965266944009266, guid: 24a9e59bfecb014468b97e38eaafb2f5, type: 3}
   PoolObjects: []
   Pooler_Type: 1
 --- !u!4 &712463930
@@ -5770,10 +5770,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 530493792571885964, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 530493793948837694, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
       propertyPath: m_RootOrder
       value: 7

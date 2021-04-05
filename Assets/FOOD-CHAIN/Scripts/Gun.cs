@@ -4,35 +4,54 @@ using UnityEngine;
 using FoodChain.BulletML;
 using DG.Tweening;
 
+
+public enum AmmoType
+{
+    Pistol,
+    SMG,
+    Rifle,
+    Shotgun,
+    SniperRifle,
+    Explosives,
+}
+
 public class Gun : WeaponPart
 {
 
+    [Header("Weapon Parts")]
     public Transform ScopeSlot;
     public Transform BarrelSlot;
     public Transform StockSlot;
     public Transform MagazinSlot;
 
+    [Space(10)]
+
     [HideInInspector]
     public Rigidbody2D rb;
-
     private List<WeaponPart> weaponParts = new List<WeaponPart>();
-    Dictionary<WeaponStatType, float> weaponStats = new Dictionary<WeaponStatType, float>();
-
+    private Dictionary<WeaponStatType, float> weaponStats = new Dictionary<WeaponStatType, float>();
     [HideInInspector]
     public BulletSourceScript weaponEmitter;
-
-    int RarityCounter = 0;
+    [HideInInspector]
     public bool isEquiped = false;
-
-    public float TimeBtwnShots = 0.1f;
-    private float TimeBtwnShotsHolder;
-
     [HideInInspector]
     public List<SpriteRenderer> WeaponPartSprites = new List<SpriteRenderer>();
 
     public WeaponData weaponData;
 
     public List<PerkBehaviour> PerkRoles = new List<PerkBehaviour>();
+
+    private WeaponManager weaponManager;
+
+    [Space(10)]
+    [Header("Weapon Stats")]
+    private int RarityCounter = 0;
+    public float FireRate = 0.1f;
+    private float TimeBtwnShotsHolder;
+    public int AmmoOnShot;
+    public float Damage;
+    [Space(10)]
+    public AmmoType AmmoUsage;
 
     public void AddWeaponPart(WeaponPart part,bool SetShotPoint)
     {
@@ -70,10 +89,12 @@ public class Gun : WeaponPart
 
         WeaponPartSprites.Add(GetComponent<SpriteRenderer>()); // de body van het wapen
 
-        TimeBtwnShotsHolder = TimeBtwnShots;
+        TimeBtwnShotsHolder = FireRate;
     
         weaponEmitter = GetComponentInChildren<BulletSourceScript>();
         weaponEmitter.SetUpEmitterOnStart();
+
+        weaponManager = WeaponManager.weaponManager;
 
         DisablePatternEmitter();
        
@@ -92,22 +113,22 @@ public class Gun : WeaponPart
             // als die callback af is gegaan zetten we de timebtwnshots terug 
             // en als timebtwnshots laag genoge is mmogen we firen
 
-       if(weaponEmitter.gameObject.activeInHierarchy == false)
+       if(weaponEmitter.gameObject.activeInHierarchy == false && weaponManager.EnoughAmmo(AmmoUsage, AmmoOnShot))
         {
-            if (TimeBtwnShots <= 0)
+            if (FireRate <= 0)
             {
                 if (Input.GetMouseButton(0))
                 {
 
                     ShootPattern();
-
+                    weaponManager.AmmoHandling(AmmoUsage, AmmoOnShot,true);
 
 
                 }
             }
             else 
             {
-                TimeBtwnShots -= Time.deltaTime;
+                FireRate -= Time.deltaTime;
             }
         }
           
@@ -170,14 +191,15 @@ public class Gun : WeaponPart
     private void DisablePatternEmitter()
     {
         weaponEmitter.gameObject.SetActive(false);
-        TimeBtwnShots = TimeBtwnShotsHolder;
+        FireRate = TimeBtwnShotsHolder;
     }
 
     public void EquipWeapon()
     {
-        TimeBtwnShots = 0.1f;
+        FireRate = 0.1f;
         isEquiped = true;
         ActivatePerks();
+        weaponManager.AmmoHandling(AmmoUsage,0,false); // callen dit hier om UI te zetten als je wapen opraapt
     }
 
     public void DequipWeapon()

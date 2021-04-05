@@ -14,6 +14,11 @@ public class PerkBehaviour_AmmoHybrid : PerkBehaviour
     // als unequiped word
     // schuif die % door naar elke ammostack die we hadden opgeslagen om zo een even amount of ammo te burnen
 
+
+
+    //PERK IDea
+    // Increase pickup drops en laat ammo pickups naar je toe bewegen door de muur
+
     public override void AddAbility()
     {
         base.AddAbility();

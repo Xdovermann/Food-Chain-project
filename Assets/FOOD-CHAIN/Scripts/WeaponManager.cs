@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -10,31 +11,43 @@ public class WeaponManager : MonoBehaviour
 
 
     public float moveSpeed = 10;
-    public float rotationSpeed = 10;
-
     public Transform Weapon;
     public Transform weaponRendererParent;
 
-    Vector3 mousePos;
+    private Vector3 mousePos;
+    [HideInInspector]
     public  Vector3 mouseVector;
-
-    public float Offset = 0;
-    public int WeaponSide = 1;
-
 
     public Movement playerMovement;
     public float WeaponHandling = 0.1f;
 
-
-    public float OriginalWeaponPos;
-
-    public GameObject ShotEffect;
-
+    private float OriginalWeaponPos;
+    private GameObject ShotEffect;
+    [HideInInspector]
     public Gun EquipedWeapon;
+
+    [Header("Max Ammo ")]
+    public int MaxPistolAmmo = 250;
+    public int MaxSmgAmmo = 500;
+    public int MaxRifleAmmo = 300;
+    public int MaxShotgunAmmo = 125;
+    public int MaxSniperRifleAmmo = 50;
+    public int MaxExplosiveAmmo = 50;
+
+    private int PistolAmmo =50;
+    private int SmgAmmo = 50;
+    private int RifleAmmo = 50;
+    private int ShotgunAmmo = 50;
+    private int SniperRifleAmmo = 50;
+    private int ExplosiveAmmo = 50;
+
+    [Header("UI")]
+    public TextMeshProUGUI AmmoText;
 
     private void Awake()
     {
-        OriginalWeaponPos = weaponRendererParent.transform.localPosition.x; 
+        OriginalWeaponPos = weaponRendererParent.transform.localPosition.x;
+        AmmoText.SetText(""); // reset ammo text
         weaponManager = this;
     }
 
@@ -202,4 +215,212 @@ public class WeaponManager : MonoBehaviour
 
         EquipedWeapon.EquipWeapon();
     }
+    
+    public bool EnoughAmmo(AmmoType ammoType,int AmountToUse)
+    {
+        switch (ammoType)
+        {
+            case AmmoType.Pistol:
+                return WeaponShotPossible(PistolAmmo, AmountToUse);
+            
+            case AmmoType.SMG:
+                return WeaponShotPossible(SmgAmmo, AmountToUse);
+            
+            case AmmoType.Rifle:
+                return WeaponShotPossible(RifleAmmo, AmountToUse);
+             
+            case AmmoType.Shotgun:
+                return WeaponShotPossible(ShotgunAmmo, AmountToUse);
+            
+            case AmmoType.SniperRifle:
+                return WeaponShotPossible(SniperRifleAmmo, AmountToUse);
+           
+            case AmmoType.Explosives:
+                return WeaponShotPossible(ExplosiveAmmo, AmountToUse);
+            
+            default:
+                break;
+
+               
+        }
+
+        Debug.LogWarning("geen fatsoenlijke ammo type mee gegeven");
+        return true;
+    }
+
+    private bool WeaponShotPossible(int AmmoStack,int AmmoForAShot)
+    {
+        if(AmmoStack > 0)
+        {
+            int amount = AmmoStack - AmmoForAShot;
+            if (amount >= 0) // we kunnen schieten
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void AmmoHandling(AmmoType ammoType, int AmountToUse,bool removeAmmo)
+    {
+
+        switch (ammoType)
+        {
+            case AmmoType.Pistol:
+                if (removeAmmo)
+                {
+                    PistolAmmo -= AmountToUse;
+                    PistolAmmo = Mathf.Clamp(PistolAmmo, 0, MaxPistolAmmo);
+                }
+                else
+                {
+                    PistolAmmo += AmountToUse;
+                    PistolAmmo = Mathf.Clamp(PistolAmmo, 0, MaxPistolAmmo);
+                }
+              
+                UpdateAmmoUI(PistolAmmo);
+                break;
+
+            case AmmoType.SMG:
+                if (removeAmmo)
+                {
+                    SmgAmmo -= AmountToUse;
+                    SmgAmmo = Mathf.Clamp(SmgAmmo, 0, MaxSmgAmmo);
+
+                }
+                else
+                {
+                    SmgAmmo += AmountToUse;
+                    SmgAmmo = Mathf.Clamp(SmgAmmo, 0, MaxSmgAmmo);
+
+                }
+
+                UpdateAmmoUI(SmgAmmo);
+                break;
+
+            case AmmoType.Rifle:
+                if (removeAmmo)
+                {
+                    RifleAmmo -= AmountToUse;
+                    RifleAmmo = Mathf.Clamp(RifleAmmo, 0, MaxRifleAmmo);
+                }
+                else
+                {
+                    RifleAmmo += AmountToUse;
+                    RifleAmmo = Mathf.Clamp(RifleAmmo, 0, MaxRifleAmmo);
+                }
+             
+                UpdateAmmoUI(RifleAmmo);
+                break;
+
+            case AmmoType.Shotgun:
+                if (removeAmmo)
+                {
+                    ShotgunAmmo -= AmountToUse;
+                    ShotgunAmmo = Mathf.Clamp(ShotgunAmmo, 0, MaxShotgunAmmo);
+                }
+                else
+                {
+                    ShotgunAmmo += AmountToUse;
+                    ShotgunAmmo = Mathf.Clamp(ShotgunAmmo, 0, MaxShotgunAmmo);
+                }
+              
+                UpdateAmmoUI(ShotgunAmmo);
+                break;
+
+            case AmmoType.SniperRifle:
+                if (removeAmmo)
+                {
+                    SniperRifleAmmo -= AmountToUse;
+                    SniperRifleAmmo = Mathf.Clamp(SniperRifleAmmo, 0, MaxSniperRifleAmmo);
+                }
+                else
+                {
+                    SniperRifleAmmo += AmountToUse;
+                    SniperRifleAmmo = Mathf.Clamp(SniperRifleAmmo, 0, MaxSniperRifleAmmo);
+                }
+             
+                UpdateAmmoUI(SniperRifleAmmo);
+                break;
+
+            case AmmoType.Explosives:
+                if (removeAmmo)
+                {
+                    ExplosiveAmmo -= AmountToUse;
+                    ExplosiveAmmo = Mathf.Clamp(ExplosiveAmmo, 0, MaxExplosiveAmmo);
+                }
+                else
+                {
+                    ExplosiveAmmo += AmountToUse;
+                    ExplosiveAmmo = Mathf.Clamp(ExplosiveAmmo, 0, MaxExplosiveAmmo);
+                }
+          
+                UpdateAmmoUI(ExplosiveAmmo);
+                break;
+
+            default:
+                break;
+
+
+        }
+
+    }
+
+    public bool isAmmoFullOnCurrentWeapon()
+    {
+    
+        switch (EquipedWeapon.AmmoUsage)
+        {
+            case AmmoType.Pistol:
+              
+                return CheckAmmoAmount(PistolAmmo, MaxPistolAmmo);
+            case AmmoType.SMG:
+
+                return CheckAmmoAmount(SmgAmmo, MaxSmgAmmo);
+            case AmmoType.Rifle:
+
+                return CheckAmmoAmount(RifleAmmo, MaxRifleAmmo);
+            case AmmoType.Shotgun:
+
+                return CheckAmmoAmount(ShotgunAmmo, MaxShotgunAmmo);
+            case AmmoType.SniperRifle:
+
+                return CheckAmmoAmount(SniperRifleAmmo, MaxSniperRifleAmmo);
+            case AmmoType.Explosives:
+
+                return CheckAmmoAmount(ExplosiveAmmo, MaxExplosiveAmmo);
+            default:
+                break;
+        }
+
+        return true;
+
+    }
+
+    private bool CheckAmmoAmount(int currentAmount, int maxAmount)
+    {
+        if (currentAmount == maxAmount)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void UpdateAmmoUI(int currentAmmo)
+    {
+        AmmoText.SetText(currentAmmo.ToString());
+    }
+
+   
+
 }

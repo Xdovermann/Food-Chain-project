@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ThrowableObject : MonoBehaviour
 {
-    private Collider2D objectCollider;
+    [HideInInspector]
+    public Collider2D objectCollider;
     private Rigidbody2D rb;
     private float StartingMass;
     public enum GrabState

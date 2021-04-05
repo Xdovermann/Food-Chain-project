@@ -143,9 +143,13 @@ MonoBehaviour:
   rb: {fileID: 0}
   weaponEmitter: {fileID: 0}
   isEquiped: 0
-  TimeBtwnShots: 0.25
   WeaponPartSprites: []
   weaponData: {fileID: 0}
+  PerkRoles: []
+  FireRate: 0.1
+  AmmoOnShot: 1
+  Damage: 1
+  AmmoUsage: 0
 --- !u!50 &3919287221762513150
 Rigidbody2D:
   serializedVersion: 4

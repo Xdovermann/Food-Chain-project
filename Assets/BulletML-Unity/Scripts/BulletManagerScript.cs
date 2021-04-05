@@ -185,7 +185,7 @@ namespace FoodChain.BulletML
 
       if (OnBulletSpawned != null)
       {
-                Debug.Log("pakken we een oude bullet");
+
                 bulletScript = OnBulletSpawned(bullet, bulletName);
                
       }
