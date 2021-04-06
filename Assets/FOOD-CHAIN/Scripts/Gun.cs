@@ -52,7 +52,7 @@ public class Gun : WeaponPart
     public float Damage;
     [Space(10)]
     public AmmoType AmmoUsage;
-
+     
     public void AddWeaponPart(WeaponPart part,bool SetShotPoint)
     {
         weaponParts.Add(part);
