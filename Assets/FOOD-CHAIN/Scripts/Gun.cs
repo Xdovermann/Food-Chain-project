@@ -48,8 +48,11 @@ public class Gun : WeaponPart
     private int RarityCounter = 0;
     public float FireRate = 0.1f;
     private float TimeBtwnShotsHolder;
+
+    public float AttackSpeed = 0.1f;
     public int AmmoOnShot;
     public float Damage;
+    public float WeaponHandling;
     [Space(10)]
     public AmmoType AmmoUsage;
      
@@ -81,6 +84,8 @@ public class Gun : WeaponPart
             }
           
         }
+
+      
     }
 
     private void Awake()
@@ -147,16 +152,36 @@ public class Gun : WeaponPart
             foreach (KeyValuePair<WeaponStatType,float> stat in part.WeaponPartStats)
             {
                 weaponStats.Add(stat.Key, stat.Value);
-                
+
+                switch (stat.Key)
+                {
+                    case WeaponStatType.Damage:
+                        Damage += stat.Value;
+                        break;
+                    case WeaponStatType.Accuracy:
+                        WeaponHandling += stat.Value;
+                        break;
+                    case WeaponStatType.AmmoPerShot:
+                        AmmoOnShot += (int)stat.Value;
+                        break;
+                    case WeaponStatType.FireRate:
+                        AttackSpeed += stat.Value;
+                        break;
+                    default:
+                        break;
+                }
+
                 Debug.Log(stat.Key);
                 Debug.Log(stat.Value);
             }
         }
 
         SetRarity();
-
+    
         RollPerks();
     }
+
+   
 
     private void SetRarity()
     {

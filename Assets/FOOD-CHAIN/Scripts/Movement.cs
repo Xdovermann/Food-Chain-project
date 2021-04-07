@@ -10,11 +10,12 @@ public class Movement : MonoBehaviour
     [HideInInspector]
     public Rigidbody2D rb;
     public AnimationManager animationManager;
-
+    public StompTracker stompTracker;
     [Space]
     [Header("Stats")]
     public float speed = 10;
     public float jumpForce = 50;
+    public float jumpForceHeadStomp = 25;
     public float slideSpeed = 5;
     public float wallJumpLerp = 10;
     public float dashSpeed = 20;
@@ -121,11 +122,11 @@ public class Movement : MonoBehaviour
                 WallJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && !coll.onGround && !wallGrab)
         {
-            if (!coll.onGround && !wallGrab) {
+           
                 PushDown();
-            }
+            
             
         }else
         if (Input.GetKeyUp(KeyCode.S))
@@ -191,12 +192,21 @@ public class Movement : MonoBehaviour
         betterJumpingController.fallMultiplier = 10;
         GroundSmash = true;
         DownParticle.Play();
+
+        // schiet een ray 
+        // als dit een enemy hit 
+        // disable je gravity op de player
+        // takedamge op de ennemy
+        //enable gravity weer na een tijdje of wanneer de  player weer omlaag duwt
+        stompTracker.Stomping();
+      
     }
     private void StopPushDown()
     {
         DownParticle.Stop();
         GroundSmash = false;
         betterJumpingController.fallMultiplier = betterJumpingController.StartMultiplier;
+        stompTracker.StopStomping();
     }
    
 
@@ -251,7 +261,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void Jump(Vector2 dir, bool wall)
+    public void Jump(Vector2 dir, bool wall)
     {
         if (!wall &&!coll.onWall)
         {
@@ -269,6 +279,21 @@ public class Movement : MonoBehaviour
 
        
 
+        particle.Play();
+    }
+
+    public void HeadJump(Vector2 dir, bool wall)
+    {
+
+        AmountOfJumps = 1;
+        animationManager.DoubleJumpAnim();
+
+        slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
+        ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
+
+        rb.velocity = new Vector2(0, 0);
+        rb.velocity += dir * jumpForceHeadStomp;
+        stompTracker.StopStomping();
         particle.Play();
     }
 

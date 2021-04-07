@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour {
 		}
 		else if (collision.gameObject.CompareTag("Enemy"))
 		{
-			collision.gameObject.GetComponent<Enemy>().TakeDamage(1);
+			collision.gameObject.GetComponent<Enemy>().TakeDamage(1,true);
 			DestroyProjectile();
 		}
 	}

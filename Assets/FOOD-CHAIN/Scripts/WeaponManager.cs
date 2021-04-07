@@ -376,6 +376,11 @@ public class WeaponManager : MonoBehaviour
     public bool isAmmoFullOnCurrentWeapon()
     {
     
+        if(EquipedWeapon == null)
+        {
+            return true;
+        }
+
         switch (EquipedWeapon.AmmoUsage)
         {
             case AmmoType.Pistol:

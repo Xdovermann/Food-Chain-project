@@ -31,12 +31,14 @@ public class GrappleManager : MonoBehaviour
         {
             if (GrappledObject == null)
             {
+           
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,10, CollidbleLayer);
                 if (hit.collider != null)
                 {
-                  //  if (hit.collider.gameObject.CompareTag("Enemy"))
-                  //  {
-                        float Distance = Vector2.Distance(transform.position, hit.transform.position);
+
+                    //  if (hit.collider.gameObject.CompareTag("Enemy"))
+                    //  {
+                    float Distance = Vector2.Distance(transform.position, hit.transform.position);
 
                         if (Distance <= GrappleRange)
                         {
@@ -114,11 +116,11 @@ public class GrappleManager : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.cyan;
+   //     Gizmos.color = Color.cyan;
 
   
 
-        Gizmos.DrawWireSphere((Vector2)transform.position , GrappleRange);
+      //  Gizmos.DrawWireSphere((Vector2)transform.position , GrappleRange);
    
     }
 }
