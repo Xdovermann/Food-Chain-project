@@ -18,6 +18,8 @@ public class GrappleManager : MonoBehaviour
     public LayerMask CollidbleLayer;
     private Movement MovementManager;
     public static GrappleManager grappleManager;
+
+
     private void Awake()
     {
         MovementManager = GetComponent<Movement>();
@@ -89,8 +91,21 @@ public class GrappleManager : MonoBehaviour
     {
         
         CameraController.cameraController.Shake(MovementManager.weaponManager.mouseVector, 5, 0.15f);
-
-        throwableObject.ThrowObject(transform.position, MovementManager.weaponManager.mouseVector);
+        Gun weapon = throwableObject.GetComponent<Gun>();
+        if (weapon != null)
+        {
+            throwableObject.ThrowObject(transform.position, MovementManager.weaponManager.mouseVector, true);
+        }
+        else
+        {
+            throwableObject.ThrowObject(transform.position, MovementManager.weaponManager.mouseVector, false);
+            Base_Enemy_AI isEnemy = throwableObject.GetComponent<Base_Enemy_AI>();
+            if(isEnemy != null)
+            {
+                isEnemy.EnemyIsThrown();
+            }
+        }
+        
         GrappledObject = null;
         throwableObject = null;
     }
@@ -104,6 +119,12 @@ public class GrappleManager : MonoBehaviour
 
         if(throwableObject.grabState == ThrowableObject.GrabState.Throwable)
         {
+            Base_Enemy_AI isEnemy = throwableObject.GetComponent<Base_Enemy_AI>();
+            if (isEnemy != null)
+            {
+                isEnemy.EnemyIsGrabbed();
+            }
+
             throwableObject.GrabObject(GrabParent);
         }
         else
@@ -113,6 +134,8 @@ public class GrappleManager : MonoBehaviour
       
      
     }
+
+ 
 
     void OnDrawGizmos()
     {

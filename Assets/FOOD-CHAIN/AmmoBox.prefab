@@ -182,7 +182,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectCollider: {fileID: 0}
+  isThrown: 0
+  PowerNeededForMovement: 0.1
+  holderThrownTimer: 0
   grabState: 0
+  AmmoAmount: 25
   moveRange: 2
 --- !u!50 &7692636547433111491
 Rigidbody2D:

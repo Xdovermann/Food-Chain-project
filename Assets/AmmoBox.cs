@@ -70,7 +70,7 @@ public class AmmoBox : ThrowableObject
     {
         if (GrappleManager.grappleManager.throwableObject == this)
         {
-            ThrowObject(new Vector2(0, 0), new Vector2(0, 0));
+            ThrowObject(new Vector2(0, 0), new Vector2(0, 0),false);
             GrappleManager.grappleManager.throwableObject = null;
             GrappleManager.grappleManager.GrappledObject = null;
         }

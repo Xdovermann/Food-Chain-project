@@ -56,10 +56,11 @@ public class LevelGenerator : MonoBehaviour {
 	public Transform BackgroundParent;
 	public Transform OnBlockDecorParent;
 	public GameObject TestEnemie;
-
+	private GameObject GeneratedMap;
 	public List<MapBlock> SpawnedBlocks = new List<MapBlock>();
-	void Start () {
 
+	public void SpawnMap()
+	{
 		Setup();
 		CreateBackgroundAndLayout();
 		CreateWalls(); // legt alle blocks 
@@ -72,9 +73,19 @@ public class LevelGenerator : MonoBehaviour {
 
 		SpawnProps();
 	}
+
+	public void RemoveMap()
+	{
+		SpawnedBlocks.Clear();
+		Destroy(GeneratedMap);
+	}
+
+
 	void Setup(){
 
-	
+		GeneratedMap = new GameObject();
+		GeneratedMap.name = "Generated map";
+
 		roomHeight = Mathf.RoundToInt(MapSize.x / worldUnitsInOneGridCell);
 		roomWidth = Mathf.RoundToInt(MapSize.y / worldUnitsInOneGridCell);
 	
@@ -296,12 +307,12 @@ public class LevelGenerator : MonoBehaviour {
 
 				if (grid[x, y] == gridSpace.Background)
 				{
-					if (grid[x, y - 1] == gridSpace.Floor)
+					if (grid[x, y - 1] == gridSpace.Floor && grid[x, y+1] == gridSpace.Background)
 					{
-						int rand = Random.Range(0, 10);
+						int rand = Random.Range(0, 5);
 						if (rand == 1)
 						{
-							Spawn(x, y, TestEnemie, transform);
+							Spawn(x, y, TestEnemie, GeneratedMap.transform);
 						}		
 						
 
@@ -346,23 +357,23 @@ public class LevelGenerator : MonoBehaviour {
 					case gridSpace.empty:
 						break;
 					case gridSpace.Background:
-						SpawnRandomObject(x, y, BackgroundBlocks, BackgroundParent,false);
+						SpawnRandomObject(x, y, BackgroundBlocks, GeneratedMap.transform, false);
 						break;
 					case gridSpace.Wall:
 
-						SpawnRandomObject(x, y, WallBlocks, WallParent,true);
+						SpawnRandomObject(x, y, WallBlocks, GeneratedMap.transform, true);
 
 						break;
 					case gridSpace.Floor:
 
-						SpawnRandomObject(x, y, FloorBlocks, WallParent,true);	
+						SpawnRandomObject(x, y, FloorBlocks, GeneratedMap.transform, true);	
 						
 						break;
 					case gridSpace.Spawn:
-						Spawn(x, y, SpawnObj, BackgroundParent);
+						Spawn(x, y, SpawnObj, GeneratedMap.transform);
 						break;
 					case gridSpace.Exit:
-						Spawn(x, y, ExitObj, BackgroundParent);
+						Spawn(x, y, ExitObj,  GeneratedMap.transform);
 						break;
 				}
 			}
@@ -424,5 +435,7 @@ public class LevelGenerator : MonoBehaviour {
 	
 		
 	}
+
+
 
 }

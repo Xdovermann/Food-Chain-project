@@ -177,8 +177,10 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   PerkRoles: []
   FireRate: 0.1
+  AttackSpeed: 0.1
   AmmoOnShot: 1
   Damage: 1
+  WeaponHandling: 0
   AmmoUsage: 0
 --- !u!50 &3497073292045923021
 Rigidbody2D:
@@ -229,6 +231,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d77d65cb470c2ae4cae0d47b14cba1af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectCollider: {fileID: 0}
+  isThrown: 0
+  PowerNeededForMovement: 0.1
+  holderThrownTimer: 0
   grabState: 0
 --- !u!1 &5249196723610407780
 GameObject:

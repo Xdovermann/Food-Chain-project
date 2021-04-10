@@ -28,6 +28,11 @@ public class StompTracker : MonoBehaviour
     public void StopStomping()
     {
         GoombaStomp = false;
+       
+    }
+
+    public void ResetCombo()
+    {
         StompCombo = 1;
     }
 
@@ -36,15 +41,16 @@ public class StompTracker : MonoBehaviour
     {
         if (!GoombaStomp)
             return;
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy") && !movement.coll.onGround)
         {
             movement.rb.velocity = new Vector2(0, 0);
 
           movement.HeadJump(Vector2.up, false);
             GoombaStomp = true;
-
+     
             CameraController.cameraController.Shake(-Vector2.up, 2.5f, 0.1f);
             collision.GetComponent<Enemy>().TakeDamage(StompCombo,false);
+            StompCombo++;
         }
     }
 }

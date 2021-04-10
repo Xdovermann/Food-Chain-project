@@ -57,7 +57,7 @@ public class CameraController : MonoBehaviour {
 		ret.z = -10;
 
 
-		float max = 0.9f;
+		float max = 1f;
 		if (Mathf.Abs(ret.x) > max || Mathf.Abs(ret.y) > max)
 		{
 			ret = ret.normalized; //helps smooth near edges of screen

@@ -44,6 +44,8 @@ public class WeaponManager : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI AmmoText;
 
+
+
     private void Awake()
     {
         OriginalWeaponPos = weaponRendererParent.transform.localPosition.x;

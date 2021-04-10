@@ -14,6 +14,6 @@ public class PlayerSpawnHandler : MonoBehaviour
 
     private void MovePlayer()
     {
-        Movement.PlayerMovement.transform.position = SpawnPoint.position;
+        GameManager.gameManager.player.transform.position= SpawnPoint.position;
     }
 }

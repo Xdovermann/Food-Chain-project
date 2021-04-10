@@ -195,7 +195,8 @@ public class Gun : WeaponPart
 
     public void ThrowWeapon()
     {
-        GetComponent<ThrowableObject>().ThrowObject(transform.position, Random.onUnitSphere * 1f);
+        GetComponent<ThrowableObject>().ThrowObject(transform.position, Random.onUnitSphere * 1f,true);
+    
       //  rb.AddForce(Random.onUnitSphere * 10, ForceMode2D.Impulse);
     }
 

@@ -20,8 +20,10 @@ public class MapExit : MonoBehaviour
         // laad die mmap in 
         // move player
 
+        GameManager.gameManager.MapCompleted();
+
         // placeholder
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

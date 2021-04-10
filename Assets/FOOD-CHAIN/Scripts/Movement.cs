@@ -6,7 +6,8 @@ using DG.Tweening;
 
 public class Movement : MonoBehaviour
 {
-    private CollisionManager coll;
+    [HideInInspector]
+    public CollisionManager coll;
     [HideInInspector]
     public Rigidbody2D rb;
     public AnimationManager animationManager;
@@ -168,6 +169,7 @@ public class Movement : MonoBehaviour
     {
 
         AmountOfJumps = startAmountOfJumps;
+        stompTracker.ResetCombo();
 
         side = animationManager.sr.flipX ? -1 : 1;
 
@@ -241,7 +243,7 @@ public class Movement : MonoBehaviour
          animationManager.Flip(side * -1);
         animationManager.WallGrabRotation();
         AmountOfJumps = startAmountOfJumps;
-
+        stompTracker.ResetCombo();
     }
 
     private void Walk(Vector2 dir)

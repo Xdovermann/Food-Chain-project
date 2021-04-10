@@ -6,6 +6,14 @@ public class Enemy : MonoBehaviour
 {
     public int Health;
     private bool hasDied = false;
+
+    private Base_Enemy_AI base_AI;
+
+    private void Awake()
+    {
+        base_AI = GetComponent<Base_Enemy_AI>();
+    }
+
     public void TakeDamage(int hit,bool useShake)
     {
         if (hasDied)
@@ -28,9 +36,16 @@ public class Enemy : MonoBehaviour
     void EnemyDied()
     {
         hasDied = true;
-        GameObject ammoBox = ObjectPooler.AmmoBox.GetObject();
-        ammoBox.transform.position = transform.position;
-        ammoBox.SetActive(true);
+
+        int rand = Random.Range(0, 4);
+        if(rand == 1)
+        {
+            GameObject ammoBox = ObjectPooler.AmmoBox.GetObject();
+            ammoBox.transform.position = transform.position;
+            ammoBox.SetActive(true);
+
+        }
+    
 
         Destroy(gameObject);
     }

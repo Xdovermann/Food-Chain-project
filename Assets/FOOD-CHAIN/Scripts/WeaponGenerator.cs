@@ -10,6 +10,8 @@ public class WeaponGenerator : MonoBehaviour
     private WeaponData WeaponToSpawn;
     public static WeaponGenerator weaponGenerator;
 
+    public Transform WeaponParent;
+
     private void Awake()
     {
         weaponGenerator = this;
@@ -33,7 +35,7 @@ public class WeaponGenerator : MonoBehaviour
         WeaponToSpawn = GetWeaponToSpawn();
 
         GameObject WeaponBody = GetWeaponPart(WeaponToSpawn.BodyParts);
-        GameObject Weapon = Instantiate(WeaponBody,Movement.PlayerMovement.transform.position,transform.rotation);
+        GameObject Weapon = Instantiate(WeaponBody,Movement.PlayerMovement.transform.position,transform.rotation,WeaponParent);
 
         Gun WeaponScript = Weapon.GetComponent<Gun>();
         WeaponScript.weaponData = WeaponToSpawn;
@@ -123,4 +125,12 @@ public class WeaponGenerator : MonoBehaviour
         return perkToUse;
     }
 
+
+    public void DestroyWeapons()
+    {
+        foreach (Transform child in WeaponParent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 }

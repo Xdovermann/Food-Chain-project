@@ -78,11 +78,16 @@ using UnityEngine;
             {
                 for (int i = 0; i < PoolObjects.Count; i++)
                 {
+
+                if(PoolObjects[i] != null)
+                {
                     if (!PoolObjects[i].activeInHierarchy)
                     {
 
                         return PoolObjects[i];
                     }
+                }
+                   
                 }
             }
 
@@ -114,6 +119,21 @@ using UnityEngine;
         {
             bul.transform.position = position;
         }
+
+    public void DisableAll()
+    {
+        for (int i = 0; i < PoolObjects.Count; i++)
+        {
+            if (PoolObjects[i] != null)
+            {
+                if (PoolObjects[i].activeInHierarchy)
+                {
+                    PoolObjects[i].SetActive(false);
+                }
+            }
+           
+        }
+    }
 
 
     }
