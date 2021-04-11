@@ -208,7 +208,9 @@ GameObject:
   - component: {fileID: 851144667865802631}
   - component: {fileID: 4866735859501321286}
   - component: {fileID: 1442570740023080175}
+  - component: {fileID: 2734156864513432542}
   - component: {fileID: 6367651652639026903}
+  - component: {fileID: 5804101340634938263}
   m_Layer: 7
   m_Name: Salt_Grunt
   m_TagString: Enemy
@@ -263,6 +265,13 @@ MonoBehaviour:
   isThrown: 0
   StandUpTimer: 1
   holderStandUpTimer: 0
+  Speed: 125
+  ClimbLayer:
+    serializedVersion: 2
+    m_Bits: 1344
+  WalkTimer: 2
+  JumpTimer: 1
+  JumpPower: 10
 --- !u!70 &4866735859501321286
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -272,7 +281,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 8012986440504595682}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f097a48967424444bacd0b4f06f7be5a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -300,6 +309,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2734156864513432542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8012986440504595682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d071a2142a4939342a4ee88613274c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallMultiplier: 1.5
+  lowJumpMultiplier: 8
+  StartMultiplier: 0
 --- !u!114 &6367651652639026903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,3 +341,36 @@ MonoBehaviour:
   PowerNeededForMovement: 0.5
   holderThrownTimer: 0
   grabState: 0
+--- !u!114 &5804101340634938263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8012986440504595682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0febc496c42379844b6d97ce252f28db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollidbleLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  onGround: 0
+  onWall: 0
+  onRightWall: 0
+  onLeftWall: 0
+  wallSide: 0
+  collisionRadius: 0.1
+  bottomOffset: {x: 0, y: -0.5}
+  rightOffset: {x: 0.5, y: 0}
+  leftOffset: {x: -0.5, y: 0}
+  RightPlatformChecker: 0
+  LeftPlatformChecker: 0
+  HittingTop: 0
+  PlatformLayer:
+    serializedVersion: 2
+    m_Bits: 192
+  RightPlatformOffest: {x: 0.5, y: -0.5}
+  LeftPlatformOffset: {x: -0.5, y: -0.5}
+  TopOffest: {x: 0, y: 1.79}

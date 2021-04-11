@@ -24,17 +24,17 @@ public class CollisionManager : MonoBehaviour
     public Vector2 bottomOffset, rightOffset, leftOffset;
     private Color debugCollisionColor = Color.red;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+ 
     // Update is called once per frame
     void Update()
-    {  
+    {
+        CheckCollisions();
+    }
+
+    public void CheckCollisions()
+    {
         onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, CollidbleLayer);
-        onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, CollidbleLayer) 
+        onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, CollidbleLayer)
             || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, CollidbleLayer);
 
         onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, CollidbleLayer);
@@ -47,7 +47,7 @@ public class CollisionManager : MonoBehaviour
     {
         Gizmos.color = debugCollisionColor;
 
-        var positions = new Vector2[] { bottomOffset, rightOffset, leftOffset };
+      
 
         Gizmos.DrawWireSphere((Vector2)transform.position  + bottomOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);

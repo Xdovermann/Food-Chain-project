@@ -11,7 +11,7 @@ public class LevelGenerator : MonoBehaviour {
 		Wall, // plekken waar je op kan klimmen 
 		Floor,// blocks waar je op loopt
 		Spawn,
-		Exit
+		Exit,
 	
 	};
 	gridSpace[,] grid;
@@ -68,6 +68,8 @@ public class LevelGenerator : MonoBehaviour {
 		CreateFloors(); // maakt top facing empty blocks een floor ziet er mooier uit
 		SetExit();
 		SetSpawn();
+
+		SpawnOuterWalls();
 
 		SpawnLevel();
 
@@ -259,6 +261,37 @@ public class LevelGenerator : MonoBehaviour {
 						return;
 
 					}
+				}
+			}
+		}
+	}
+
+	private void SpawnOuterWalls()
+    {
+		for (int x = 0; x < roomWidth - 2; x++)
+		{
+			for (int y = 0; y < roomHeight - 2; y++)
+			{
+
+				if (grid[x, y] == gridSpace.Wall)
+				{
+
+					//if (grid[x, y + 1] == gridSpace.empty)
+					//{
+					//	grid[x, y + 1] = gridSpace.Wall;
+					//}
+					//if (grid[x, y - 1] == gridSpace.empty)
+					//{
+					//	grid[x, y - 1] = gridSpace.Wall;
+					//}
+					//if (grid[x + 1, y] == gridSpace.empty)
+					//{
+					//	grid[x + 1, y] = gridSpace.Wall;
+					//}
+					//if (grid[x - 1, y] == gridSpace.empty)
+					//{
+					//	grid[x - 1, y] = gridSpace.Wall;
+					//}
 				}
 			}
 		}

@@ -256,10 +256,12 @@ public class Movement : MonoBehaviour
         if (!wallJumped)
         {
             rb.velocity = new Vector2(dir.x * speed, rb.velocity.y);
+          
         }
         else
         {
               rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
+
         }
     }
 
