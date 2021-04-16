@@ -342,7 +342,7 @@ public class LevelGenerator : MonoBehaviour {
 				{
 					if (grid[x, y - 1] == gridSpace.Floor && grid[x, y+1] == gridSpace.Background)
 					{
-						int rand = Random.Range(0, 5);
+						int rand = Random.Range(0, 8);
 						if (rand == 1)
 						{
 							Spawn(x, y, TestEnemie, GeneratedMap.transform);

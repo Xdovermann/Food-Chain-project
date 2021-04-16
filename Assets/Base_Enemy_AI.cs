@@ -115,9 +115,7 @@ public class Base_Enemy_AI : MonoBehaviour
             {
                 if (TopCollTimer <= 0)
                 {
-                   
-                   // Vector2 wallDir = CollManager.onRightWall ? Vector2.left : Vector2.right;
-                  //  Jump((Vector2.up - wallDir / 10));
+                                   
                     TopCollTimer = 1;
 
                     CheckWallDirection();
@@ -225,12 +223,8 @@ public class Base_Enemy_AI : MonoBehaviour
     }
 
     private void WallGrab()
-    {
-       // if (CollManager.onWall)
-       // {
-
+    {       
             wallGrab = true;
-     //   }
     }
 
     public void Jump(Vector2 dir)
@@ -278,8 +272,6 @@ public class Base_Enemy_AI : MonoBehaviour
         if (wallGrab)
             return;
 
-      
-
         rb.velocity = new Vector2(dir * Speed*Time.fixedDeltaTime, rb.velocity.y);
     }
 
@@ -303,8 +295,6 @@ public class Base_Enemy_AI : MonoBehaviour
         }
        
     }
-
-   
 
     private void AimWeapon()
     {

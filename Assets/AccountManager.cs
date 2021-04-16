@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Text;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Networking;
 
 
 public class AccountManager : MonoBehaviour
@@ -21,33 +22,72 @@ public class AccountManager : MonoBehaviour
 
     public void CallLogin()
     {
-        StartCoroutine(Login());
+       // Application.OpenURL("https://localhost:44386/LeaderBoardEntries/LoginUnity.cs");
+        StartCoroutine(Upload());
     }
 
-    IEnumerator Login()
+
+
+    IEnumerator Upload()
     {
         WWWForm form = new WWWForm();
-        form.AddField("name", username.text);
-        form.AddField("password", password.text);
+        form.AddField("myField", "myData");
 
-        WWW www = new WWW("https://localhost:44312/", form);
-
-        yield return www;
-
-        if(www.text[0] == '0')
+        using (UnityWebRequest www = UnityWebRequest.Post("https://localhost:44386/LeaderBoardEntries/LoginUnity", form))
         {
-            DataBaseManager.username = this.username.text;
-            //   DBManager.score =
-        }
-        else
-        {
-            Debug.Log("user login failed");
-          
-        }
+            yield return www.SendWebRequest();
 
-
+            if (www.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log("connnectionError");
+            }
+            if (www.result == UnityWebRequest.Result.DataProcessingError)
+            {
+                Debug.Log("dataprocessingerror");
+            }
+            if (www.result == UnityWebRequest.Result.InProgress)
+            {
+                Debug.Log("inprogress");
+            }
+            if (www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.Log("protocolerror");
+            }
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Succes");
+            }
+            
+        }
     }
 
-   
+    //IEnumerator Login()
+    //{
+    //    WWWForm form = new WWWForm();
+    //    form.AddField("name", username.text);
+    //    form.AddField("password", password.text);
+
+    //    WWW www = new WWW("https://localhost:44386/LeaderBoardEntries/LoginUnity/", form);
+
+    //    yield return www;
+
+    //    if (www.text == "")
+    //    {
+    //        // DataBaseManager.username = this.username.text;
+    //        //   DBManager.score =
+    //        Debug.Log("return empty");
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("user login failed" + www);
+
+    //    }
+
+    //    // string LoginURL  = "https://localhost:44386/LeaderBoardEntries/LoginUnity/";
+
+    //    //  UnityWebRequest LoginInfoRequest = UnityWebRequest.Get(LoginURL);
+    //}
+
+
 
 }
