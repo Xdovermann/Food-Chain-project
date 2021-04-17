@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class LevelGenerator : MonoBehaviour {
 
@@ -12,9 +13,10 @@ public class LevelGenerator : MonoBehaviour {
 		Floor,// blocks waar je op loopt
 		Spawn,
 		Exit,
+		OuterWalls,
 	
 	};
-	gridSpace[,] grid;
+	gridSpace[,] grid, OuterWallGrid;
 
 	private int roomHeight;
 	private int roomWidth;
@@ -59,6 +61,11 @@ public class LevelGenerator : MonoBehaviour {
 	private GameObject GeneratedMap;
 	public List<MapBlock> SpawnedBlocks = new List<MapBlock>();
 
+
+	public TileBase AutoTile;
+	public TileBase StaticOuterWallTile;
+	public Tilemap DestructibleWallLayer;
+	public Tilemap NonDestructibleWallLayer;
 	public void SpawnMap()
 	{
 		Setup();
@@ -69,16 +76,20 @@ public class LevelGenerator : MonoBehaviour {
 		SetExit();
 		SetSpawn();
 
-		SpawnOuterWalls();
+		SpawnWalls();
+		CreateMapBoundry();
 
 		SpawnLevel();
 
 		SpawnProps();
+
+		
 	}
 
 	public void RemoveMap()
 	{
 		SpawnedBlocks.Clear();
+		DestructibleWallLayer.ClearAllTiles();
 		Destroy(GeneratedMap);
 	}
 
@@ -105,7 +116,8 @@ public class LevelGenerator : MonoBehaviour {
 		walker newWalker = new walker();
 		newWalker.dir = RandomDirection();
 
-		Vector2 spawnPos = new Vector2(Mathf.RoundToInt(roomWidth/ 2.0f),Mathf.RoundToInt(roomHeight/ 2.0f));
+		Vector2 spawnPos = new Vector2(Mathf.RoundToInt(roomWidth/ 2f),Mathf.RoundToInt(roomHeight/ 2f));
+	
 		newWalker.pos = spawnPos;
 
 		walkers.Add(newWalker);
@@ -196,6 +208,27 @@ public class LevelGenerator : MonoBehaviour {
 						grid[x-1,y] = gridSpace.Wall;
 					}
 				}
+				//else
+				//if (grid[x, y] == gridSpace.Wall)
+				//{
+
+				//	if (grid[x, y + 1] == gridSpace.empty)
+				//	{
+				//		grid[x, y + 1] = gridSpace.Wall;
+				//	}
+				//	if (grid[x, y - 1] == gridSpace.empty)
+				//	{
+				//		grid[x, y - 1] = gridSpace.Wall;
+				//	}
+				//	if (grid[x + 1, y] == gridSpace.empty)
+				//	{
+				//		grid[x + 1, y] = gridSpace.Wall;
+				//	}
+				//	if (grid[x - 1, y] == gridSpace.empty)
+				//	{
+				//		grid[x - 1, y] = gridSpace.Wall;
+				//	}
+				//}
 			}
 		}
 	}
@@ -266,35 +299,108 @@ public class LevelGenerator : MonoBehaviour {
 		}
 	}
 
-	private void SpawnOuterWalls()
+	private void SpawnWalls()
     {
-		for (int x = 0; x < roomWidth - 2; x++)
-		{
-			for (int y = 0; y < roomHeight - 2; y++)
+        for (int i = 0; i < 5; i++)
+        {
+			for (int x = 0; x < roomWidth - 1; x++)
 			{
-
-				if (grid[x, y] == gridSpace.Wall)
+				for (int y = 0; y < roomHeight - 1; y++)
 				{
 
-					//if (grid[x, y + 1] == gridSpace.empty)
-					//{
-					//	grid[x, y + 1] = gridSpace.Wall;
-					//}
-					//if (grid[x, y - 1] == gridSpace.empty)
-					//{
-					//	grid[x, y - 1] = gridSpace.Wall;
-					//}
-					//if (grid[x + 1, y] == gridSpace.empty)
-					//{
-					//	grid[x + 1, y] = gridSpace.Wall;
-					//}
-					//if (grid[x - 1, y] == gridSpace.empty)
-					//{
-					//	grid[x - 1, y] = gridSpace.Wall;
-					//}
+					if (grid[x, y] == gridSpace.Wall)
+					{
+						// check of dit in de grid bestaat
+						if (CheckSafePlace(x, y + 1))
+						{
+							if (grid[x, y + 1] == gridSpace.empty)
+							{
+								grid[x, y + 1] = gridSpace.OuterWalls;
+							}
+						}
+						if (CheckSafePlace(x, y - 1))
+						{
+
+							if (grid[x, y - 1] == gridSpace.empty)
+							{
+								grid[x, y - 1] = gridSpace.OuterWalls;
+							}
+						}
+						if (CheckSafePlace(x + 1, y))
+						{
+							if (grid[x + 1, y] == gridSpace.empty)
+							{
+								grid[x + 1, y] = gridSpace.OuterWalls;
+							}
+						}
+						if (CheckSafePlace(x - 1, y))
+						{
+							if (grid[x - 1, y] == gridSpace.empty)
+							{
+								grid[x - 1, y] = gridSpace.OuterWalls;
+							}
+						}
+
+
+
+					}
+
+
 				}
 			}
+
+			for (int x = 0; x < roomWidth - 1; x++)
+			{
+				for (int y = 0; y < roomHeight - 1; y++)
+				{
+
+
+
+
+					if (grid[x, y] == gridSpace.OuterWalls)
+					{
+						// check of dit in de grid bestaat
+						if (CheckSafePlace(x, y + 1))
+						{
+							if (grid[x, y + 1] == gridSpace.empty)
+							{
+								grid[x, y + 1] = gridSpace.Wall;
+							}
+						}
+						if (CheckSafePlace(x, y - 1))
+						{
+
+							if (grid[x, y - 1] == gridSpace.empty)
+							{
+								grid[x, y - 1] = gridSpace.Wall;
+							}
+						}
+						if (CheckSafePlace(x + 1, y))
+						{
+							if (grid[x + 1, y] == gridSpace.empty)
+							{
+								grid[x + 1, y] = gridSpace.Wall;
+							}
+						}
+						if (CheckSafePlace(x - 1, y))
+						{
+							if (grid[x - 1, y] == gridSpace.empty)
+							{
+								grid[x - 1, y] = gridSpace.Wall;
+							}
+						}
+
+
+					}
+				}
+
+
+
+
+
+			}
 		}
+      
 	}
 
 	// spawn dit nadat de map is gespawnd
@@ -307,7 +413,7 @@ public class LevelGenerator : MonoBehaviour {
 			{
 
 				MapBlock Block = SpawnedBlocks[i]; // kijk op welke block je de decor spawnt
-				SpawnRandomObject(Block.MapPosition.x, Block.MapPosition.y, OnBlockDecor, Block.transform, false); // spawn de decor en parent hem onder de block
+			//	SpawnTile((int)Block.MapPosition.x, (int)Block.MapPosition.y, OnBlockDecor, Block.transform, false); // spawn de decor en parent hem onder de block
 
 			}
 
@@ -326,7 +432,7 @@ public class LevelGenerator : MonoBehaviour {
 				if (grid[X, Y] == gridSpace.Floor)
                 {
 					Y += 1; // we willen op de top van de floor de foliage plaatsten dus offset het met 1
-					SpawnRandomObject(X, Y, Foliage, Block.transform, false); // spawn de decor en parent hem onder de block
+					//SpawnTile(X, Y, Foliage, Block.transform, false); // spawn de decor en parent hem onder de block
 				}
 				
 
@@ -361,6 +467,8 @@ public class LevelGenerator : MonoBehaviour {
 		}
 	}
 
+
+
 	private void SetExit()
     {
 		for (int x = roomWidth; x-- > 0; )
@@ -388,18 +496,19 @@ public class LevelGenerator : MonoBehaviour {
 			for (int y = 0; y < roomHeight; y++){
 				switch(grid[x,y]){
 					case gridSpace.empty:
+					//	SpawnRandomObject(x, y, WallBlocks, GeneratedMap.transform, true);
 						break;
 					case gridSpace.Background:
 						SpawnRandomObject(x, y, BackgroundBlocks, GeneratedMap.transform, false);
 						break;
 					case gridSpace.Wall:
 
-						SpawnRandomObject(x, y, WallBlocks, GeneratedMap.transform, true);
+						SpawnTile(x, y,false);
 
 						break;
 					case gridSpace.Floor:
 
-						SpawnRandomObject(x, y, FloorBlocks, GeneratedMap.transform, true);	
+						SpawnTile(x, y,false);	
 						
 						break;
 					case gridSpace.Spawn:
@@ -407,6 +516,9 @@ public class LevelGenerator : MonoBehaviour {
 						break;
 					case gridSpace.Exit:
 						Spawn(x, y, ExitObj,  GeneratedMap.transform);
+						break;
+					case gridSpace.OuterWalls:
+						SpawnTile(x, y,false);
 						break;
 				}
 			}
@@ -438,24 +550,43 @@ public class LevelGenerator : MonoBehaviour {
 		return count;
 	}
 
-	private void SpawnRandomObject(float x,float y,GameObject[] Objects,Transform Parent,bool isBlock)
+	private void SpawnTile(int x,int y,bool isOuterWall)
     {
-		int index =Random.Range(0, Objects.Length);
-		GameObject go = Objects[index];
-	   
-		GameObject Block = Spawn(x, y, go, Parent);
-
-        if (isBlock)
+        if (!isOuterWall)
         {
-		
-			MapBlock blockHolder = Block.GetComponent<MapBlock>();
-			blockHolder.SetPosition(new Vector2(x, y));
-			SpawnedBlocks.Add(blockHolder);
-
+			DestructibleWallLayer.SetTile(new Vector3Int(x, y, 0), AutoTile);
 		}
-        
+        else
+        {
+			DestructibleWallLayer.SetTile(new Vector3Int(x, y, 0), StaticOuterWallTile);
+		}
+	  
 
     }
+
+	private void SpawnRandomObject(int x, int y, GameObject[] Objects, Transform Parent, bool isBlock)
+	{
+
+
+		if (isBlock)
+		{
+			
+
+			//	MapBlock blockHolder = Block.GetComponent<MapBlock>();
+			//blockHolder.SetPosition(new Vector2(x, y));
+			//SpawnedBlocks.Add(blockHolder);
+
+		}
+		else
+		{
+			int index = Random.Range(0, Objects.Length);
+			GameObject go = Objects[index];
+
+			GameObject Decor = Spawn(x, y, go, Parent);
+		}
+
+
+	}
 
 	GameObject Spawn(float x, float y, GameObject toSpawn,Transform parent){
 
@@ -469,6 +600,96 @@ public class LevelGenerator : MonoBehaviour {
 		
 	}
 
+	public bool CheckSafePlace(int x, int y)
+	{
 
+		bool cellExists = Mathf.Min(grid.GetLength(0) - 1, Mathf.Abs(x)) == x && Mathf.Min(grid.GetLength(1) - 1, Mathf.Abs(y)) == y;
+
+		return cellExists;
+
+	}
+
+	private void CreateMapBoundry()
+    {
+	
+		//OuterWallGrid = new gridSpace[roomWidth*2, roomHeight*2];
+		for (int x = 0; x < roomWidth - 1; x++)
+		{
+			for (int y = 0; y < roomHeight - 1; y++)
+			{
+
+				if (grid[x, y] == gridSpace.Wall || grid[x, y] == gridSpace.OuterWalls)
+				{
+					// check of dit in de grid bestaat
+
+					
+						// check of dit in de grid bestaat
+						if (CheckSafePlace(x, y + 1))
+						{
+							if (grid[x, y + 1] == gridSpace.empty)
+							{
+							SpawnTile(x, y+1, true);
+							
+							}
+						}
+						else
+						{
+						SpawnTile(x, y+1, true);
+					}
+
+						if (CheckSafePlace(x, y - 1))
+						{
+
+							if (grid[x, y - 1] == gridSpace.empty)
+							{
+							SpawnTile(x, y-1, true);
+						}
+                    }
+                    else
+                    {
+						SpawnTile(x, y-1, true);
+					}
+						if (CheckSafePlace(x + 1, y))
+						{
+							if (grid[x + 1, y] == gridSpace.empty)
+							{
+							SpawnTile(x+1, y, true);
+						}
+                    }
+                    else
+                    {
+						SpawnTile(x+1, y, true);
+					}
+						if (CheckSafePlace(x - 1, y))
+						{
+							if (grid[x - 1, y] == gridSpace.empty)
+							{
+							SpawnTile(x-1, y, true);
+						}
+                    }
+                    else
+                    {
+						SpawnTile(x-1, y, true);
+					}
+
+
+
+					
+
+
+
+
+				}
+
+
+			}
+		}
+		// loop map grid 
+		// check voor wall 
+		// als wall is check voor empty spaces eromhheen 
+		// als dit zo is zet wall op outerwallgrid
+		// spawn tile op outerwallgrid pos
+
+	}
 
 }
