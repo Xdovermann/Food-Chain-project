@@ -64,6 +64,7 @@ public class LevelGenerator : MonoBehaviour {
 
 	public TileBase AutoTile;
 	public TileBase StaticOuterWallTile;
+	public GameObject MapBlocker;
 	public Tilemap DestructibleWallLayer;
 	public Tilemap NonDestructibleWallLayer;
 	public void SpawnMap()
@@ -90,6 +91,7 @@ public class LevelGenerator : MonoBehaviour {
 	{
 		SpawnedBlocks.Clear();
 		DestructibleWallLayer.ClearAllTiles();
+		NonDestructibleWallLayer.ClearAllTiles();
 		Destroy(GeneratedMap);
 	}
 
@@ -499,17 +501,19 @@ public class LevelGenerator : MonoBehaviour {
 					//	SpawnRandomObject(x, y, WallBlocks, GeneratedMap.transform, true);
 						break;
 					case gridSpace.Background:
-						SpawnRandomObject(x, y, BackgroundBlocks, GeneratedMap.transform, false);
+						SpawnRandomObject(x, y, BackgroundBlocks, GeneratedMap.transform,true);
+					
 						break;
 					case gridSpace.Wall:
 
-						SpawnTile(x, y,false);
-
+						SpawnTile(x, y);
+						SpawnRandomObject(x, y, OnBlockDecor, GeneratedMap.transform,false);
 						break;
 					case gridSpace.Floor:
 
-						SpawnTile(x, y,false);	
-						
+						SpawnTile(x, y);
+						SpawnRandomObject(x, y, OnBlockDecor, GeneratedMap.transform,false);
+						SpawnRandomObject(x, y+1, Foliage, GeneratedMap.transform, false);
 						break;
 					case gridSpace.Spawn:
 						Spawn(x, y, SpawnObj, GeneratedMap.transform);
@@ -518,7 +522,7 @@ public class LevelGenerator : MonoBehaviour {
 						Spawn(x, y, ExitObj,  GeneratedMap.transform);
 						break;
 					case gridSpace.OuterWalls:
-						SpawnTile(x, y,false);
+						SpawnTile(x, y);
 						break;
 				}
 			}
@@ -550,40 +554,39 @@ public class LevelGenerator : MonoBehaviour {
 		return count;
 	}
 
-	private void SpawnTile(int x,int y,bool isOuterWall)
+	private void SpawnTile(int x,int y)
     {
-        if (!isOuterWall)
-        {
+       
 			DestructibleWallLayer.SetTile(new Vector3Int(x, y, 0), AutoTile);
-		}
-        else
-        {
-			DestructibleWallLayer.SetTile(new Vector3Int(x, y, 0), StaticOuterWallTile);
-		}
+		// als we een tile gaan destroyenn checken we gwn of de positie binnen de van deze tile binnen de 
+		// room with en room height is als dit nie zo is dan mogen we hem niet destr
 	  
 
     }
 
-	private void SpawnRandomObject(int x, int y, GameObject[] Objects, Transform Parent, bool isBlock)
+	private void SpawnRandomObject(int x, int y, GameObject[] Objects, Transform Parent,bool isBackground)
 	{
-
-
-		if (isBlock)
-		{
-			
-
-			//	MapBlock blockHolder = Block.GetComponent<MapBlock>();
-			//blockHolder.SetPosition(new Vector2(x, y));
-			//SpawnedBlocks.Add(blockHolder);
-
-		}
-		else
-		{
+        if (isBackground)
+        {
 			int index = Random.Range(0, Objects.Length);
 			GameObject go = Objects[index];
 
 			GameObject Decor = Spawn(x, y, go, Parent);
 		}
+        else
+        {
+			int rand = Random.Range(0, 5);
+			if (rand == 1)
+			{
+				int index = Random.Range(0, Objects.Length);
+				GameObject go = Objects[index];
+
+				GameObject Decor = Spawn(x, y, go, Parent);
+			}
+		}
+	
+	
+		
 
 
 	}
@@ -611,70 +614,113 @@ public class LevelGenerator : MonoBehaviour {
 
 	private void CreateMapBoundry()
     {
-	
+		int WallThickness = 5;
 		//OuterWallGrid = new gridSpace[roomWidth*2, roomHeight*2];
-		for (int x = 0; x < roomWidth - 1; x++)
+		for (int x = 0; x < roomWidth; x++)
 		{
-			for (int y = 0; y < roomHeight - 1; y++)
+			for (int y = 0; y < roomHeight; y++)
 			{
 
-				if (grid[x, y] == gridSpace.Wall || grid[x, y] == gridSpace.OuterWalls)
+				if (grid[x, y] == gridSpace.Wall || grid[x, y] == gridSpace.OuterWalls || grid[x, y] == gridSpace.Floor)
 				{
-					// check of dit in de grid bestaat
+                    // check of dit in de grid bestaat
 
-					
-						// check of dit in de grid bestaat
-						if (CheckSafePlace(x, y + 1))
+
+                    // spawn een layer van walls om de laatste bestaande walls 
+                    // als je een block gaat destroyen check je of die binnen de map radius valt 
+                    // als dit zo is destroy hem en spawn een nieuwe background erop
+                    for (int i = 0; i < WallThickness; i++)
+                    {
+						if (CheckSafePlace(x + i, y))
 						{
-							if (grid[x, y + 1] == gridSpace.empty)
+							if (grid[x + i, y] == gridSpace.empty)
 							{
-							SpawnTile(x, y+1, true);
-							
+								SpawnTile(x + i, y);
+								PlaceMapBlocker(i, WallThickness, x + i, y);
+							}
+                        }
+                        else
+                        {
+							SpawnTile(x + i, y);
+							PlaceMapBlocker(i, WallThickness, x + i, y);
+						}
+
+						if (CheckSafePlace(x - i, y))
+						{
+							if (grid[x - i, y] == gridSpace.empty)
+							{
+								SpawnTile(x - i, y);
+								PlaceMapBlocker(i, WallThickness, x - i, y);
+							}
+                        }
+                        else
+						{
+							SpawnTile(x - i, y);
+							PlaceMapBlocker(i, WallThickness, x-i, y);
+						}
+
+						if (CheckSafePlace(x, y + i))
+						{
+							if (grid[x, y + i] == gridSpace.empty)
+							{
+								SpawnTile(x, y + i);
+								PlaceMapBlocker(i, WallThickness, x, y + i);
+							}
+                        }
+                        else
+                        {
+							SpawnTile(x, y + i);
+							PlaceMapBlocker(i, WallThickness, x, y + i);
+						}
+
+						if (CheckSafePlace(x, y - i))
+						{
+							if (grid[x, y - i] == gridSpace.empty)
+							{
+								SpawnTile(x, y - i);
+								PlaceMapBlocker(i, WallThickness, x, y - i);
+							}
+                        }
+                        else
+                        {
+							SpawnTile(x, y - i);
+							PlaceMapBlocker(i, WallThickness, x, y - i);
+						}
+
+						if (CheckSafePlace(x+i, y - i))
+						{
+							if (grid[x+i, y - i] == gridSpace.empty)
+							{
+								SpawnTile(x+i, y - i);
+								PlaceMapBlocker(i, WallThickness, x + i, y - i);
 							}
 						}
 						else
 						{
-						SpawnTile(x, y+1, true);
-					}
-
-						if (CheckSafePlace(x, y - 1))
-						{
-
-							if (grid[x, y - 1] == gridSpace.empty)
-							{
-							SpawnTile(x, y-1, true);
+							SpawnTile(x+i, y - i);
+							PlaceMapBlocker(i, WallThickness, x + i, y - i);
 						}
-                    }
-                    else
-                    {
-						SpawnTile(x, y-1, true);
-					}
-						if (CheckSafePlace(x + 1, y))
+
+						if (CheckSafePlace(x-i, y + i))
 						{
-							if (grid[x + 1, y] == gridSpace.empty)
+							if (grid[x-i, y + i] == gridSpace.empty)
 							{
-							SpawnTile(x+1, y, true);
+								SpawnTile(x-i, y + i);
+								PlaceMapBlocker(i, WallThickness, x - i, y + i);
+							}
 						}
-                    }
-                    else
-                    {
-						SpawnTile(x+1, y, true);
-					}
-						if (CheckSafePlace(x - 1, y))
+						else
 						{
-							if (grid[x - 1, y] == gridSpace.empty)
-							{
-							SpawnTile(x-1, y, true);
+							SpawnTile(x-i, y + i);
+							PlaceMapBlocker(i, WallThickness, x - i, y + i);
 						}
-                    }
-                    else
-                    {
-						SpawnTile(x-1, y, true);
+						
+
 					}
 
+                 
 
 
-					
 
 
 
@@ -684,12 +730,18 @@ public class LevelGenerator : MonoBehaviour {
 
 			}
 		}
-		// loop map grid 
-		// check voor wall 
-		// als wall is check voor empty spaces eromhheen 
-		// als dit zo is zet wall op outerwallgrid
-		// spawn tile op outerwallgrid pos
+
+		
+		
 
 	}
-
+	private void PlaceMapBlocker(int i, int WallThickness, int x, int y)
+	{
+		int holder = WallThickness;
+		holder -= 1;
+		if (i == holder)
+		{
+			GameObject go = Spawn(x, y, MapBlocker, GeneratedMap.transform);
+		}
+	}
 }

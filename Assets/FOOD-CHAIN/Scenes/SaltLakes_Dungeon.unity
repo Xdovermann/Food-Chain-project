@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 81109026}
   - component: {fileID: 81109025}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: MapRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5751,7 +5751,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 369995093
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -5931,6 +5931,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1876945914}
     - target: {fileID: 8381120862230300458, guid: 990c6aaa7d49bdb4c9f0ad2295d88723, type: 3}
+      propertyPath: MapBlocker
+      value: 
+      objectReference: {fileID: 5775561430682174996, guid: 3e076f40afa9b2541a5beda3e905da29, type: 3}
+    - target: {fileID: 8381120862230300458, guid: 990c6aaa7d49bdb4c9f0ad2295d88723, type: 3}
       propertyPath: percentToFill
       value: 0.1
       objectReference: {fileID: 0}
@@ -5941,7 +5945,7 @@ PrefabInstance:
     - target: {fileID: 8381120862230300458, guid: 990c6aaa7d49bdb4c9f0ad2295d88723, type: 3}
       propertyPath: StaticOuterWallTile
       value: 
-      objectReference: {fileID: 11400000, guid: a8671b9eda21c7341aba5fbe157e8c2b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 8381120862230300458, guid: 990c6aaa7d49bdb4c9f0ad2295d88723, type: 3}
       propertyPath: DestructibleWallLayer
       value: 
