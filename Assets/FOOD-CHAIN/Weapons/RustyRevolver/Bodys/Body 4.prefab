@@ -136,7 +136,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 658197929
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 6681977315275236552, guid: 6a3c722d8d8ce4d4781b815e27ea1be8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -165,6 +165,12 @@ MonoBehaviour:
   - StatType: 0
     minValue: 1
     maxValue: 10
+  - StatType: 3
+    minValue: 0.15
+    maxValue: 0.17
+  - StatType: 2
+    minValue: 1
+    maxValue: 1
   rarity: 0
   ScopeSlot: {fileID: 2890377720381539615}
   BarrelSlot: {fileID: 4428493147282544729}
@@ -176,11 +182,11 @@ MonoBehaviour:
   WeaponPartSprites: []
   weaponData: {fileID: 0}
   PerkRoles: []
-  FireRate: 0.1
-  AttackSpeed: 0.1
-  AmmoOnShot: 1
-  Damage: 1
-  WeaponHandling: 0
+  FireRate: 0.15
+  WeaponAttackSpeed_Stat: 0.1
+  WeaponAmmoOnShot_Stat: 0
+  WeaponDamage_Stat: 0
+  WeaponHandling_Stat: 0
   AmmoUsage: 0
 --- !u!50 &3497073292045923021
 Rigidbody2D:
@@ -310,6 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f4a59f56c098143a5b03310876907d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xmlFile: {fileID: 4900000, guid: 352b45dcc16153d4682449480d9cf088, type: 3}
+  xmlFile: {fileID: 4900000, guid: 19b4a913c38602846ac4982de3b8a0c5, type: 3}
   ShootDirection: {fileID: 5866479566064618794}
   PlayerWeapon: 1

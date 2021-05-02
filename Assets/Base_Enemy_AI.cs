@@ -46,6 +46,7 @@ public class Base_Enemy_AI : MonoBehaviour
 
     private float TopCollTimer;
 
+    private bool StartAI = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,13 +60,22 @@ public class Base_Enemy_AI : MonoBehaviour
         JumpTimerHolder = JumpTimer;
         StartWalkTimer = WalkTimer;
         rb.freezeRotation = true;
-       
+
+        StartCoroutine(EnableAI());
+    }
+
+    private IEnumerator EnableAI()
+    {
+        float rand = Random.Range(0, 2f);
+        yield return new WaitForSeconds(rand);
+        StartAI = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (!StartAI)
+            return;
        
 
         switch (enemyState)
@@ -242,15 +252,15 @@ public class Base_Enemy_AI : MonoBehaviour
     {
       
 
-            if (CollManager.LeftPlatformChecker == false) // is link op de edge
-            {
+            //if (CollManager.LeftPlatformChecker == false) // is link op de edge
+            //{
 
-                MoveDirection = 1;
-            }
-            else if (CollManager.RightPlatformChecker == false) // is rechts op de edge
-            {
-                MoveDirection = -1;
-            }
+            //    MoveDirection = 1;
+            //}
+            //else if (CollManager.RightPlatformChecker == false) // is rechts op de edge
+            //{
+            //    MoveDirection = -1;
+            //}
         
 
     }
@@ -317,7 +327,7 @@ public class Base_Enemy_AI : MonoBehaviour
         isGrabbed = false;
         isThrown = true;
         rb.freezeRotation = false;
-
+   
         isStunned();
     }
 

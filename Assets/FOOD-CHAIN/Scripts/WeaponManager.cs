@@ -99,7 +99,9 @@ public class WeaponManager : MonoBehaviour
 
     private void Animation()
     {
-        transform.DOMove(playerMovement.transform.position, WeaponHandling);
+         transform.DOMove(playerMovement.transform.position, WeaponHandling);
+       // transform.position = playerMovement.transform.position;
+
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //position of cursor in world
         mousePos.z = transform.position.z; //keep the z position consistant, since we're in 2d
         mouseVector = (mousePos - transform.position).normalized; //normalized vector from player pointing to cursor
@@ -162,7 +164,7 @@ public class WeaponManager : MonoBehaviour
     public void WeaponJuice()
     {
         // camerashake
-        float power = Random.Range(1.5f, 2.5f);
+        float power = Random.Range(2.5f, 3f);
         float randTime = Random.Range(0.05f, 0.1f);
         CameraController.cameraController.Shake(-mouseVector,power, randTime);
 

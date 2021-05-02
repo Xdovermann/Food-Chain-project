@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         base_AI = GetComponent<Base_Enemy_AI>();
+        GameManager.gameManager.AddEnemy(this);
     }
 
     public void TakeDamage(int hit,bool useShake)
@@ -36,6 +37,7 @@ public class Enemy : MonoBehaviour
     void EnemyDied()
     {
         hasDied = true;
+        GameManager.gameManager.RemoveEnemy(this);
 
         int rand = Random.Range(0, 4);
         if(rand == 1)

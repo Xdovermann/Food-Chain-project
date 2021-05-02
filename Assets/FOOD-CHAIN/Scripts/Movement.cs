@@ -150,7 +150,7 @@ public class Movement : MonoBehaviour
 
         //if (wallGrab || !canMove)
         //    return;
-
+      
         //if(x > 0)
         //{
         //    side = 1;
@@ -171,6 +171,11 @@ public class Movement : MonoBehaviour
         AmountOfJumps = startAmountOfJumps;
         stompTracker.ResetCombo();
 
+       // float shakeStrength = rb.velocity.y;
+       // shakeStrength /= 2.5f;
+     
+      
+
         side = animationManager.sr.flipX ? -1 : 1;
 
 
@@ -182,8 +187,13 @@ public class Movement : MonoBehaviour
             SpawnPos.y -= 0.25f;
             go.transform.position = SpawnPos;
             go.SetActive(true);
-
+            CameraController.cameraController.Shake(Vector2.down, 2.5f, 0.1f);
         }
+        else
+        {
+            CameraController.cameraController.Shake(Vector2.down, 0.75f, 0.1f);
+        }
+        
 
         jumpParticle.Play();
     }
@@ -280,8 +290,8 @@ public class Movement : MonoBehaviour
    
         rb.velocity += dir * jumpForce;
 
+        CameraController.cameraController.Shake(Vector2.up, 1.5f, 0.1f);
 
-       
 
         particle.Play();
     }

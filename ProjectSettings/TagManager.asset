@@ -19,8 +19,8 @@ TagManager:
   - Weapon
   - Player
   - UsableObject
-  - 
-  - 
+  - Foliage
+  - BlockDecor
   - 
   - 
   - 
@@ -56,12 +56,12 @@ TagManager:
   - name: Player
     uniqueID: 2717490253
     locked: 0
-  - name: Projectile
-    uniqueID: 620650357
-    locked: 0
   - name: Effects
     uniqueID: 806031339
     locked: 0
   - name: Weapon
     uniqueID: 658197929
+    locked: 0
+  - name: Projectile
+    uniqueID: 620650357
     locked: 0

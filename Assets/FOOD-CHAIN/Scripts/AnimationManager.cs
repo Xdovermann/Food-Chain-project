@@ -109,6 +109,8 @@ public class AnimationManager : MonoBehaviour
         }
     }
 
+  
+
     public void ResetRendererRotation()
     {
         sr.transform.localEulerAngles = new Vector3(0, 0, 0);

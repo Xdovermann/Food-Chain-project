@@ -1,8 +1,6 @@
-using System.Collections;
+using FoodChain.BulletML;
 using System.Collections.Generic;
 using UnityEngine;
-using FoodChain.BulletML;
-using DG.Tweening;
 
 
 public enum AmmoType
@@ -43,16 +41,20 @@ public class Gun : WeaponPart
 
     private WeaponManager weaponManager;
 
-    [Space(10)]
-    [Header("Weapon Stats")]
-    private int RarityCounter = 0;
+    [Header("Gun Body Rollable Stats")]
     public float FireRate = 0.1f;
     private float TimeBtwnShotsHolder;
+    private int RarityCounter = 0;
+    [Space(10)]
 
-    public float AttackSpeed = 0.1f;
-    public int AmmoOnShot;
-    public float Damage;
-    public float WeaponHandling;
+
+ 
+  
+    [Header("Weapon Stats")]
+    public float WeaponAttackSpeed_Stat = 0.1f;
+    public int WeaponAmmoOnShot_Stat;
+    public float WeaponDamage_Stat;
+    public float WeaponHandling_Stat;
     [Space(10)]
     public AmmoType AmmoUsage;
      
@@ -73,7 +75,8 @@ public class Gun : WeaponPart
                 // we moeten de shootdirection naar voren bewegen als we de emitter ook naar voor bewegen
                 // pak posite van waar de emitter heen gaat en slap hier gwn wat extra ruimte op
                 Vector3 POS = part.transform.GetChild(0).position;
-                POS.x += 0.25f;
+                POS.x += 50f;
+                POS.x = Mathf.RoundToInt(POS.x);
                 weaponEmitter.ShootDirection.position = POS;
                 
                 weaponEmitter.transform.position = part.transform.GetChild(0).position; // ze de bullet emitter op deze spot
@@ -118,7 +121,7 @@ public class Gun : WeaponPart
             // als die callback af is gegaan zetten we de timebtwnshots terug 
             // en als timebtwnshots laag genoge is mmogen we firen
 
-       if(weaponEmitter.gameObject.activeInHierarchy == false && weaponManager.EnoughAmmo(AmmoUsage, AmmoOnShot))
+       if(weaponEmitter.gameObject.activeInHierarchy == false && weaponManager.EnoughAmmo(AmmoUsage, WeaponAmmoOnShot_Stat))
         {
             if (FireRate <= 0)
             {
@@ -126,7 +129,7 @@ public class Gun : WeaponPart
                 {
 
                     ShootPattern();
-                    weaponManager.AmmoHandling(AmmoUsage, AmmoOnShot,true);
+                    weaponManager.AmmoHandling(AmmoUsage, WeaponAmmoOnShot_Stat,true);
 
 
                 }
@@ -156,16 +159,16 @@ public class Gun : WeaponPart
                 switch (stat.Key)
                 {
                     case WeaponStatType.Damage:
-                        Damage += stat.Value;
+                        WeaponDamage_Stat += stat.Value;
                         break;
                     case WeaponStatType.Accuracy:
-                        WeaponHandling += stat.Value;
+                        WeaponHandling_Stat += stat.Value;
                         break;
                     case WeaponStatType.AmmoPerShot:
-                        AmmoOnShot += (int)stat.Value;
+                        WeaponAmmoOnShot_Stat += (int)stat.Value;
                         break;
                     case WeaponStatType.FireRate:
-                        AttackSpeed += stat.Value;
+                        WeaponAttackSpeed_Stat += stat.Value;
                         break;
                     default:
                         break;
@@ -176,12 +179,17 @@ public class Gun : WeaponPart
             }
         }
 
+        ClampValues();
+
         SetRarity();
     
         RollPerks();
     }
 
-   
+    private void ClampValues()
+    {
+        WeaponAmmoOnShot_Stat = Mathf.Clamp(WeaponAmmoOnShot_Stat, 1, 50);
+    }
 
     private void SetRarity()
     {
@@ -202,8 +210,9 @@ public class Gun : WeaponPart
 
     private void ShootPattern()
     {
-        weaponEmitter.Reset();
         weaponEmitter.gameObject.SetActive(true);
+        weaponEmitter.Reset();
+ 
         WeaponManager.weaponManager.WeaponJuice();
     }
 

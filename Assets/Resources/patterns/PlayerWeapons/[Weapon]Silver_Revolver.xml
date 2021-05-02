@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "bulletml.dtd">
+<bulletml>
+	<action label="top">
+		
+			<action>
+				<fire>
+					<bullet label="Projectile">
+						<direction type="aim">0</direction>
+						<speed>1.25</speed>						
+					</bullet>
+				</fire>
+
+			</action>
+	
+
+	</action>
+
+
+
+
+
+
+</bulletml>

@@ -112,8 +112,11 @@ public class ThrowableObject : MonoBehaviour
             if (rb.velocity.x >= throwable.PowerNeededForMovement || rb.velocity.y >= throwable.PowerNeededForMovement)
             {
                 throwable.isThrown = true;
-                collision.gameObject.GetComponent<Base_Enemy_AI>().EnemyIsThrown();
+              
 
+                collision.gameObject.GetComponent<Base_Enemy_AI>().EnemyIsThrown();
+              //  Vector2 dir = (transform.position - collision.transform.position).normalized;
+             //   collision.gameObject.GetComponent<ThrowableObject>().ThrowObject(transform.position, dir, false);
                
             }
             else
