@@ -6,7 +6,10 @@ public class ThrowableObject : MonoBehaviour
 {
     [HideInInspector]
     public Collider2D objectCollider;
-    private Rigidbody2D rb;
+
+    [HideInInspector]
+    public Rigidbody2D rb;
+
     private float StartingMass;
 
     public bool isThrown = false;
@@ -14,6 +17,8 @@ public class ThrowableObject : MonoBehaviour
     private float ThrownTimer = 1f;
     public float PowerNeededForMovement = 1f;
     public float holderThrownTimer;
+
+    public float PhysicsFallMultiplier = 1.5f;
     // private Transform Spawnparent;
     public enum GrabState
     {
@@ -64,6 +69,16 @@ public class ThrowableObject : MonoBehaviour
 
     private void Update()
     {
+
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (PhysicsFallMultiplier - 1) * Time.deltaTime;
+        }
+        //else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        //{
+        //    rb.velocity += Vector2.up * Physics2D.gravity.y * (8 - 1) * Time.deltaTime;
+        //}
+
         if (isThrown)
         {
             if (rb.velocity.x <= 0.1f && rb.velocity.y <= 0.1f && rb.angularVelocity <= 0.1f)

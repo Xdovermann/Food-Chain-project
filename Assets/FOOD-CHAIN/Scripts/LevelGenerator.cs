@@ -78,6 +78,8 @@ public class LevelGenerator : MonoBehaviour {
 
 	public GameObject spawnPoint;
 
+	public GameObject[] UsableItems;
+
     private void Awake()
     {
 		levelGenerator = this;

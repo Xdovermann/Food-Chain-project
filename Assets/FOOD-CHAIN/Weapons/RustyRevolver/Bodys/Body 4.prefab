@@ -136,7 +136,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 658197929
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 6681977315275236552, guid: 6a3c722d8d8ce4d4781b815e27ea1be8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -218,7 +218,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 4011900129562480947}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: dafb4148d6f0a11448cb8363c4d6ee56, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -238,9 +238,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectCollider: {fileID: 0}
+  rb: {fileID: 0}
   isThrown: 0
   PowerNeededForMovement: 0.1
   holderThrownTimer: 0
+  PhysicsFallMultiplier: 1.5
   grabState: 0
 --- !u!1 &5249196723610407780
 GameObject:

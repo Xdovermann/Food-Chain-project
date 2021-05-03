@@ -56,7 +56,7 @@ public class GrappleManager : MonoBehaviour
             else
             {
                 // we hebben een object vast dus gooi hem
-                ThrowEnemy();
+                ThrowObject();
             }
 
             
@@ -87,7 +87,7 @@ public class GrappleManager : MonoBehaviour
 
     }
 
-    private void ThrowEnemy()
+    private void ThrowObject()
     {
         
         CameraController.cameraController.Shake(MovementManager.weaponManager.mouseVector, 5, 0.15f);
@@ -98,12 +98,23 @@ public class GrappleManager : MonoBehaviour
         }
         else
         {
-            throwableObject.ThrowObject(transform.position, MovementManager.weaponManager.mouseVector, false);
-            Base_Enemy_AI isEnemy = throwableObject.GetComponent<Base_Enemy_AI>();
-            if(isEnemy != null)
+            Chest chest = throwableObject.GetComponent<Chest>();
+            if (chest != null)
             {
-                isEnemy.EnemyIsThrown();
+                throwableObject.ThrowObject(transform.position, MovementManager.weaponManager.mouseVector, false);
+                chest.RemoveRotation();
             }
+            else
+            {
+                Base_Enemy_AI isEnemy = throwableObject.GetComponent<Base_Enemy_AI>();
+                if (isEnemy != null)
+                {
+                    isEnemy.EnemyIsThrown();
+                }
+                throwableObject.ThrowObject(transform.position, MovementManager.weaponManager.mouseVector, false);
+            }
+                 
+         
         }
         
         GrappledObject = null;
@@ -123,6 +134,14 @@ public class GrappleManager : MonoBehaviour
             if (isEnemy != null)
             {
                 isEnemy.EnemyIsGrabbed();
+            }
+            else
+            {
+                Chest chest = throwableObject.GetComponent<Chest>();
+                if(chest != null)
+                {
+                    chest.PickUpChest();
+                }
             }
 
             throwableObject.GrabObject(GrabParent);

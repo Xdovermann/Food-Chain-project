@@ -5734,6 +5734,14 @@ PrefabInstance:
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 15824809480092199, guid: 4bd24e60e54f6d343a9862f90a1dbac7, type: 3}
+    - target: {fileID: 8381120862230300458, guid: 990c6aaa7d49bdb4c9f0ad2295d88723, type: 3}
+      propertyPath: UsableItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8381120862230300458, guid: 990c6aaa7d49bdb4c9f0ad2295d88723, type: 3}
+      propertyPath: UsableItems.Array.data[0]
+      value: 
+      objectReference: {fileID: 8792174584984806670, guid: 1a4ce52ad1ac7db40ad78036d3e52b19, type: 3}
     - target: {fileID: 8381120862230300459, guid: 990c6aaa7d49bdb4c9f0ad2295d88723, type: 3}
       propertyPath: m_Name
       value: Generator
@@ -6030,10 +6038,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 530493792571885970, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
+      propertyPath: CollidbleLayer.m_Bits
+      value: 192
+      objectReference: {fileID: 0}
     - target: {fileID: 530493792571885973, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
       propertyPath: ItemParent
       value: 
       objectReference: {fileID: 381248850}
+    - target: {fileID: 530493792571885973, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
+      propertyPath: CollidbleLayer.m_Bits
+      value: 9600
+      objectReference: {fileID: 0}
     - target: {fileID: 530493792747237716, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
       propertyPath: m_SortingLayer
       value: 4

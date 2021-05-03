@@ -36,11 +36,7 @@ public class GameManager : MonoBehaviour
 
     public void MapCompleted()
     {
-        if(runNumber == 4)
-        {
-            Debug.LogError("spawn boss as its the final map stage");
-
-        }
+   
         runNumber++;
         levelGenerator.RemoveMap();
 
@@ -49,6 +45,8 @@ public class GameManager : MonoBehaviour
         DestroyThrownItems();
 
         levelGenerator.SpawnMap();
+
+        SpawnUsableItems();
     }
 
    public IEnumerator WaveManager()
@@ -63,11 +61,13 @@ public class GameManager : MonoBehaviour
 
             for (int x = 0; x < EnemyWaveData.currentEnemyGroupCount; x++)
             {
-                // pak een random positie van de tilemap
-                // pak een random aantal enemies die je gaat plaatsen in deze group 
-                // spawn de enemies op deze tile en maak een destroy radius waar je blocks in destroyed die hier binnen vallen
+                SpawnUsableItems();
+                yield return new WaitForSeconds(0.5f);
+
                 for (int u = 0; u < 4; u++)
                 {
+                  
+
                     int index = Random.Range(0, levelGenerator.SpawnPoints.Count);
                     Transform pos = levelGenerator.SpawnPoints[index];
 
@@ -77,6 +77,12 @@ public class GameManager : MonoBehaviour
 
                     GameObject go = Instantiate(levelGenerator.TestEnemie, pos.position, transform.rotation);
                     go.transform.SetParent(levelGenerator.GeneratedMap.transform);
+
+                    if (runNumber == 4 && u ==4)
+                    {
+                        Debug.LogError("spawn boss as its the final map stage");
+
+                    }
 
                     levelGenerator.destructibleTerrain.DestroyTerrainRadius(pos.position, 3f);
                 }
@@ -104,6 +110,27 @@ public class GameManager : MonoBehaviour
        
 
         MapExit.mapExit.PlayerCanExit();
+    }
+    public void SpawnUsableItems()
+    {
+        int holder = Random.Range(0, 3);
+        if(holder == 1)
+        {
+            int index = Random.Range(0, levelGenerator.SpawnPoints.Count);
+            Transform pos = levelGenerator.SpawnPoints[index];
+
+            int indexItem = Random.Range(0, levelGenerator.UsableItems.Length);
+
+            Instantiate(levelGenerator.UsableItems[indexItem], pos.position, transform.rotation);
+
+            levelGenerator.destructibleTerrain.DestroyTerrainRadius(pos.position, 1f);
+        }
+        else
+        {
+            return;
+        }
+
+   
     }
 
     public void AddEnemy(Enemy enemy)

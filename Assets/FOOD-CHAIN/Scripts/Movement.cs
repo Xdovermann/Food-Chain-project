@@ -188,10 +188,17 @@ public class Movement : MonoBehaviour
             go.transform.position = SpawnPos;
             go.SetActive(true);
             CameraController.cameraController.Shake(Vector2.down, 2.5f, 0.1f);
+
+        
         }
         else
         {
             CameraController.cameraController.Shake(Vector2.down, 0.75f, 0.1f);
+
+            PlayerRenderer.transform.localScale = new Vector3(1, 1, 1);
+
+            PlayerRenderer.DOShakeScale(0.1f, 0.25f, 3, 25);
+          //  holder.SetEase(Ease.InElastic);
         }
         
 
