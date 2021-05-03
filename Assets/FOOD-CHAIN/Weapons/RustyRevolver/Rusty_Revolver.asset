@@ -17,8 +17,12 @@ MonoBehaviour:
   useBarrel: 1
   useStock: 0
   useMagazine: 0
+  useGrips: 1
   WeaponMaterial: {fileID: 2100000, guid: 3f280e44846e5444388570c121f5f4d0, type: 2}
   ShotEffect: {fileID: 7773498871708132411, guid: 9b1daf5bd66b01e4e942fa327d4bae4d, type: 3}
+  RandomChanceForStock: 1
+  RandomChanceForGrip: 1
+  RandomChanceForScope: 1
   ScopeParts:
   - {fileID: 5314877585303409345, guid: 43b302893ec9ea64187e9160eb526fc9, type: 3}
   - {fileID: 5314877585303409345, guid: 4a5ee3d8984d158459f2f2a0e068ee78, type: 3}
@@ -34,3 +38,7 @@ MonoBehaviour:
   - {fileID: 8971334955854056622, guid: 5f349a4f1ebf001448f6727fbf38a3d9, type: 3}
   StockParts: []
   MagazineParts: []
+  GripParts:
+  - {fileID: 8971334955854056622, guid: 8ec3b47751d3eed44abaf42550b8a006, type: 3}
+  - {fileID: 8971334955854056622, guid: f1d97a8a77f74594698e16461c087ffc, type: 3}
+  - {fileID: 8971334955854056622, guid: 4f32775181f8f5d4c9143e94b8a558bb, type: 3}

@@ -30,6 +30,36 @@ Transform:
   m_Father: {fileID: 2253159334593667206}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2345220905904838260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5905865014791574865}
+  m_Layer: 8
+  m_Name: Grip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5905865014791574865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345220905904838260}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.195, y: -0.185, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2253159334593667206}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4011900129562480947
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,6 +94,7 @@ Transform:
   m_Children:
   - {fileID: 4428493147282544729}
   - {fileID: 2890377720381539615}
+  - {fileID: 5905865014791574865}
   - {fileID: 592802491078534780}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -107,7 +138,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 658197929
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -3956046513907354439, guid: 6a3c722d8d8ce4d4781b815e27ea1be8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -142,14 +173,16 @@ MonoBehaviour:
     minValue: 1
     maxValue: 1
   rarity: 2
+  PartRenderer: {fileID: 0}
+  weaponPartType: 0
   ScopeSlot: {fileID: 2890377720381539615}
   BarrelSlot: {fileID: 4428493147282544729}
   StockSlot: {fileID: 0}
   MagazinSlot: {fileID: 0}
+  GripSlot: {fileID: 5905865014791574865}
   rb: {fileID: 0}
   weaponEmitter: {fileID: 0}
   isEquiped: 0
-  WeaponPartSprites: []
   weaponData: {fileID: 0}
   PerkRoles: []
   FireRate: 0.1
@@ -274,7 +307,7 @@ Transform:
   m_Children:
   - {fileID: 2902709190493938308}
   m_Father: {fileID: 2253159334593667206}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6764129426801324753
 MonoBehaviour:

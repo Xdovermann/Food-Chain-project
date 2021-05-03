@@ -116,7 +116,12 @@ public class GrappleManager : MonoBehaviour
                  
          
         }
-        
+
+        ResetSpot();
+    }
+
+    public void ResetSpot()
+    {
         GrappledObject = null;
         throwableObject = null;
     }
@@ -158,11 +163,11 @@ public class GrappleManager : MonoBehaviour
 
     void OnDrawGizmos()
     {
-   //     Gizmos.color = Color.cyan;
+        Gizmos.color = Color.cyan;
 
   
 
-      //  Gizmos.DrawWireSphere((Vector2)transform.position , GrappleRange);
+        Gizmos.DrawWireSphere((Vector2)transform.position , GrappleRange);
    
     }
 }

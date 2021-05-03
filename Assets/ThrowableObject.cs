@@ -67,6 +67,8 @@ public class ThrowableObject : MonoBehaviour
         isThrown = true;
     }
 
+
+
     private void Update()
     {
 

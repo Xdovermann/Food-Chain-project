@@ -21,19 +21,18 @@ public class Gun : WeaponPart
     public Transform BarrelSlot;
     public Transform StockSlot;
     public Transform MagazinSlot;
-
+    public Transform GripSlot;
     [Space(10)]
 
     [HideInInspector]
     public Rigidbody2D rb;
     private List<WeaponPart> weaponParts = new List<WeaponPart>();
-    private Dictionary<WeaponStatType, float> weaponStats = new Dictionary<WeaponStatType, float>();
+  //  private Dictionary<WeaponStatType, float> weaponStats = new Dictionary<WeaponStatType, float>();
     [HideInInspector]
     public BulletSourceScript weaponEmitter;
     [HideInInspector]
     public bool isEquiped = false;
-    [HideInInspector]
-    public List<SpriteRenderer> WeaponPartSprites = new List<SpriteRenderer>();
+  
 
     public WeaponData weaponData;
 
@@ -63,10 +62,9 @@ public class Gun : WeaponPart
         weaponParts.Add(part);
 
         SpriteRenderer weaponSprite = part.gameObject.GetComponent<SpriteRenderer>();
-        if(weaponSprite != null)
-        {
-            WeaponPartSprites.Add(weaponSprite);
-        }
+        part.PartRenderer = weaponSprite;
+
+      
 
         if (SetShotPoint) // betekent dat we een barrel zijn
         {
@@ -95,7 +93,8 @@ public class Gun : WeaponPart
     {
         rb = GetComponent<Rigidbody2D>();
 
-        WeaponPartSprites.Add(GetComponent<SpriteRenderer>()); // de body van het wapen
+        PartRenderer = GetComponent<SpriteRenderer>();
+        weaponParts.Add(this);
 
         TimeBtwnShotsHolder = FireRate;
     
@@ -154,7 +153,8 @@ public class Gun : WeaponPart
 
             foreach (KeyValuePair<WeaponStatType,float> stat in part.WeaponPartStats)
             {
-                weaponStats.Add(stat.Key, stat.Value);
+              
+             //   weaponStats.Add(stat.Key, stat.Value);
 
                 switch (stat.Key)
                 {
@@ -246,29 +246,74 @@ public class Gun : WeaponPart
 
     public void LowerSprites()
     {
-        if (WeaponPartSprites[0].sortingLayerName == "Player") // check of renderer al gezet is 
+        if (weaponParts[0].PartRenderer.sortingLayerName == "Player") // check of renderer al gezet is 
             return;
         // ga naar player layer 
         // en sorting order nummer is -1
-        foreach (SpriteRenderer renderer in WeaponPartSprites)
+        //foreach (SpriteRenderer renderer in WeaponPartSprites)
+        //{
+        //    renderer.sortingLayerName = "Player";
+        //    renderer.sortingOrder = -1;
+
+        //}
+
+        for (int i = 0; i < weaponParts.Count; i++)
         {
+            SpriteRenderer renderer = weaponParts[i].PartRenderer;
             renderer.sortingLayerName = "Player";
-            renderer.sortingOrder = -1;
+
+            if (weaponParts[i].weaponPartType == WeaponPartType.Body) // weapon part is body 
+            {
+                renderer.sortingOrder = -2; // boddy wil je boven de barrel hebben
+
+            }
+            else if (weaponParts[i].weaponPartType == WeaponPartType.Grip)
+            {
+                renderer.sortingOrder = -1; // grip wil je boven de body en barrel hebben
+
+            }
+            else if (weaponParts[i].weaponPartType == WeaponPartType.Scope)
+            {
+                renderer.sortingOrder = -1; // scope wil je boven de body en barrel hebben
+            }
+            else
+            {
+                renderer.sortingOrder = -3; // en de rest van de parts wil je onder de boddy hebben
+            }
 
         }
     }
 
     public void HigerSprites()
     {
-        if (WeaponPartSprites[0].sortingLayerName == "Weapon") // check of renderer al gezet is 
+        if (weaponParts[0].PartRenderer.sortingLayerName == "Weapon") // check of renderer al gezet is 
             return;
-        // ga naar weapon layer
-        // en sorting order is 0
-        foreach (SpriteRenderer renderer in WeaponPartSprites)
+
+        for (int i = 0; i < weaponParts.Count; i++)
         {
+            SpriteRenderer renderer = weaponParts[i].PartRenderer;
             renderer.sortingLayerName = "Weapon";
-            renderer.sortingOrder = 0;
+
+            if(weaponParts[i].weaponPartType == WeaponPartType.Body) // weapon part is body 
+            {
+                renderer.sortingOrder = 1; // boddy wil je boven de barrel hebben
+
+            }else if (weaponParts[i].weaponPartType == WeaponPartType.Grip)
+            {
+                renderer.sortingOrder = 2; // grip wil je boven de body en barrel hebben
+
+            }else if(weaponParts[i].weaponPartType == WeaponPartType.Scope)
+            {
+                renderer.sortingOrder = 2; // scope wil je boven de body en barrel hebben
+            }
+            else
+            {
+                renderer.sortingOrder = 0; // en de rest van de parts wil je onder de boddy hebben
+            }
+            
         }
+
+      
     }
 
     public void RollPerks()

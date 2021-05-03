@@ -27,7 +27,7 @@ public class WeaponGenerator : MonoBehaviour
         }
     }
 
-    private void GenerateWeapons()
+    public void GenerateWeapons()
     {
        
 
@@ -43,10 +43,26 @@ public class WeaponGenerator : MonoBehaviour
         // check voor scope
         if (WeaponToSpawn.useScope)
         {
-            GameObject WeaponScopePart = GetWeaponPart(WeaponToSpawn.ScopeParts);
-          GameObject scope=  Instantiate(WeaponScopePart, WeaponScript.ScopeSlot);
-            scope.transform.localPosition = new Vector3(0, 0, 0);
-            WeaponScript.AddWeaponPart(scope.GetComponent<WeaponPart>(),false);
+            if (WeaponToSpawn.RandomChanceForScope)
+            {
+                int rand = Random.Range(0, 2);
+                if (rand == 1)
+                {
+                    GameObject WeaponScopePart = GetWeaponPart(WeaponToSpawn.ScopeParts);
+                    GameObject scope = Instantiate(WeaponScopePart, WeaponScript.ScopeSlot);
+                    scope.transform.localPosition = new Vector3(0, 0, 0);
+                    WeaponScript.AddWeaponPart(scope.GetComponent<WeaponPart>(), false);
+                }
+            }
+            else
+            {
+                GameObject WeaponScopePart = GetWeaponPart(WeaponToSpawn.ScopeParts);
+                GameObject scope = Instantiate(WeaponScopePart, WeaponScript.ScopeSlot);
+                scope.transform.localPosition = new Vector3(0, 0, 0);
+                WeaponScript.AddWeaponPart(scope.GetComponent<WeaponPart>(), false);
+            }
+
+        
 
          
      
@@ -66,10 +82,26 @@ public class WeaponGenerator : MonoBehaviour
         // check voor stock
         if (WeaponToSpawn.useStock)
         {
-            GameObject WeaponStockPart = GetWeaponPart(WeaponToSpawn.StockParts);
-           GameObject stock= Instantiate(WeaponStockPart, WeaponScript.StockSlot);
-            stock.transform.localPosition = new Vector3(0, 0, 0);
-            WeaponScript.AddWeaponPart(stock.GetComponent<WeaponPart>(),false);
+            if (WeaponToSpawn.RandomChanceForStock)
+            {
+                int rand = Random.Range(0, 2);
+                if (rand == 1)
+                {
+                    GameObject WeaponStockPart = GetWeaponPart(WeaponToSpawn.StockParts);
+                    GameObject stock = Instantiate(WeaponStockPart, WeaponScript.StockSlot);
+                    stock.transform.localPosition = new Vector3(0, 0, 0);
+                    WeaponScript.AddWeaponPart(stock.GetComponent<WeaponPart>(), false);
+                }
+            }
+            else
+            {
+                GameObject WeaponStockPart = GetWeaponPart(WeaponToSpawn.StockParts);
+                GameObject stock = Instantiate(WeaponStockPart, WeaponScript.StockSlot);
+                stock.transform.localPosition = new Vector3(0, 0, 0);
+                WeaponScript.AddWeaponPart(stock.GetComponent<WeaponPart>(), false);
+            }
+
+       
 
         
         }
@@ -77,6 +109,8 @@ public class WeaponGenerator : MonoBehaviour
         // check voor magazine
         if (WeaponToSpawn.useMagazine)
         {
+          
+
             GameObject WeaponMagazinePart = GetWeaponPart(WeaponToSpawn.MagazineParts);
           GameObject magazine = Instantiate(WeaponMagazinePart, WeaponScript.MagazinSlot);
             magazine.transform.localPosition = new Vector3(0, 0, 0);
@@ -87,11 +121,40 @@ public class WeaponGenerator : MonoBehaviour
 
         }
 
+        if (WeaponToSpawn.useGrips)
+        {
+            if (WeaponToSpawn.RandomChanceForGrip)
+            {
+                int rand = Random.Range(0, 2);
+                if (rand == 1)
+                {
+                    GameObject WeaponMagazinePart = GetWeaponPart(WeaponToSpawn.GripParts);
+                    GameObject grip = Instantiate(WeaponMagazinePart, WeaponScript.GripSlot);
+                    grip.transform.localPosition = new Vector3(0, 0, 0);
+
+                    WeaponScript.AddWeaponPart(grip.GetComponent<WeaponPart>(), false);
+                }
+               
+            }
+            else
+            {
+                GameObject WeaponMagazinePart = GetWeaponPart(WeaponToSpawn.GripParts);
+                GameObject grip = Instantiate(WeaponMagazinePart, WeaponScript.GripSlot);
+                grip.transform.localPosition = new Vector3(0, 0, 0);
+
+                WeaponScript.AddWeaponPart(grip.GetComponent<WeaponPart>(), false);
+            }
+
+
+
+
+        }
+
         //    Sprite NewWeaponSprite = CreateTexture(Sprites);
         //   WeaponScript.GetComponent<SpriteRenderer>().sprite = NewWeaponSprite;
-  
-     
-     
+
+
+
         WeaponScript.CalculateStats();
 
         WeaponScript.ThrowWeapon();

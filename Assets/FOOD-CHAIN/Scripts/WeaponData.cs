@@ -20,10 +20,19 @@ public class WeaponData : ScriptableObject
     [Space(5)]
     [Tooltip("The weapon can roll with a magazine")]
     public bool useMagazine = false;
-
+    [Space(5)]
+    [Tooltip("The weapon can roll with a Grip")]
+    public bool useGrips = false;
     public Material WeaponMaterial;
 
     public GameObject ShotEffect;
+
+    [Space(5)]
+    [Header("WEAPON PARTS RANDOM CHANCE TO ROLL")]
+    public bool RandomChanceForStock = true;
+    public bool RandomChanceForGrip = true;
+    public bool RandomChanceForScope = true;
+    [Space(5)]
 
     // weapon parts
     [Header("WEAPON PARTS")]
@@ -32,6 +41,6 @@ public class WeaponData : ScriptableObject
     public GameObject[] BarrelParts;
     public GameObject[] StockParts;
     public GameObject[] MagazineParts;
-   
+    public GameObject[] GripParts;
 
 }
