@@ -12,8 +12,13 @@ public class Chest : ThrowableObject
 
     public bool isHolding = false;
 
+   
+
     public void PickUpChest()
     {
+        if (grabState == GrabState.NonThrowable)
+            return;
+
         isHolding = true;
     }
 
@@ -24,7 +29,7 @@ public class Chest : ThrowableObject
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            OpenChest(Movement.PlayerMovement.transform.position);
+            OpenChest();
         }
     }
 
@@ -40,18 +45,17 @@ public class Chest : ThrowableObject
 
    
 
-    private void OpenChest(Vector2 pos)
+    private void OpenChest()
     {
         isHolding = false;
-        ChestRenderer.sprite = null;
+        // ChestRenderer.sprite = null;
 
-        transform.SetParent(GameManager.gameManager.ItemParent);
-        transform.position = pos;
-        objectCollider.enabled = true;
-        rb.isKinematic = false;
+        ThrowObject(Movement.PlayerMovement.transform.position,new Vector2(0,0),false);
+         grabState = GrabState.NonThrowable;
+        objectCollider.enabled = false;
        
         isThrown = true;
-
+        ChestRenderer.enabled = false;
         foreach (var Piece in BrokenPieces)
         {
             Piece.gameObject.SetActive(true);
@@ -65,6 +69,7 @@ public class Chest : ThrowableObject
         go.SetActive(true);
 
         GrappleManager.grappleManager.ResetSpot();
+    
 
         for (int i = 0; i < 2; i++)
         {

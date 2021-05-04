@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
 
     public WaveData EnemyWaveData;
 
+    public Color DamagePopUpColor;
+    public Color AmmoBoxPickUp;
+    
 
     private void Awake()
     {

@@ -9,7 +9,7 @@ using UnityEngine;
     {
         FlashEffect,
         AmmoBox,
-
+        DamageNumber,
     }
 
     public class ObjectPooler : MonoBehaviour
@@ -17,7 +17,7 @@ using UnityEngine;
 
         public static ObjectPooler FlashEffect;
         public static ObjectPooler AmmoBox;
-
+         public static ObjectPooler DamageNumber;
     [SerializeField]
         private int amountToSpawnOnStart = 30;
 
@@ -46,6 +46,9 @@ using UnityEngine;
                 AmmoBox = this;
                 break;
 
+            case ObjectPoolerType.DamageNumber:
+                DamageNumber = this;
+                break;
 
             default:
                     break;

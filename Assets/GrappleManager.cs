@@ -8,9 +8,8 @@ public class GrappleManager : MonoBehaviour
 
     public Transform GrabParent;
 
-    [HideInInspector]
-    public GameObject GrappledObject;
-    [HideInInspector]
+  
+    public GameObject GrappledObject;  
     public ThrowableObject throwableObject;
 
 
@@ -88,8 +87,8 @@ public class GrappleManager : MonoBehaviour
     }
 
     private void ThrowObject()
-    {
-        
+    {     
+
         CameraController.cameraController.Shake(MovementManager.weaponManager.mouseVector, 5, 0.15f);
         Gun weapon = throwableObject.GetComponent<Gun>();
         if (weapon != null)
@@ -128,10 +127,23 @@ public class GrappleManager : MonoBehaviour
 
     private void GrabObject()
     {
+        throwableObject = GrappledObject.GetComponent<ThrowableObject>();
+
+        if (throwableObject == null)
+            return;
+
+        if (throwableObject.grabState == ThrowableObject.GrabState.NonThrowable)
+        {
+            ResetSpot();
+
+            return;
+        }
+            
+
         Vector3 GrabDir = (GrappledObject.transform.position - transform.position).normalized;
         CameraController.cameraController.Shake(GrabDir,3,0.1f);
 
-        throwableObject = GrappledObject.GetComponent<ThrowableObject>();
+     
 
         if(throwableObject.grabState == ThrowableObject.GrabState.Throwable)
         {

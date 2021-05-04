@@ -21,7 +21,8 @@ public class Enemy : MonoBehaviour
             return;
 
         Health -= hit;
-
+        GameObject TextPopUp = ObjectPooler.DamageNumber.GetObject();
+        TextPopUp.GetComponent<TextPopUp>().SpawnText(transform.position, "56",GameManager.gameManager.DamagePopUpColor);
         if (useShake)
         {
             CameraController.cameraController.Shake(Random.onUnitSphere, 2.5f, 0.1f);

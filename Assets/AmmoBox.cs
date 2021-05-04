@@ -62,6 +62,8 @@ public class AmmoBox : ThrowableObject
         effect.SetActive(true);
         effect.transform.DOShakeScale(0.1f);
 
+
+
         gameObject.SetActive(false);
     }
 

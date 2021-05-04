@@ -187,11 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3286969c5df8a1e4bb64bc92ea46495e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &232092926 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 530493792571885969, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-  m_PrefabInstance: {fileID: 530493792365485665}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &247955793
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,53 +288,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &300497365
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 300497367}
-  - component: {fileID: 300497366}
-  m_Layer: 0
-  m_Name: EffectPooler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &300497366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300497365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e653d4e1be5cd9458f6b4ec00df0246, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amountToSpawnOnStart: 30
-  PooledObject: {fileID: 7773498871708132411, guid: 9f8cd533ab9294149bba8e4b8f47902b, type: 3}
-  PoolObjects: []
-  Pooler_Type: 0
---- !u!4 &300497367
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300497365}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4000.3838, y: -153.18774, z: -2.8423657}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &381248849
 GameObject:
   m_ObjectHideFlags: 0
@@ -5320,78 +5268,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464858559}
   m_CullTransparentMesh: 1
---- !u!1 &536173587
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 536173589}
-  - component: {fileID: 536173588}
-  - component: {fileID: 536173590}
-  m_Layer: 2
-  m_Name: GoombaStompTracker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &536173588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 536173587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12935741ff222704a9d3ae359d18e37e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GoombaStomp: 0
-  StompCombo: 0
---- !u!4 &536173589
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 536173587}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 232092926}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &536173590
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 536173587}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.75}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.75}
-  m_EdgeRadius: 0
 --- !u!1 &627411018
 GameObject:
   m_ObjectHideFlags: 0
@@ -5504,7 +5380,7 @@ Transform:
   m_Children:
   - {fileID: 1338212881}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &651798421
 PrefabInstance:
@@ -5519,7 +5395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7457320712073527932, guid: e9b8038720150ec4180ec52324111364, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7457320712073527932, guid: e9b8038720150ec4180ec52324111364, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5571,53 +5447,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9b8038720150ec4180ec52324111364, type: 3}
---- !u!1 &712463928
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 712463930}
-  - component: {fileID: 712463929}
-  m_Layer: 0
-  m_Name: AmmoBoxPooler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &712463929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 712463928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e653d4e1be5cd9458f6b4ec00df0246, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amountToSpawnOnStart: 30
-  PooledObject: {fileID: 8664965266944009266, guid: 24a9e59bfecb014468b97e38eaafb2f5, type: 3}
-  PoolObjects: []
-  Pooler_Type: 1
---- !u!4 &712463930
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 712463928}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4000.3838, y: -153.18774, z: -2.8423657}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1032373520
 GameObject:
   m_ObjectHideFlags: 0
@@ -5748,7 +5577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8381120862230300461, guid: 990c6aaa7d49bdb4c9f0ad2295d88723, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8381120862230300461, guid: 990c6aaa7d49bdb4c9f0ad2295d88723, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5832,6 +5661,8 @@ MonoBehaviour:
     maxAmountWaves: 3
     minAmountOfEnemys: 1
     maxAmountOfEnemys: 3
+  DamagePopUpColor: {r: 0.8773585, g: 0.045523323, b: 0.045523323, a: 1}
+  AmmoBoxPickUp: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1585208996
 Transform:
   m_ObjectHideFlags: 0
@@ -5845,7 +5676,7 @@ Transform:
   m_Children:
   - {fileID: 381248850}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1781679869
 GameObject:
@@ -5882,7 +5713,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 639ac3b60000000055ad0d164d9cf9a105c2e384755ffe24eb0f0b30a94d3b27
+  m_ApplyToSortingLayers: 639ac3b60000000055ad0d1605c2e3844d9cf9a1a94d3b27eb0f0b30755ffe249ba0e72d
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -5998,77 +5829,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 530493791992463410, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: m_SortingLayer
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493791992463410, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 806031339
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792027461697, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792027461758, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: m_SortingLayer
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792027461758, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 806031339
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792065973685, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: m_SortingLayer
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792065973685, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 806031339
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792571885968, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: stompTracker
-      value: 
-      objectReference: {fileID: 536173588}
-    - target: {fileID: 530493792571885968, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: jumpForceHeadStomp
-      value: 17.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792571885969, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792571885970, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: CollidbleLayer.m_Bits
-      value: 192
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792571885973, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: ItemParent
-      value: 
-      objectReference: {fileID: 381248850}
-    - target: {fileID: 530493792571885973, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: CollidbleLayer.m_Bits
-      value: 9600
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792747237716, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: m_SortingLayer
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792747237716, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 806031339
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792803041952, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: MaxPistolAmmo
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 530493792803041952, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
-      propertyPath: WeaponHandling
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 530493793948837694, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 530493793948837694, guid: ab0bb02163d2a004d8a9cdc22f07fce0, type: 3}
       propertyPath: m_LocalPosition.x

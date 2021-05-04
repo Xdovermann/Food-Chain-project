@@ -178,7 +178,7 @@ public class Movement : MonoBehaviour
 
         side = animationManager.sr.flipX ? -1 : 1;
 
-
+        PlayerRenderer.transform.localScale = new Vector3(1, 1, 1);
         //    ShakePlayer();
         if (GroundSmash)
         {
@@ -195,7 +195,7 @@ public class Movement : MonoBehaviour
         {
             CameraController.cameraController.Shake(Vector2.down, 0.75f, 0.1f);
 
-            PlayerRenderer.transform.localScale = new Vector3(1, 1, 1);
+           
 
             PlayerRenderer.DOShakeScale(0.1f, 0.25f, 3, 25);
           //  holder.SetEase(Ease.InElastic);
