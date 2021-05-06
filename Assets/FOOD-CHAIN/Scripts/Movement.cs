@@ -260,7 +260,7 @@ public class Movement : MonoBehaviour
          animationManager.Flip(side * -1);
         animationManager.WallGrabRotation();
         AmountOfJumps = startAmountOfJumps;
-        stompTracker.ResetCombo();
+        //stompTracker.ResetCombo();
     }
 
     private void Walk(Vector2 dir)
@@ -284,6 +284,8 @@ public class Movement : MonoBehaviour
 
     public void Jump(Vector2 dir, bool wall)
     {
+        PlayerRenderer.transform.localScale = new Vector3(1, 1, 1);
+
         if (!wall &&!coll.onWall)
         {
             AmountOfJumps--;
@@ -343,5 +345,12 @@ public class Movement : MonoBehaviour
     {
         PlayerRenderer.transform.localScale = new Vector3(1, 1, 1);
         PlayerRenderer.DOShakeScale(0.1f);
+    }
+
+    public void ShootKnockBack(Vector2 Dir,float Power)
+    {
+        if (!coll.onGround)
+            return;
+        rb.AddForce(Dir* Power, ForceMode2D.Force);
     }
 }

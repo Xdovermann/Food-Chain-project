@@ -9,6 +9,8 @@ public class Base_Enemy_AI : MonoBehaviour
     public float AggroRange = 5f;
 
     public Transform Weapon;
+    public SpriteRenderer WeaponRenderer;
+    public float WeaponHandling=0.1f;
     private Vector3 Target;
     private Vector3 AimVector;
 
@@ -47,6 +49,8 @@ public class Base_Enemy_AI : MonoBehaviour
     private float TopCollTimer;
 
     private bool StartAI = false;
+
+    public Tween WeaponMovement;
     // Start is called before the first frame update
     void Start()
     {
@@ -76,7 +80,8 @@ public class Base_Enemy_AI : MonoBehaviour
     {
         if (!StartAI)
             return;
-       
+
+        UpdateWeaponPos();
 
         switch (enemyState)
         {
@@ -98,7 +103,7 @@ public class Base_Enemy_AI : MonoBehaviour
                 break;
             case AI_State.Aggro:
                 AimWeapon();
-
+                WeaponFlipAnimations();
                 SimpleMovement();
                 break;
 
@@ -304,6 +309,28 @@ public class Base_Enemy_AI : MonoBehaviour
             }
         }
        
+    }
+
+    private void UpdateWeaponPos()
+    {
+
+        Weapon.transform.position = Vector3.Lerp(Weapon.transform.position, transform.position, WeaponHandling * Time.deltaTime);
+
+    }
+
+  
+
+    private void WeaponFlipAnimations()
+    {
+        if(Target.x >= transform.position.x)
+        {
+            // rechts aimen 
+            WeaponRenderer.flipY = false;
+
+        }else if(Target.x <= transform.position.x)
+        {
+            WeaponRenderer.flipY = true;
+        }
     }
 
     private void AimWeapon()

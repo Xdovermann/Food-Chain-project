@@ -62,7 +62,41 @@ public class TextPopUp : MonoBehaviour
 
     }
 
-   
+    public void SpawnNumber(Vector2 Pos, int number, Color color)
+    {
+        Text.DOColor(color, 0);
+        Text.DOFade(255, 0); // resets alpha
+
+
+        rb.velocity = new Vector2(0, 0);
+        //  Text.DOColor();
+
+        float randX = Random.Range(-0.5f, 0.5f);
+        float randY = Random.Range(-0.5f, 0.5f);
+
+        //Pos.x += randX;
+        //Pos.y += randY;
+
+        Text.SetText(number.ToString());
+        transform.position = Pos;
+        gameObject.SetActive(true);
+
+        transform.DOShakeScale(0.1f);
+
+
+
+        rb.AddForce(Vector2.up * 7.5f, ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(randX, 0) * 2.5f, ForceMode2D.Impulse);
+
+
+
+
+        Text.DOFade(0, 1).OnComplete(DisableText);
+        //  transform.DOMoveY(holder, DurationSplit).OnComplete(MoveDown);   
+
+
+
+    }
 
     private void DisableText()
     {

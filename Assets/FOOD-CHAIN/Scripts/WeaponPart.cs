@@ -18,9 +18,11 @@ public class WeaponPart : MonoBehaviour
     public enum WeaponStatType
     {
         Damage,// damage
-        Accuracy, // dit is weapon handling hoe snel die rond beweegt
-        AmmoPerShot,// ammo consumptiie
-        FireRate // hoe snel die schiet
+        Accuracy, // dit is weapon handling hoe snel die rond beweegt // stocks / scopes
+        AmmoPerShot,// ammo consumptiie // body / barrels
+        FireRate, // hoe snel die schiet // body / barrels
+        Handling // dit is weapon recoil // laat grips / stocks dit verminderen
+
     }
 
     public enum WeaponPartType

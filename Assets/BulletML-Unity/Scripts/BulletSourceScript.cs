@@ -49,7 +49,15 @@ namespace FoodChain.BulletML
             // Note: we use start and not Awake so the BulletManager has some time to initialiez BulletML properly.
 
             // Find the manager
-            bulletManager = FindObjectOfType<BulletManagerScript>();
+            if (PlayerWeapon)
+            {
+                bulletManager = BulletManagerScript.bulletManager;
+            }
+            else
+            {
+                bulletManager = BulletManagerScript.bulletManager_Enemy;
+            }
+         
 
             if (PlayerWeapon)
             {

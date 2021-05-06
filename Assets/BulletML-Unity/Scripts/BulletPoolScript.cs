@@ -15,8 +15,8 @@ namespace FoodChain.BulletML
     {
         private BulletPool defaultPool;
         private Dictionary<string, BulletPool> pools;
-        private BulletManagerScript bulletManager;
-
+        public BulletManagerScript bulletManager;
+        public string PoolName = "Bullets";
         private GameObject bulletRoot;
         private int frameId;
 
@@ -29,10 +29,11 @@ namespace FoodChain.BulletML
 
             pools = new Dictionary<string, BulletPool>();
 
-            bulletRoot = new GameObject("Bullets");
+            bulletRoot = new GameObject(PoolName);
+            bulletRoot.transform.SetParent(transform);
             bulletRoot.transform.position = Vector3.zero;
 
-            bulletManager = FindObjectOfType<BulletManagerScript>();
+          //  bulletManager = FindObjectOfType<BulletManagerScript>();
             if (bulletManager != null)
             {
                 bulletManager.OnBulletSpawned += OnBulletSpawned;
@@ -118,8 +119,8 @@ namespace FoodChain.BulletML
                     bulletScript.gameObject.name = bulletName;
                     bulletScript.transform.position = bullet.position;
 
-                    // probeer eerst op deze manier
-                    BulletBankEntry bankEntry = BulletManagerScript.bulletManager.GetBulletPrefabFromBank(bulletName);
+                
+                    BulletBankEntry bankEntry = bulletManager.GetBulletPrefabFromBank(bulletName);
                     bulletManager.SetBulletSettings(bullet, bankEntry, bulletScript.gameObject);
               
                     // kijk naar bb als voorbeeld

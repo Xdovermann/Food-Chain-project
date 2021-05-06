@@ -105,6 +105,8 @@ public class LevelGenerator : MonoBehaviour {
 	
 	}
 
+
+
 	public void RemoveMap()
 	{
 		SpawnPoints.Clear();
@@ -147,13 +149,7 @@ public class LevelGenerator : MonoBehaviour {
 
 	}
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		}
-    }
+  
 
     void CreateBackgroundAndLayout(){
 		int iterations = 0;

@@ -41,6 +41,9 @@ TextureImporter:
   - first:
       213: 2251672807533807210
     second: SaltGrunt_12
+  - first:
+      213: -5969109674293845106
+    second: SaltGrunt_13
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -398,6 +401,27 @@ TextureImporter:
       bones: []
       spriteID: a6685731d7c8f3f10800000000000000
       internalID: 2251672807533807210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SaltGrunt_13
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e832e5e7066792da0800000000000000
+      internalID: -5969109674293845106
       vertices: []
       indices: 
       edges: []

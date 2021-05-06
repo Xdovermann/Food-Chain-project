@@ -37,11 +37,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            MapCompleted();
+
+        }
+    }
+
     public void MapCompleted()
     {
    
         runNumber++;
         levelGenerator.RemoveMap();
+
+        EnemyList.Clear();
 
         ObjectPooler.AmmoBox.DisableAll();
         WeaponGenerator.weaponGenerator.DestroyWeapons();
@@ -124,7 +135,7 @@ public class GameManager : MonoBehaviour
 
             int indexItem = Random.Range(0, levelGenerator.UsableItems.Length);
 
-            Instantiate(levelGenerator.UsableItems[indexItem], pos.position, transform.rotation);
+            Instantiate(levelGenerator.UsableItems[indexItem], pos.position, transform.rotation,levelGenerator.GeneratedMap.transform);
 
             levelGenerator.destructibleTerrain.DestroyTerrainRadius(pos.position, 1f);
         }

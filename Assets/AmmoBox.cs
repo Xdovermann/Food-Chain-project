@@ -62,6 +62,8 @@ public class AmmoBox : ThrowableObject
         effect.SetActive(true);
         effect.transform.DOShakeScale(0.1f);
 
+        GameObject TextPopUp = ObjectPooler.DamageNumber.GetObject();
+        TextPopUp.GetComponent<TextPopUp>().SpawnText(transform.position, "+"+AmmoAmount.ToString()+ string.Empty.PadLeft(1) + weaponManager.EquipedWeapon.AmmoUsage.ToString()+ string.Empty.PadLeft(1)+"Ammo", GameManager.gameManager.AmmoBoxPickUp);
 
 
         gameObject.SetActive(false);

@@ -15,14 +15,14 @@ public class Enemy : MonoBehaviour
         GameManager.gameManager.AddEnemy(this);
     }
 
-    public void TakeDamage(int hit,bool useShake)
+    public void TakeDamage(int damage,bool useShake)
     {
         if (hasDied)
             return;
 
-        Health -= hit;
+        Health -= damage;
         GameObject TextPopUp = ObjectPooler.DamageNumber.GetObject();
-        TextPopUp.GetComponent<TextPopUp>().SpawnText(transform.position, "56",GameManager.gameManager.DamagePopUpColor);
+        TextPopUp.GetComponent<TextPopUp>().SpawnNumber(transform.position, damage,GameManager.gameManager.DamagePopUpColor);
         if (useShake)
         {
             CameraController.cameraController.Shake(Random.onUnitSphere, 2.5f, 0.1f);
@@ -48,8 +48,8 @@ public class Enemy : MonoBehaviour
             ammoBox.SetActive(true);
 
         }
-    
 
-        Destroy(gameObject);
+      
+        Destroy(transform.parent.gameObject);
     }
 }

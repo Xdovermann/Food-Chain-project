@@ -53,7 +53,8 @@ public class Gun : WeaponPart
     public float WeaponAttackSpeed_Stat = 0.1f;
     public int WeaponAmmoOnShot_Stat;
     public float WeaponDamage_Stat;
-    public float WeaponHandling_Stat;
+    public float WeaponAccuracy_Stat; // aim snelheid
+    public float WeaponHandling_Stat; // weapon recoil
     [Space(10)]
     public AmmoType AmmoUsage;
      
@@ -162,13 +163,16 @@ public class Gun : WeaponPart
                         WeaponDamage_Stat += stat.Value;
                         break;
                     case WeaponStatType.Accuracy:
-                        WeaponHandling_Stat += stat.Value;
+                        WeaponAccuracy_Stat += stat.Value;
                         break;
                     case WeaponStatType.AmmoPerShot:
                         WeaponAmmoOnShot_Stat += (int)stat.Value;
                         break;
                     case WeaponStatType.FireRate:
                         WeaponAttackSpeed_Stat += stat.Value;
+                        break;
+                    case WeaponStatType.Handling:
+                        WeaponHandling_Stat += stat.Value;
                         break;
                     default:
                         break;
@@ -210,6 +214,8 @@ public class Gun : WeaponPart
 
     private void ShootPattern()
     {
+        Movement.PlayerMovement.ShootKnockBack(-weaponManager.mouseVector, 250);
+
         weaponEmitter.gameObject.SetActive(true);
         weaponEmitter.Reset();
  

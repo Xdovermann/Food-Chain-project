@@ -289,7 +289,17 @@ namespace BulletMLLib
       //get the player position so we can aim at that little fucker
       System.Diagnostics.Debug.Assert(null != MyBulletManager);
 
-            GameObject sourceObject = BulletManagerScript.bulletManager.GetGameObjectFromBullet(this);
+            BulletManagerScript bulletManager = null;
+            if (!BulletManagerScript.bulletManager.EnemyBulletManager)
+            {
+                bulletManager = BulletManagerScript.bulletManager;
+            }
+            else
+            {
+                bulletManager = BulletManagerScript.bulletManager_Enemy;
+            }
+
+            GameObject sourceObject = bulletManager.GetGameObjectFromBullet(this);
             BulletSourceScript bulletScript = null;
             if (sourceObject != null)
             {

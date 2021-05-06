@@ -80,13 +80,24 @@ namespace FoodChain.BulletML
     private float previousTimeSpeed, previousScale;
 
         public static BulletManagerScript bulletManager;
+        public static BulletManagerScript bulletManager_Enemy;
 
-        public GameObject TopBulletParent;
+        public bool EnemyBulletManager = false;
+
+        private GameObject TopBulletParent;
 
     void Awake()
     {
             // Init BulletML
-            bulletManager = this;
+            if (EnemyBulletManager)
+            {
+                bulletManager_Enemy = this;
+            }
+            else
+            {
+                bulletManager = this;
+            }
+          
       BulletMLLib.GameManager.GameDifficulty += () =>
       {
         return gameDifficulty;
