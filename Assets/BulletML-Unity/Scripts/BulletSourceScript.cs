@@ -29,14 +29,14 @@ namespace FoodChain.BulletML
     public Transform ShootDirection;
         public bool PlayerWeapon = false;
         private Gun Weapon;
-
+        public Base_Enemy_AI enemyAI; // is alleen als de emitter gebruikt word door een enemy
 
         private void Start()
         {
             if (!PlayerWeapon) // dit is voor enemy weapon en patterns
             {
                 SetUpEmitterOnStart();
-                enabled = false;
+                gameObject.SetActive(false);
             }
 
           
@@ -52,18 +52,14 @@ namespace FoodChain.BulletML
             if (PlayerWeapon)
             {
                 bulletManager = BulletManagerScript.bulletManager;
+                Weapon = GetComponentInParent<Gun>();
             }
             else
             {
                 bulletManager = BulletManagerScript.bulletManager_Enemy;
+                //enemyAI = GetComponentInParent<Base_Enemy_AI>();
             }
          
-
-            if (PlayerWeapon)
-            {
-                Weapon = GetComponentInParent<Gun>();
-            }
-
             if (bulletManager == null)
             {
                 throw new System.Exception("Cannot find a BulletManagerScript in the scene!");
@@ -176,9 +172,19 @@ namespace FoodChain.BulletML
             }
         }
 
+     
+
         private void OnDisable()
         {
-            Weapon.PatternDone();
+            if (PlayerWeapon)
+            {
+                Weapon.PatternDone();
+            }
+            else
+            {
+                enemyAI.DoneShootingPattern();
+            }
+          
         }
 
 

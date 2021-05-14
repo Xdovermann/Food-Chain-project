@@ -23,9 +23,6 @@ public class WeaponData : ScriptableObject
     [Space(5)]
     [Tooltip("The weapon can roll with a Grip")]
     public bool useGrips = false;
-    public Material WeaponMaterial;
-
-    public GameObject ShotEffect;
 
     [Space(5)]
     [Header("WEAPON PARTS RANDOM CHANCE TO ROLL")]
@@ -43,4 +40,8 @@ public class WeaponData : ScriptableObject
     public GameObject[] MagazineParts;
     public GameObject[] GripParts;
 
+    [Space(5)]
+    [Header("WEAPON JUICE")]
+    public Vector2 WeaponPos = new Vector2(0.875f, 0);
+    public GameObject ShotEffect;
 }

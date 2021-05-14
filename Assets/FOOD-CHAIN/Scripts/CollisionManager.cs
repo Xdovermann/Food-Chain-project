@@ -15,7 +15,7 @@ public class CollisionManager : MonoBehaviour
     public bool onRightWall;
     public bool onLeftWall;
     public int wallSide;
-
+    public bool WallGrab;
     [Space]
 
     [Header("Collision")]
@@ -24,11 +24,18 @@ public class CollisionManager : MonoBehaviour
     public Vector2 bottomOffset, rightOffset, leftOffset;
     private Color debugCollisionColor = Color.red;
 
- 
+    private Movement movement;
+
+    private void Awake()
+    {
+        movement = GetComponent<Movement>();
+    }
+
     // Update is called once per frame
     void Update()
     {
         CheckCollisions();
+        CheckWallGrab();
     }
 
     public void CheckCollisions()
@@ -41,6 +48,27 @@ public class CollisionManager : MonoBehaviour
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, CollidbleLayer);
 
         wallSide = onRightWall ? -1 : 1;
+
+       
+    }
+
+    private void CheckWallGrab()
+    {
+        if (onWall)
+        {
+            if (movement.x != 0)
+            {
+                WallGrab = true;
+            }
+            else
+            {
+                WallGrab = false;
+            }
+        }
+        else
+        {
+            WallGrab = false;
+        }
     }
 
     void OnDrawGizmos()

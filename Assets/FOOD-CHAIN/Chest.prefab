@@ -413,7 +413,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3f280e44846e5444388570c121f5f4d0, type: 2}
+  - {fileID: 2100000, guid: 026afbeb4d17ceb4c810b21806a5d071, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -639,6 +639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectCollider: {fileID: 0}
+  StartParent: {fileID: 0}
   rb: {fileID: 0}
   isThrown: 0
   PowerNeededForMovement: 1

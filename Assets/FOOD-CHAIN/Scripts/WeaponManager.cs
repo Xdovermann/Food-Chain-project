@@ -170,12 +170,14 @@ public class WeaponManager : MonoBehaviour
 
         //weaponscale
         weaponRendererParent.transform.localScale = new Vector3(1, 1, 1);
-        weaponRendererParent.transform.DOShakeScale(0.1f);
+
 
         // weaponknockback
         Sequence ShootMovementSequence = DOTween.Sequence();
         float MovePoint = OriginalWeaponPos;
         MovePoint -= Random.Range(0.25f, 0.5f);
+
+        ShootMovementSequence.Append(weaponRendererParent.transform.DOShakeScale(0.1f));
         ShootMovementSequence.Append(weaponRendererParent.transform.DOLocalMoveX(MovePoint, 0.1f));
         ShootMovementSequence.Append(weaponRendererParent.transform.DOLocalMoveX(OriginalWeaponPos, 0.1f));
 
@@ -206,14 +208,17 @@ public class WeaponManager : MonoBehaviour
             EquipedWeapon = null;
         }
 
-   
+        EquipedWeapon = weaponToEquip.GetComponent<Gun>();
+
         weaponToEquip.transform.SetParent(weaponRendererParent);
         weaponToEquip.transform.localRotation = new Quaternion(0, 0, 0, 0);
         weaponToEquip.GetComponent<ThrowableObject>().DisablePhysics();
-        weaponToEquip.transform.localPosition = new Vector3(0, 0, 0);
+        weaponToEquip.transform.localPosition = new Vector3(0, EquipedWeapon.weaponData.WeaponPos.y, 0);
+        weaponRendererParent.transform.localPosition = new Vector2(EquipedWeapon.weaponData.WeaponPos.x, 0);
+        OriginalWeaponPos = EquipedWeapon.weaponData.WeaponPos.x;
         weaponToEquip.transform.localScale = new Vector3(1, 1, 1);
 
-        EquipedWeapon = weaponToEquip.GetComponent<Gun>();
+      
 
         ShotEffect = EquipedWeapon.weaponData.ShotEffect;
 

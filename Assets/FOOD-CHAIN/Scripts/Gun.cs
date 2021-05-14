@@ -38,6 +38,8 @@ public class Gun : WeaponPart
 
     public List<PerkBehaviour> PerkRoles = new List<PerkBehaviour>();
 
+    public LineRenderer RarityRenderer;
+
     private WeaponManager weaponManager;
 
     [Header("Gun Body Rollable Stats")]
@@ -102,6 +104,13 @@ public class Gun : WeaponPart
         weaponEmitter = GetComponentInChildren<BulletSourceScript>();
         weaponEmitter.SetUpEmitterOnStart();
 
+        RarityRenderer = gameObject.AddComponent<LineRenderer>();
+        RarityRenderer.startWidth = 0.125f;
+        RarityRenderer.endWidth = 0.125f;
+        RarityRenderer.material = ToolTip.tooltip.RaritylineRenderer;
+        RarityRenderer.sortingLayerName = "Weapon";
+
+
         weaponManager = WeaponManager.weaponManager;
 
         DisablePatternEmitter();
@@ -110,6 +119,11 @@ public class Gun : WeaponPart
 
     private void Update()
     {
+        RarityRenderer.SetPosition(0,new Vector3(transform.position.x,transform.position.y,0));
+        float POSY = transform.position.y;
+        POSY += 2;
+        RarityRenderer.SetPosition(1, new Vector3(transform.position.x, POSY, 0));
+
         if (!isEquiped)
             return;
 
@@ -203,12 +217,74 @@ public class Gun : WeaponPart
         rarity = (Rarity)averageRarity;
 
         Debug.Log("weapon rarity" + rarity);
+        SetRarityRenderColor();
+    }
+
+    private void SetRarityRenderColor()
+    {
+
+        Gradient gradient;
+        float StartAlpha = 0.4f;
+        float EndAlpha = 0f;
+        switch (rarity)
+        {
+            //225
+            //25
+
+           // gradient values zijn raar en werken nie
+            case Rarity.Uncommon:
+                gradient = new Gradient();
+                gradient.SetKeys(
+                    new GradientColorKey[] { new GradientColorKey(GameManager.gameManager.Uncommon, 0.0f), new GradientColorKey(GameManager.gameManager.Uncommon, 1.0f) },
+                    new GradientAlphaKey[] { new GradientAlphaKey(StartAlpha, 0.0f), new GradientAlphaKey(EndAlpha, 1f) }
+                );
+                RarityRenderer.colorGradient = gradient;
+                break;
+            case Rarity.Common:
+               
+
+                gradient = new Gradient();
+                gradient.SetKeys(
+                    new GradientColorKey[] { new GradientColorKey(GameManager.gameManager.Common, 0.0f), new GradientColorKey(GameManager.gameManager.Common, 1.0f) },
+                           new GradientAlphaKey[] { new GradientAlphaKey(StartAlpha, 0.0f), new GradientAlphaKey(EndAlpha, 1f) }
+                );
+                RarityRenderer.colorGradient = gradient;
+                break;
+            case Rarity.Rare:
+          
+               gradient = new Gradient();
+                gradient.SetKeys(
+                    new GradientColorKey[] { new GradientColorKey(GameManager.gameManager.Rare, 0.0f), new GradientColorKey(GameManager.gameManager.Rare, 1.0f) },
+                           new GradientAlphaKey[] { new GradientAlphaKey(StartAlpha, 0.0f), new GradientAlphaKey(EndAlpha, 1f) }
+                );
+                RarityRenderer.colorGradient = gradient;
+
+                break;
+            case Rarity.Epic:
+                gradient = new Gradient();
+                gradient.SetKeys(
+                    new GradientColorKey[] { new GradientColorKey(GameManager.gameManager.Epic, 0.0f), new GradientColorKey(GameManager.gameManager.Epic, 1.0f) },
+                             new GradientAlphaKey[] { new GradientAlphaKey(StartAlpha, 0.0f), new GradientAlphaKey(EndAlpha, 1f) }
+                );
+                RarityRenderer.colorGradient = gradient;
+                break;
+            case Rarity.Legendary:
+                gradient = new Gradient();
+                gradient.SetKeys(
+                    new GradientColorKey[] { new GradientColorKey(GameManager.gameManager.Legendary, 0.0f), new GradientColorKey(GameManager.gameManager.Legendary, 1.0f) },
+                                new GradientAlphaKey[] { new GradientAlphaKey(StartAlpha, 0.0f), new GradientAlphaKey(EndAlpha, 1f) }
+                );
+                RarityRenderer.colorGradient = gradient;
+                break;
+            default:
+                break;
+        }
     }
 
     public void ThrowWeapon()
     {
         GetComponent<ThrowableObject>().ThrowObject(transform.position, Random.onUnitSphere * 1f,true);
-    
+        EnableRarityLine();
       //  rb.AddForce(Random.onUnitSphere * 10, ForceMode2D.Impulse);
     }
 
@@ -241,6 +317,7 @@ public class Gun : WeaponPart
         isEquiped = true;
         ActivatePerks();
         weaponManager.AmmoHandling(AmmoUsage,0,false); // callen dit hier om UI te zetten als je wapen opraapt
+        DisableRarityLine();
     }
 
     public void DequipWeapon()
@@ -252,7 +329,7 @@ public class Gun : WeaponPart
 
     public void LowerSprites()
     {
-        if (weaponParts[0].PartRenderer.sortingLayerName == "Player") // check of renderer al gezet is 
+        if (weaponParts[0].PartRenderer.sortingLayerName == "Weapon") // check of renderer al gezet is 
             return;
         // ga naar player layer 
         // en sorting order nummer is -1
@@ -266,7 +343,7 @@ public class Gun : WeaponPart
         for (int i = 0; i < weaponParts.Count; i++)
         {
             SpriteRenderer renderer = weaponParts[i].PartRenderer;
-            renderer.sortingLayerName = "Player";
+            renderer.sortingLayerName = "Weapon";
 
             if (weaponParts[i].weaponPartType == WeaponPartType.Body) // weapon part is body 
             {
@@ -292,13 +369,13 @@ public class Gun : WeaponPart
 
     public void HigerSprites()
     {
-        if (weaponParts[0].PartRenderer.sortingLayerName == "Weapon") // check of renderer al gezet is 
+        if (weaponParts[0].PartRenderer.sortingLayerName == "Player") // check of renderer al gezet is 
             return;
 
         for (int i = 0; i < weaponParts.Count; i++)
         {
             SpriteRenderer renderer = weaponParts[i].PartRenderer;
-            renderer.sortingLayerName = "Weapon";
+            renderer.sortingLayerName = "Player";
 
             if(weaponParts[i].weaponPartType == WeaponPartType.Body) // weapon part is body 
             {
@@ -342,6 +419,14 @@ public class Gun : WeaponPart
    
 
 
+    }
+    private void DisableRarityLine()
+    {
+        RarityRenderer.enabled = false;
+    }
+    private void EnableRarityLine()
+    {
+        RarityRenderer.enabled = true;
     }
 
     public void ActivatePerks()

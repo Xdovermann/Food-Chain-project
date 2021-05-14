@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullets:
   - name: NormalProjectile
-    prefab: {fileID: 100000, guid: 124ea66ee811a054a92f0fe802cd5371, type: 3}
-    sprite: {fileID: 4385501425044414559, guid: 13aba4a0357ba6142b4025a6f2e5e91a, type: 3}
-    TimeToLiveInSeconds: 5
+    prefab: {fileID: 4517706129900485411, guid: 3c9be39c3c63f2345855443fa3056e9f, type: 3}
+    sprite: {fileID: 4385501425044414559, guid: a520725e86952a54eb1a195d220fb7dc, type: 3}
+    TimeToLiveInSeconds: 4
     DestroyWhenOutOfScreen: 1
-    poolCapacity: 150
+    poolCapacity: 50

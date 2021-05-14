@@ -7,6 +7,8 @@ public class ThrowableObject : MonoBehaviour
     [HideInInspector]
     public Collider2D objectCollider;
 
+    public Transform StartParent;
+
     [HideInInspector]
     public Rigidbody2D rb;
 
@@ -35,6 +37,7 @@ public class ThrowableObject : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         StartingMass = rb.mass;
         holderThrownTimer = ThrownTimer;
+        StartParent = transform.parent;
     }
 
     public void GrabObject(Transform parent)
@@ -54,7 +57,15 @@ public class ThrowableObject : MonoBehaviour
         }
         else
         {
-            transform.SetParent(GameManager.gameManager.ItemParent);
+            if(StartParent == null)
+            {
+                transform.SetParent(GameManager.gameManager.ItemParent);
+            }
+            else
+            {
+                transform.SetParent(StartParent);
+            }
+          
         }
           
         

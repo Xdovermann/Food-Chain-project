@@ -17,7 +17,12 @@ public class GameManager : MonoBehaviour
 
     public Color DamagePopUpColor;
     public Color AmmoBoxPickUp;
-    
+
+    public Color Uncommon;
+    public Color Common;
+    public Color Rare;
+    public Color Epic;
+    public Color Legendary;
 
     private void Awake()
     {

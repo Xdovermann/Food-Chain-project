@@ -185,10 +185,12 @@ MonoBehaviour:
   isEquiped: 0
   weaponData: {fileID: 0}
   PerkRoles: []
+  RarityRenderer: {fileID: 0}
   FireRate: 0.25
   WeaponAttackSpeed_Stat: 0.1
   WeaponAmmoOnShot_Stat: 0
   WeaponDamage_Stat: 0
+  WeaponAccuracy_Stat: 0
   WeaponHandling_Stat: 0
   AmmoUsage: 0
 --- !u!50 &3919287221762513150
@@ -241,6 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectCollider: {fileID: 0}
+  StartParent: {fileID: 0}
   rb: {fileID: 0}
   isThrown: 0
   PowerNeededForMovement: 0.1
@@ -294,6 +297,7 @@ MonoBehaviour:
   xmlFile: {fileID: 4900000, guid: 19b4a913c38602846ac4982de3b8a0c5, type: 3}
   ShootDirection: {fileID: 1566846897740065917}
   PlayerWeapon: 1
+  enemyAI: {fileID: 0}
 --- !u!1 &5249196723610407780
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,7 +36,7 @@ public class Movement : MonoBehaviour
 
     public int side = 1;
 
-   private float x;
+   public float x;
    private float y;
     private BetterJumpManager betterJumpingController;
     public static Movement PlayerMovement;
@@ -123,7 +123,7 @@ public class Movement : MonoBehaviour
                 WallJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && !coll.onGround && !wallGrab)
+        if (Input.GetKeyDown(KeyCode.S) && !coll.onGround )
         {
            
                 PushDown();
@@ -178,7 +178,7 @@ public class Movement : MonoBehaviour
 
         side = animationManager.sr.flipX ? -1 : 1;
 
-        PlayerRenderer.transform.localScale = new Vector3(1, 1, 1);
+     //   PlayerRenderer.transform.localScale = new Vector3(1, 1, 1);
         //    ShakePlayer();
         if (GroundSmash)
         {
@@ -197,11 +197,11 @@ public class Movement : MonoBehaviour
 
            
 
-            PlayerRenderer.DOShakeScale(0.1f, 0.25f, 3, 25);
+            PlayerRenderer.DOShakeScale(0.1f, 0.25f, 3, 25).OnComplete(ResetPlayerSize);
           //  holder.SetEase(Ease.InElastic);
         }
         
-
+        
         jumpParticle.Play();
     }
 
@@ -284,7 +284,7 @@ public class Movement : MonoBehaviour
 
     public void Jump(Vector2 dir, bool wall)
     {
-        PlayerRenderer.transform.localScale = new Vector3(1, 1, 1);
+        //PlayerRenderer.transform.localScale = new Vector3(1, 1, 1);
 
         if (!wall &&!coll.onWall)
         {
@@ -341,10 +341,10 @@ public class Movement : MonoBehaviour
         return particleSide;
     }
 
-    private void ShakePlayer()
+    private void ResetPlayerSize()
     {
         PlayerRenderer.transform.localScale = new Vector3(1, 1, 1);
-        PlayerRenderer.DOShakeScale(0.1f);
+      
     }
 
     public void ShootKnockBack(Vector2 Dir,float Power)

@@ -28,6 +28,25 @@ public class GrappleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+         
+            if (GrappledObject != null && !ToolTip.tooltip.ToolTipStatus())
+            {
+
+                Gun weapon = GrappledObject.GetComponent<Gun>();
+                if(weapon != null)
+                {
+                    ToolTip.tooltip.EnableToolTip();
+                }
+            }
+            else
+            {
+                ToolTip.tooltip.DisableToolTip();
+            }
+        }
+       
+
         if (Input.GetMouseButtonDown(1))
         {
             if (GrappledObject == null)
@@ -87,7 +106,8 @@ public class GrappleManager : MonoBehaviour
     }
 
     private void ThrowObject()
-    {     
+    {
+        ToolTip.tooltip.DisableToolTip();
 
         CameraController.cameraController.Shake(MovementManager.weaponManager.mouseVector, 5, 0.15f);
         Gun weapon = throwableObject.GetComponent<Gun>();

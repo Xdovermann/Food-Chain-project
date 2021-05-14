@@ -53,11 +53,11 @@ TagManager:
   - name: Foliage
     uniqueID: 2229518853
     locked: 0
-  - name: Player
-    uniqueID: 2717490253
-    locked: 0
   - name: Weapon
     uniqueID: 658197929
+    locked: 0
+  - name: Player
+    uniqueID: 2717490253
     locked: 0
   - name: Effects
     uniqueID: 806031339
@@ -65,6 +65,6 @@ TagManager:
   - name: Projectile
     uniqueID: 620650357
     locked: 0
-  - name: WorldspaceText
+  - name: WorldspaceUI
     uniqueID: 770154651
     locked: 0
