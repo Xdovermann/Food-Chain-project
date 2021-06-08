@@ -15,6 +15,11 @@ public class RestClient : MonoBehaviour
         restClient = this;
     }
 
+    public void PostButton()
+    {
+        PlayerProfile profile = new PlayerProfile("Test-Name",3875);
+        StartCoroutine(Post(webURL, profile, GetPlayers));
+    }
 
     public void GetButton()
     {
@@ -25,6 +30,7 @@ public class RestClient : MonoBehaviour
     //{
     //    StartCoroutine(Delete(webURL))
     //} 
+
   public IEnumerator Get(string url,System.Action<PlayerProfileList> playerListcallBack)
     {
         UnityWebRequest www = UnityWebRequest.Get(url);
@@ -97,11 +103,12 @@ public class RestClient : MonoBehaviour
 
     }
 
-    public IEnumerator Post(string url, PlayerProfile newPlayer)
+    public IEnumerator Post(string url, PlayerProfile newPlayer,System.Action<PlayerProfileList> callback)
     {
         string jsonData = JsonUtility.ToJson(newPlayer);
         UnityWebRequest www = UnityWebRequest.Post(url, jsonData);
 
+        www.SetRequestHeader("content-type", "application/json");
         www.uploadHandler.contentType = "application/json";
         www.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(jsonData)) ;
 
@@ -123,7 +130,10 @@ public class RestClient : MonoBehaviour
         {
             if (www.isDone)
             {
-                
+                string jsonResult = System.Text.Encoding.UTF8.GetString(www.downloadHandler.data);
+                PlayerProfileList myObject = JsonUtility.FromJson<PlayerProfileList>("{\"Players\":" + jsonResult.ToString() + "}");
+             //   PlayerProfileList playerList = JsonUtility.FromJson<PlayerProfileList>(jsonResult);
+                callback(myObject);
 
             }
         }
