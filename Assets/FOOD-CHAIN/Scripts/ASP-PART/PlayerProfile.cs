@@ -9,9 +9,12 @@ public class PlayerProfile
     public string username;
     public int score;
 
-    public PlayerProfile(string userName, int Score)
+    public bool Login;
+
+    public PlayerProfile(string userName, int Score,bool LoginStatus)
     {
         username = userName;
         score = Score;
+        Login = LoginStatus;
     }
 }

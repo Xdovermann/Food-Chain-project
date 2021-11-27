@@ -17,7 +17,7 @@ public class RestClient : MonoBehaviour
 
     public void PostButton()
     {
-        PlayerProfile profile = new PlayerProfile("Test-Name",3875);
+        PlayerProfile profile = new PlayerProfile("Test-Name",3875, false);
         StartCoroutine(Post(webURL, profile, GetPlayers));
     }
 
@@ -26,12 +26,12 @@ public class RestClient : MonoBehaviour
         StartCoroutine(Get(webURL, GetPlayers));
     }
 
-    //public void DeleteButton()
-    //{
-    //    StartCoroutine(Delete(webURL))
-    //} 
+    public void DeleteButton()
+    {
+        StartCoroutine(Delete(webURL,0));
+    }
 
-  public IEnumerator Get(string url,System.Action<PlayerProfileList> playerListcallBack)
+    public IEnumerator Get(string url,System.Action<PlayerProfileList> playerListcallBack)
     {
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
@@ -145,9 +145,10 @@ public class RestClient : MonoBehaviour
     {
         foreach (PlayerProfile player in playerlist.Players)
         {
-            Debug.Log("Plater ID :" + player.id);
-            Debug.Log("Plater Username :" + player.username);
-            Debug.Log("Plater score :" + player.score);
+            Debug.Log("Player ID :" + player.id);
+            Debug.Log("Player Username :" + player.username);
+            Debug.Log("Player score :" + player.score);
+            Debug.Log("PlaYer is attempting log :" + player.Login);
         }
     }
 }
